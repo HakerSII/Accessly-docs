@@ -1,47 +1,46 @@
 % Slide 4 – map of the live demo (brief, section 6: define the group's needs, check a place, show concrete
 % barriers and facilities, the source and date of each fact, how incomplete and sample data are marked).
 % The slide stays on screen just before switching to the app; details are in the notes.
-\begin{frame}{Demo: Anna, a wheelchair user, looks for a café in the centre}
+\begin{frame}{Demo: Karolina plans a trip to a café}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.63\textwidth}
-      \scriptsize
-      \renewcommand{\arraystretch}{1.1}
-      \begin{tabularx}{\textwidth}{@{}>{\bfseries\color{accNavy}}c >{\raggedright\arraybackslash}p{30mm} >{\raggedright\arraybackslash}X@{}}
-        \toprule
-        & \textbf{Step} & \textbf{What to look at} \\
-        \midrule
-        1 & Needs profile “Wheelchair” &
-            the map and lists show only barriers that matter for a wheelchair; ranking by match \\
-        2 & Question: “a café in the centre, wheelchair, with a toilet” &
-            a ranking with reasons: what the place meets and what is \emph{unknown} \\
-        3 & Place card &
-            every fact has a source, a date and a status; missing data is named as such, with an “Add” button \\
-        4 & Report “No lift” at a stop, severity “Blocks” &
-            square marker = blocks; “Still there” / “Fixed” votes; the outage expires after 14~days \\
-        5 & Owner panel: confirm the information &
-            status “Confirmed by the owner”; Anna gets a notification \\
-        \bottomrule
-      \end{tabularx}
+      \small
+      Karolina is planning to go to a café with someone close to her who uses a wheelchair.
 
-      \vspace{1.5mm}
-      \textbf{Edge cases shown in the demo:} conflicting data $\rightarrow$ “Needs re-checking”;
-      city data unavailable $\rightarrow$ snapshot with an “as of” date; missing information never counts as accessible.
-
-      \vspace{1mm}
-      \muted{Sample data is marked: demo accounts (\texttt{anna@}, \texttt{kasia@}, \texttt{admin@accessly.test}),
-        test reports, a “Demo mode” label.}
+      \vspace{0.5mm}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.4mm}
+        \item \textbf{She sets the needs}\\
+              Wheelchair + step-free entrance + accessible toilet
+        \item \textbf{Accessly suggests places}\\
+              A ranking of cafés matched to the profile, showing:
+              \begin{itemize}
+                \setlength{\itemsep}{0pt}\setlength{\topsep}{0pt}
+                \item what is accessible,
+                \item what is missing,
+                \item how up to date the data is.
+              \end{itemize}
+        \item \textbf{She checks the details}\\
+              Next to every fact she sees: source \textperiodcentered\ date \textperiodcentered\ verification status
+        \item \textbf{She decides}\\
+              She picks a place she can trust -- before they leave home.
+      \end{enumerate}
     \end{column}
-    \begin{column}{0.35\textwidth}
+    \begin{column}{0.34\textwidth}
       \screenshot{karta-dopasowanie}\par
       \vspace{0.3mm}
-      \muted{Step 3: the match summary -- what the place meets, what it does not, what is unknown.}
+      \muted{Step 2: what the place meets, what is missing, what is unknown.}
       \vspace{1.5mm}
       \screenshot{karta-atrybut}\par
       \vspace{0.3mm}
-      \muted{One fact: value, source (OpenStreetMap), date (2~Oct 2026), status and the
-        Up to date / Outdated / Correct buttons.}
+      \muted{Step 3: value, source (OpenStreetMap), date (2~Oct 2026) and verification status.}
     \end{column}
   \end{columns}
+
+  \vfill
+  {\centering\color{accNavy}\bfseries
+    Accessly helps carers plan an outing without guesswork or stress on arrival.\par}
+  \vspace{1mm}
 
   \note[item]{Time: about 3 minutes. Before going on stage: the app open on a phone and a laptop, the “Wheelchair” profile selected, the map on the Main Square (zoom 16), the owner panel open in a second browser tab.}
   \note[item]{Step 1 (0:00–0:30): tap the “Wheelchair” chip; show the toast with the report count and the “Nearest to the map centre” list.}
