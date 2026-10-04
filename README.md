@@ -16,7 +16,8 @@ Accessly-docs/
     img/                       zrzuty ekranu z polskim interfejsem (JPEG) i logo
     img-en/                    zrzuty z angielskim interfejsem (logo i wspólne pliki bierze z img/)
     build.sh / build.ps1       budowanie PDF (lokalny latexmk albo Docker); --en = wersja angielska, --notes = z notatkami
-    .latexmkrc                 latexmk: pdfLaTeX, pliki pośrednie w build/
+    .latexmkrc                 latexmk: XeLaTeX, pliki pośrednie w build/
+    fonts/                     Atkinson Hyperlegible Next i Mono (TTF, SIL OFL – licencje OFL-*.txt obok)
     Accessly-Krakow-bez-barier.pdf        gotowy PDF po polsku (kopia build/main.pdf)
     Accessly-Krakow-without-barriers.pdf  gotowy PDF po angielsku (kopia build/main-en.pdf)
   scripts/
@@ -26,19 +27,27 @@ Accessly-docs/
 
 ## Budowanie PDF
 
-Wymagane: beamer, babel (polish, english), tikz, booktabs, tabularx, lmodern (każda pełna dystrybucja: TeX Live, MiKTeX, Overleaf).
+Wymagane: XeLaTeX (lub LuaLaTeX), beamer, fontspec, polyglossia, tikz, booktabs, tabularx (każda pełna dystrybucja:
+TeX Live, MiKTeX, Overleaf; jest też w obrazie Docker poniżej). Czcionek nie trzeba instalować: są w `prezentacja/fonts/`.
 
 ```bash
 cd prezentacja
-./build.sh                 # latexmk -pdf main.tex  →  Accessly-Krakow-bez-barier.pdf
-./build.sh --en            # latexmk -pdf main-en.tex  →  Accessly-Krakow-without-barriers.pdf
+./build.sh                 # latexmk -xelatex main.tex  →  Accessly-Krakow-bez-barier.pdf
+./build.sh --en            # latexmk -xelatex main-en.tex  →  Accessly-Krakow-without-barriers.pdf
 ./build.sh --docker        # bez TeX-a na komputerze: obraz texlive/texlive:latest-small (ok. 630 MB)
 ./build.sh --notes         # build/main-notatki.pdf: po każdym slajdzie strona z notatkami prelegenta (--en: build/main-en-notes.pdf)
 ```
 
-Na Windows to samo robi `build.ps1` (`-En`, `-Docker`, `-Notes`). Overleaf: wgraj katalog `prezentacja/`,
-kompilator pdfLaTeX, plik główny `main.tex` lub `main-en.tex`. XeLaTeX / LuaLaTeX też działają (`latexmk -xelatex`);
-wtedy, jeśli w systemie jest czcionka Atkinson Hyperlegible (ta sama co w aplikacji), slajdy jej użyją.
+Na Windows to samo robi `build.ps1` (`-En`, `-Docker`, `-Notes`); gdy Docker jest tylko w WSL, w WSL:
+`docker run --rm -v "$PWD:/work" -w /work texlive/texlive:latest-small latexmk -xelatex main.tex`.
+Overleaf: wgraj katalog `prezentacja/` (z `fonts/`), kompilator XeLaTeX, plik główny `main.tex` lub `main-en.tex`.
+
+**Typografia.** Treść: Atkinson Hyperlegible Next (krój aplikacji, zaprojektowany przez Braille Institute dla osób
+słabowidzących: wyraźnie różne I l 1, O 0, b d p q), Regular, wyróżnienia SemiBold. Tytuły: ta sama rodzina w ExtraBold
+z lekko zwężonymi odstępami – wyraźnie inne niż treść, a spójne. Kod i adresy: Atkinson Hyperlegible Mono. Krój ma
+wyższe małe litery niż Latin Modern, więc jest wczytywany w skali 0,95 (nadal optycznie większy niż wcześniej), żeby
+tekst mieścił się w ramkach. Ustawienia: `beamerthemeaccessly.sty`, sekcja „Kroje pisma”. pdfLaTeX (`latexmk -pdf`)
+nadal działa zapasowo, z Latin Modern.
 
 ## Wersja angielska
 
