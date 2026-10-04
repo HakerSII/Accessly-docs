@@ -1,0 +1,43 @@
+% Slide 7 – go-to-market: first customers, channels, regulation as demand, scaling
+% (criteria: deployment potential and scalability 20 %, business model 20 %).
+\begin{frame}{Go-to-market: from hotels and clinics to a second city}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.54\textwidth}
+      \begin{block}{First customers and channels}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Hotels and medical tourism clinics} (502 accommodation and 1,117 health venues in the catalogue):
+                guests from abroad ask about accessibility before booking; the “After treatment” profile.
+          \item \textbf{Cultural institutions and event organisers} (420 culture venues, halls and arenas):
+                a statutory accessibility duty and participants' questions before every event.
+          \item \textbf{Channels:} tourism organisations and hotel associations, the medical tourism cluster,
+                the city as a reference; a community partner to verify data.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{alertblock}{Tailwind: regulation}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Polish Accessibility Act} (2019): public entities must ensure and report accessibility.
+          \item \textbf{Digital Accessibility Act} (2019) and WCAG~2.2 for public websites and apps.
+          \item \textbf{European Accessibility Act} (applies from June 2025): e-commerce, transport and online services
+                must inform about accessibility.
+        \end{itemize}
+        \vspace{0.3mm}
+        Institutions need data, venues an argument, cities a tool without their own IT.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \vspace{1mm}
+  \begin{exampleblock}{Scaling to other cities}
+    \footnotesize
+    A new city = a configuration file (name, bounds) + an OpenStreetMap extract (available for all of Europe) + the city's open layers, if any.
+    Catalogue, profiles, statuses and panels are shared; a local partner moderates.
+  \end{exampleblock}
+
+  \note[item]{Sales order: first the segment that already loses money on missing information (hotels, clinics), then institutions with a statutory duty, finally the city as a white-label customer.}
+  \note[item]{Exact names if the jury asks: Act of 19 July 2019 on ensuring accessibility for persons with special needs; Act of 4 April 2019 on the digital accessibility of public websites and mobile applications; Directive (EU) 2019/882 (European Accessibility Act).}
+  \note[item]{Community partner: a disability organisation that verifies the first data and tests accessibility with users. The 4-language interface supports the medical tourism segment.}
+  \note[item]{Honestly about scaling: city layer configuration lives in code today (\texttt{layers.py}), not in the city file; that is the first step for a second city.}
+\end{frame}

@@ -1,0 +1,49 @@
+% Slide 9 – milestones with metrics and conditions for a second city (brief section 6: plan from prototype to service).
+\begin{frame}{Milestones and metrics}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      ms/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,align=left,font=\scriptsize,inner sep=1.4mm,
+                 text width=30mm,anchor=north},
+      when/.style={font=\footnotesize\bfseries,text=accNavy,anchor=south},
+      dot/.style={circle,fill=accSignal,draw=accNavy,line width=0.6pt,inner sep=0,minimum size=2.6mm}]
+    \draw[accLineStrong,line width=1pt] (4,0) -- (140,0);
+    \foreach \x/\when/\txt in {
+      20/30 days/{\textbf{Validation:} 3~venues and 1~cultural institution in a pilot, a community partner, 100 confirmed facts, pricing tested in conversations},
+      54/3 months/{\textbf{Pilot:} 20 Pro venues, production sign-in and notifications, WCAG audit with users, first statistics for owners},
+      88/6 months/{\textbf{Product:} 50 Pro venues, Open API and widget, first event organiser, AI photo checks as suggestions},
+      122/12 months/{\textbf{Scale:} second city (white-label), 150 Pro venues, first map provider on the API, moderation by a local partner}} {
+      \node[dot] at (\x,0) {};
+      \node[when] at (\x,2.2) {\when};
+      \node[ms] at (\x,-2.5) {\txt};
+    }
+  \end{tikzpicture}
+  \vspace{2mm}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \scriptsize
+      \renewcommand{\arraystretch}{1.15}
+      \begin{tabularx}{\textwidth}{@{}X >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{1.9cm}@{}}
+        \toprule
+        \textbf{Metric (monthly report)} & \textbf{Today} & \textbf{Target: 12 mo.} \\
+        \midrule
+        Places with at least one fact & 23\,\% (1,495 of 6,545) & 60\,\% \\
+        Pro venues (paying owners) & 0 & 150 \\
+        Facts confirmed by people / month & -- & 500 \\
+        Owner response time to a question & -- & under 48~h \\
+        \bottomrule
+      \end{tabularx}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \begin{exampleblock}{Conditions for a second city}
+        \footnotesize
+        Open city data (or OpenStreetMap alone), a local partner for moderation and 2--3 venues to start.
+        The rest is configuration.
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+
+  \note[item]{The first 30 days are business validation, not feature work: three sales conversations with venues and one with a cultural institution test the pricing and whether the owner panel solves their problem.}
+  \note[item]{The data coverage metric is already computed in the admin panel (“coverage by category”); today 1,495 of 6,545 places have at least one attribute.}
+  \note[item]{Technical plan behind the milestones: production sign-in (transactional e-mail, optional OAuth), offline mode, Open API and widget, the trust engine from the Rampa backend, city layer configuration in the city file.}
+\end{frame}

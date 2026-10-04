@@ -1,0 +1,37 @@
+% Slajd 3 – rozwiązanie jako usługa dla trzech klientów (kryteria: jakość prototypu 20 %, użyteczność 25 %).
+\begin{frame}{Rozwiązanie: sprawdzona dostępność jako usługa}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item \textbf{Mieszkaniec i~turysta (bezpłatnie).} Profil potrzeb zamiast pytania o~niepełnosprawność;
+              karta miejsca z~faktami, źródłem, datą i~statusem; mapa barier; asystent w~języku naturalnym,
+              który pokazuje tylko fakty z~bazy.
+        \item \textbf{Właściciel lokalu (plan Pro).} Panel: potwierdza i~uzupełnia dane, odpowiada na pytania gości,
+              widzi, czego szukają i~czego brakuje; odznaka „Potwierdzone przez właściciela”.
+        \item \textbf{Miasto i~partnerzy.} Aktualne dane bez utrzymywania bazy, statystyki braków do planowania,
+              Open API dla map i~rezerwacji, wdrożenie white-label w~kolejnym mieście.
+      \end{itemize}
+      \vspace{1mm}
+      \begin{exampleblock}{Działa dziś, nie na makietach}
+        \footnotesize
+        6\,545 miejsc i~27 atrybutów, 11 warstw danych miasta i~OSM, mapa barier, panele właściciela i~administratora,
+        4~języki, 503 testy. Aplikacja webowa na telefon i~komputer, bez instalacji.
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \screenshot{mapa-desktop}
+      \vspace{0.3mm}
+      \muted{Profil „Wózek”: miejsca, warstwy miasta i~OSM, zgłoszone bariery z~wagą i~potwierdzeniami.
+        Lista obok mapy jest jej tekstową alternatywą.}
+      \vspace{1.5mm}
+
+      \kpi{6\,545}{miejsc}\hfill\kpi{27}{atrybutów}\hfill\kpi{11}{warstw danych}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Jedno zdanie na klienta: gość dostaje odpowiedź „czy to zadziała dla mnie”, lokal dostaje kanał do gości i~wiedzę, czego im brakuje, miasto dostaje dane, których nie musi utrzymywać.}
+  \note[item]{Atrybuty: schody, podjazd, winda, drzwi $\geq$~90~cm, toaleta, przewijak, pętla indukcyjna, odpoczynek, parking OzN, cisza, pies, pokoje dostosowane, recepcja 24~h, języki obsługi.}
+  \note[item]{Warstwy: przystanki z~krawężnikiem peronowym, toalety, parkingi OzN, trasy i~infrastruktura rowerowa (dane miasta); windy, krawężniki, przejścia z~oznaczeniami dotykowymi, przechowalnie bagażu, SOR i~apteki 24~h (OSM).}
+  \note[item]{Asystent AI jest opcjonalny; w~kontenerze demo działa tryb reguł, więc nic nie zależy od sieci. Udogodnienia hurtowo w~panelu właściciela to zalążek pakietu eventowego.}
+\end{frame}

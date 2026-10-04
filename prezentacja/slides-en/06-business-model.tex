@@ -1,0 +1,44 @@
+% Slide 6 – business model with pricing and a revenue scenario (criterion: 20 %; brief section 9).
+\begin{frame}{Business model and pricing (proposal)}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{3.0cm} X >{\raggedright\arraybackslash}p{4.2cm}@{}}
+    \toprule
+    Segment & Offer & Price \\
+    \midrule
+    Residents and tourists & the app, needs profile, assistant, barrier map & PLN~0, always -- they create the data \\
+    Venues (hotels, food \& drink, culture) & \textbf{Pro plan}: owner badge, statistics on “what guests look for and what is missing”,
+      bulk facilities, an accessibility widget for the website and the booking system & PLN~49 / month per venue; chains PLN~299 / month for up to 10 venues \\
+    Event organisers, property managers & event package: temporary entrances and routes, a barrier map for the event & PLN~990 per event; PLN~2,990 per season \\
+    Cities and regions & white-label: configuration, OSM import, city layers, gap reports & PLN~30--60k deployment + PLN~2--4k / month \\
+    Maps, travel apps, booking & Open API with attribution: facts with source, date and status & free up to 10k requests / month, annual licence above \\
+    \bottomrule
+  \end{tabularx}
+
+  \vspace{2mm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \textbf{Revenue scenario: Kraków, second year of operation}\\[0.5mm]
+      \begin{tabularx}{\textwidth}{@{}>{\bfseries}l c c c >{\raggedleft\arraybackslash}X@{}}
+        \toprule
+        Scenario & Pro venues & Events & Cities & Revenue / year \\
+        \midrule
+        Conservative & 60 (2\,\%) & 5 & 0 & about PLN~40k \\
+        Base & 155 (5\,\%) & 10 & 1 & about PLN~175k \\
+        Ambitious & 310 (10\,\%) & 20 & 2 & about PLN~365k \\
+        \bottomrule
+      \end{tabularx}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \textbf{Assumptions}\\[0.5mm]
+      Share of the 3,124 accommodation and food venues in the catalogue. Fixed costs without salaries below
+      PLN~2k a month (hosting, e-mail, AI per request). Prices and adoption are verified in a 30-day pilot.\\[0.8mm]
+      \textbf{Principle:} owners pay for tools and visibility, never for status -- the status always follows verification.
+    \end{column}
+  \end{columns}
+
+  \note[item]{The most realistic first revenue: hotels and medical tourism clinics (the “After treatment” profile, the A\&E / pharmacies layer, 4~languages); guests from abroad ask about accessibility before booking.}
+  \note[item]{The owner panel already shows “the most searched-for information about your venue”: the seed of the Pro plan statistics. Bulk-added points inside a venue are the seed of the event package.}
+  \note[item]{Arithmetic: PLN~49 $\times$ 12 = PLN~588 a year per venue; base scenario: 155 venues (91k) + 10 events (10k) + one city (40k deployment and 36k maintenance). The ambitious scenario adds a second city and 10k from the API. PLN~1 is about EUR~0.23.}
+  \note[item]{We do not sell personal data; community content and OSM data stay open (ODbL). The city is not the first customer: it uses the data and may fund a white-label deployment.}
+\end{frame}

@@ -1,0 +1,44 @@
+% Slajd 6 – model biznesowy z cennikiem i scenariuszem przychodów (kryterium: 20 %; pkt 9 wyzwania).
+\begin{frame}{Model biznesowy i~cennik (propozycja)}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{3.0cm} X >{\raggedright\arraybackslash}p{4.2cm}@{}}
+    \toprule
+    Segment & Oferta & Cena \\
+    \midrule
+    Mieszkańcy i~turyści & aplikacja, profil potrzeb, asystent, mapa barier & 0~zł, zawsze -- to oni tworzą dane \\
+    Lokale (hotele, gastronomia, kultura) & \textbf{plan Pro}: odznaka właściciela, statystyki „czego szukają goście, czego brakuje”,
+      udogodnienia hurtowo, widget dostępności na stronę i~do systemu rezerwacji & 49~zł/mies. za lokal; sieci 299~zł/mies. do 10~lokali \\
+    Organizatorzy wydarzeń, zarządcy & pakiet eventowy: tymczasowe wejścia i~trasy, mapa barier na czas imprezy & 990~zł za wydarzenie; 2\,990~zł za sezon \\
+    Miasta i~regiony & white-label: konfiguracja, import OSM, warstwy miejskie, raporty braków & 30--60~tys.~zł wdrożenie + 2--4~tys.~zł/mies. \\
+    Mapy, aplikacje turystyczne, rezerwacje & Open API z~atrybucją: fakty ze źródłem, datą i~statusem & bezpłatnie do 10~tys. zapytań/mies., wyżej licencja roczna \\
+    \bottomrule
+  \end{tabularx}
+
+  \vspace{2mm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \textbf{Scenariusz przychodów: Kraków, drugi rok działania}\\[0.5mm]
+      \begin{tabularx}{\textwidth}{@{}>{\bfseries}l c c c >{\raggedleft\arraybackslash}X@{}}
+        \toprule
+        Wariant & Lokale Pro & Wydarzenia & Miasta & Przychód / rok \\
+        \midrule
+        Ostrożny & 60 (2\,\%) & 5 & 0 & ok.~40~tys.~zł \\
+        Bazowy & 155 (5\,\%) & 10 & 1 & ok.~175~tys.~zł \\
+        Ambitny & 310 (10\,\%) & 20 & 2 & ok.~365~tys.~zł \\
+        \bottomrule
+      \end{tabularx}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \textbf{Założenia}\\[0.5mm]
+      Odsetek z~3\,124 lokali noclegowych i~gastronomicznych w~katalogu. Koszty stałe bez wynagrodzeń poniżej
+      2~tys.~zł/mies. (hosting, poczta, AI od zapytania). Ceny i~adopcję weryfikuje 30-dniowy pilotaż.\\[0.8mm]
+      \textbf{Zasada:} płaci się za narzędzia i~widoczność, nigdy za status -- ten zawsze wynika z~weryfikacji.
+    \end{column}
+  \end{columns}
+
+  \note[item]{Najbardziej realny pierwszy przychód: hotele i~kliniki turystyki medycznej (profil „Po zabiegu”, warstwa SOR / apteki, 4~języki); goście z~zagranicy pytają o~dostępność przed rezerwacją.}
+  \note[item]{Panel właściciela już dziś pokazuje „Najczęściej wyszukiwane informacje o~Twoim lokalu” -- to zalążek statystyk z~planu Pro. Punkty w~obiekcie dodawane hurtowo to zalążek pakietu eventowego.}
+  \note[item]{Rachunek: 49~zł $\times$ 12 = 588~zł rocznie za lokal; wariant bazowy: 155 lokali (91~tys.) + 10 wydarzeń (10~tys.) + jedno miasto (40~tys. wdrożenia i~36~tys. utrzymania). Ambitny dolicza drugie miasto i~10~tys. z~API.}
+  \note[item]{Nie sprzedajemy danych osobowych; treści społeczności i~dane OSM pozostają otwarte (ODbL). Miasto nie jest pierwszym klientem: korzysta z~danych, a~ewentualnie finansuje white-label.}
+\end{frame}

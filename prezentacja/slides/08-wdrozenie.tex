@@ -1,0 +1,49 @@
+% Slajd 8 – gotowość wdrożeniowa: architektura w jednym rzędzie, technika, bezpieczeństwo, dostępność
+% (pkt 5 wyzwania: komponenty i przepływ danych, hosting poza UMK, ochrona danych, WCAG 2.2 AA; RULES: Design, Technical).
+\begin{frame}{Gotowe do wdrożenia}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      box/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,align=center,font=\tiny,inner sep=1mm,
+                  minimum height=9mm,text width=24mm},
+      arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
+    \node[box] (a) at (13,0) {\textbf{Źródła}\\OSM \textperiodcentered\ dane miasta \textperiodcentered\ właściciele \textperiodcentered\ społeczność};
+    \node[box] (b) at (42.5,0) {\textbf{Import i~odświeżanie}\\skrypty, snapshoty, pamięć podręczna 24~h};
+    \node[box] (c) at (72,0) {\textbf{SQLite}\\fakt = wartość + źródło + data + status; historia};
+    \node[box] (d) at (101.5,0) {\textbf{API JSON}\\miejsca, warstwy, zgłoszenia, asystent, panele};
+    \node[box] (e) at (131,0) {\textbf{Prezentacja}\\aplikacja web \textperiodcentered\ panele \textperiodcentered\ Open API};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d); \draw[arr] (d) -- (e);
+  \end{tikzpicture}
+  \vspace{0.5mm}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Technika}
+        \footnotesize
+        Python (biblioteka standardowa), SQLite, Leaflet: zero zależności. Obraz Docker 47~MB; Ansible + Caddy
+        (automatyczny HTTPS) na dowolny VPS; 503 testy bez sieci. Usługi opcjonalne mają działanie zastępcze.
+      \end{block}
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Bezpieczeństwo i~prywatność}
+        \footnotesize
+        Bez konta anonimowo, bez zapisu IP. Profil to preferencje, nigdy diagnoza. Logowanie kodem z~e-maila,
+        skróty SHA-256, ciasteczko HttpOnly / Secure, limity rozmiaru, polityka prywatności w~aplikacji, dane w~UE.
+      \end{block}
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Dostępność cyfrowa jako przewaga}
+        \footnotesize
+        Główny scenariusz sprawdzony pod WCAG~2.2 A/AA: klawiatura, czytnik ekranu, kontrast, mapa jako tekst.
+        Do zrobienia: audyt z~użytkownikami, znaczniki mapy z~klawiatury, panele. Warunek sprzedaży instytucjom.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.5mm}
+  \muted{Utrzymanie poza UMK: operator (spółka lub fundacja), infrastruktura ok.~60--120~zł/mies., aktualizacja jednym poleceniem,
+    dane miasta odświeżają się same, moderacja w~panelu administratora.}
+
+  \note[item]{Najważniejsze zdanie: pozyskiwanie danych jest oddzielone od prezentacji. Import, snapshoty i~pamięć podręczna to osobny krok; aplikacja czyta tylko z~bazy przez API, więc źródło albo frontend można podmienić bez ruszania reszty.}
+  \note[item]{Usługi opcjonalne: Claude API (rekomendacje; bez klucza reguły słów kluczowych), OpenRouteService (trasy dla wózka), Nominatim (wyszukiwanie z~przeglądarki), backend Rampa (FastAPI, PostgreSQL, model obserwacja $\rightarrow$ głos $\rightarrow$ zaufanie) przez adapter w~\texttt{api.js} -- ścieżka skalowania na duże wdrożenie.}
+  \note[item]{Pytanie „jakie dane zbieracie?”: bez konta żadnych; z~kontem e-mail, opcjonalna nazwa, profil potrzeb. Tabela w~polityce prywatności w~aplikacji. Wyzwanie wprost prosi, by nie wymagać informacji o~niepełnosprawności. Limity: 10~kB na żądanie, zdjęcia 4~MB; treści użytkowników escapowane (testy).}
+  \note[item]{WCAG: nie mówić „jesteśmy zgodni”, mówić „sprawdzone kryteria A/AA w~głównym scenariuszu, lista braków jest jawna”: fokus przy odświeżaniu list, krótkie komunikaty live, waga kształtem i~podpisem, 400\,\% powiększenia, cele 44~px. Zmiany objęte testami \texttt{AccessibilityTests}.}
+\end{frame}

@@ -1,0 +1,37 @@
+% Slide 3 – the solution as a service for three customers (criteria: prototype quality 20 %, usefulness 25 %).
+\begin{frame}{Solution: verified accessibility as a service}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item \textbf{Resident and tourist (free).} A needs profile instead of a question about disability;
+              a place card with facts, source, date and status; a barrier map; a natural-language assistant
+              that shows only facts from the database.
+        \item \textbf{Venue owner (Pro plan).} A panel: confirms and completes data, answers guests' questions,
+              sees what they look for and what is missing; the “Confirmed by the owner” badge.
+        \item \textbf{City and partners.} Current data without maintaining a database, gap statistics for planning,
+              an Open API for maps and booking, a white-label deployment in the next city.
+      \end{itemize}
+      \vspace{1mm}
+      \begin{exampleblock}{Working today, not a mock-up}
+        \footnotesize
+        6,545 places and 27 attributes, 11 city and OSM data layers, a barrier map, owner and admin panels,
+        4~languages, 503 tests. A web app for phone and desktop, no installation.
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \screenshot{mapa-desktop}
+      \vspace{0.3mm}
+      \muted{“Wheelchair” profile: places, city and OSM layers, reported barriers with severity and confirmations.
+        The list next to the map is its text alternative.}
+      \vspace{1.5mm}
+
+      \kpi{6,545}{places}\hfill\kpi{27}{attributes}\hfill\kpi{11}{data layers}
+    \end{column}
+  \end{columns}
+
+  \note[item]{One sentence per customer: the guest gets an answer to “will this work for me”, the venue gets a channel to guests and knowledge of what they miss, the city gets data it does not have to maintain.}
+  \note[item]{Attributes: steps, ramp, lift, doors $\geq$~90~cm, toilet, changing table, hearing loop, places to rest, disabled parking, quiet, dogs, adapted rooms, 24-hour reception, languages spoken.}
+  \note[item]{Layers: stops with platform kerb type, toilets, disabled parking, bike routes and infrastructure (city data); lifts, kerbs, crossings with tactile paving, luggage storage, A\&E and 24-hour pharmacies (OSM).}
+  \note[item]{The AI assistant is optional; the demo container runs the keyword mode, so nothing depends on the network. Bulk facilities in the owner panel are the seed of the event package.}
+\end{frame}

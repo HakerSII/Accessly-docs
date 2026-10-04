@@ -1,0 +1,40 @@
+% Slide 5 – position against existing maps and the data trust model
+% (criterion: reliability and updating of data 15 %; brief section 5: source, date, status; RULES: Idea).
+\begin{frame}{Why they will trust us}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  % \leavevmode before \color: otherwise a colour at the start of a p/X cell leaves an empty line.
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.9cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash\bfseries\leavevmode\color{accNavy}}X@{}}
+    \toprule
+    & \textbf{Existing maps}\textsuperscript{*} & \textbf{Accessly} \\
+    \midrule
+    Source and date per fact & rarely & always, on every attribute \\
+    Verification status & one yes / no label & 5~statuses computed from confirmations and time \\
+    Channel for the owner & none, or editing the entry & B2B panel: guests' questions, statistics, bulk facilities \\
+    Outages “right now” & none & barrier map with votes and automatic expiry \\
+    Needs profiles & wheelchair & 8~profiles, incl. pram, senior, medical tourism \\
+    City open data & none & 6~layers from otwartedane.um.krakow.pl, refreshed every 24~h \\
+    \bottomrule
+  \end{tabularx}
+  \muted{\textsuperscript{*} E.g. Wheelmap, accessibility attributes in Google Maps, national audit databases; as of October 2026, verify before the pitch.}
+
+  \vspace{1.5mm}
+  \begin{block}{Trust model: status, source and date on every fact}
+    \scriptsize
+    \begin{itemize}
+      \item \textbf{Four sources:} OpenStreetMap, Kraków open data, the owner, the community; the import never overwrites data entered by people.
+      \item \textbf{Status computed on every read:}
+            \pill{accNavy}{Confirmed by the owner} $>$ \pill{accOk}{Confirmed by the community ($\geq$ 2)}
+            $>$ \pill{accNavy}{From an official source} $>$ \pill{accMuted}{Not verified};
+            a dispute or 365~days without confirmation $\rightarrow$ \pill{accPartial}{Needs re-checking}.
+      \item \textbf{Missing information never means “accessible”;} conflicts are flagged, not averaged; every change stays
+            in the history; outages expire after 14~days.
+      \item \textbf{When a source is silent:} cache $\rightarrow$ snapshot with an “as of” date; no screen is ever empty.
+    \end{itemize}
+  \end{block}
+
+  \note[item]{Test case from the brief -- conflicting data: the owner says “step-free”, two people report “outdated” $\rightarrow$ “Needs re-checking”, the value stays with a warning, both sides are visible in the history.}
+  \note[item]{Case -- source unavailable: the city's ArcGIS service does not respond $\rightarrow$ the layer comes from the snapshot with a date; case -- incomplete data: “Meets 1 of your 3 needs, no data: wide doors” and no “Matches your needs” badge.}
+  \note[item]{Source counts: OSM 6,545 places (1,495 with accessibility attributes), 161 lifts, 371 kerbs, 7,424 crossings; city: 3,756 stops, 50 toilets, 2,037 disabled parking spaces, bike routes and stands. We also checked GTFS and dane.gov.pl: the accessibility fields are empty.}
+  \note[item]{Speak about competitors factually: good projects, but built around a single label; our edge is trust as a product and the owner as a customer.}
+\end{frame}

@@ -1,0 +1,40 @@
+% Slajd 5 – pozycja na tle istniejących map i model wiarygodności danych
+% (kryterium: wiarygodność i aktualizacja danych 15 %; pkt 5 wyzwania: źródło, data, status; RULES: Idea).
+\begin{frame}{Dlaczego nam zaufają}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  % \leavevmode przed \color: inaczej kolor na początku komórki p/X zostawia pustą linię.
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.9cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash\bfseries\leavevmode\color{accNavy}}X@{}}
+    \toprule
+    & \textbf{Istniejące mapy}\textsuperscript{*} & \textbf{Accessly} \\
+    \midrule
+    Źródło i~data przy fakcie & rzadko & zawsze, przy każdym atrybucie \\
+    Status weryfikacji & jedna etykieta tak / nie & 5~statusów liczonych z~potwierdzeń i~czasu \\
+    Kanał dla właściciela & brak lub edycja wpisu & panel B2B: pytania gości, statystyki, udogodnienia hurtowo \\
+    Awarie „tu i~teraz” & brak & mapa barier z~głosami i~automatycznym wygasaniem \\
+    Profile potrzeb & wózek & 8~profili, w~tym wózek dziecięcy, senior, turystyka medyczna \\
+    Otwarte dane miasta & brak & 6~warstw z~otwartedane.um.krakow.pl, odświeżane co 24~h \\
+    \bottomrule
+  \end{tabularx}
+  \muted{\textsuperscript{*} Np. Wheelmap, atrybuty w~Google Maps, krajowe bazy audytowe; stan na październik 2026, do weryfikacji przed wystąpieniem.}
+
+  \vspace{1.5mm}
+  \begin{block}{Model wiarygodności: status, źródło i~data przy każdym fakcie}
+    \scriptsize
+    \begin{itemize}
+      \item \textbf{Cztery źródła:} OpenStreetMap, otwarte dane Krakowa, właściciel, społeczność; import nigdy nie nadpisuje danych od ludzi.
+      \item \textbf{Status liczony przy każdym odczycie:}
+            \pill{accNavy}{Potwierdzone przez właściciela} $>$ \pill{accOk}{Potwierdzone przez społeczność ($\geq$ 2)}
+            $>$ \pill{accNavy}{Dane z~oficjalnego źródła} $>$ \pill{accMuted}{Niezweryfikowane};
+            spór albo 365~dni bez potwierdzenia $\rightarrow$ \pill{accPartial}{Wymaga ponownej weryfikacji}.
+      \item \textbf{Brak informacji nigdy nie znaczy „dostępne”;} sprzeczności są oznaczane, nie uśredniane; każda zmiana zostaje
+            w~historii; awarie wygasają po 14~dniach.
+      \item \textbf{Gdy źródło milczy:} pamięć podręczna $\rightarrow$ snapshot z~datą „stan na”; żaden ekran nie jest pusty.
+    \end{itemize}
+  \end{block}
+
+  \note[item]{Przypadek z~wyzwania -- dane sprzeczne: właściciel mówi „bez schodów”, dwie osoby zgłaszają „nieaktualne” $\rightarrow$ „Wymaga ponownej weryfikacji”, wartość zostaje z~ostrzeżeniem, obie strony widać w~historii.}
+  \note[item]{Przypadek -- źródło niedostępne: usługa ArcGIS miasta nie odpowiada $\rightarrow$ warstwa ze snapshotu z~datą; przypadek -- dane niepełne: „Spełnia 1~z~3 potrzeb, brak danych: szerokie drzwi” i~brak odznaki „Dopasowane do Ciebie”.}
+  \note[item]{Liczności źródeł: OSM 6\,545 miejsc (1\,495 z~atrybutami dostępności), 161 wind, 371 krawężników, 7\,424 przejść; miasto: 3\,756 przystanków, 50 toalet, 2\,037 miejsc OzN, trasy i~stojaki rowerowe. Sprawdziliśmy też GTFS i~dane.gov.pl: pola dostępności puste.}
+  \note[item]{O~konkurencji mówić rzeczowo: to dobre projekty, ale zbudowane wokół jednej etykiety; nasza przewaga to wiarygodność jako produkt i~właściciel jako klient.}
+\end{frame}

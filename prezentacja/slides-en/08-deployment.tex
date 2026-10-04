@@ -1,0 +1,49 @@
+% Slide 8 – deployment readiness: one-row architecture, technology, security, accessibility
+% (brief section 5: components and data flow, hosting outside the City, data protection, WCAG 2.2 AA; RULES: Design, Technical).
+\begin{frame}{Ready to deploy}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      box/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,align=center,font=\tiny,inner sep=1mm,
+                  minimum height=9mm,text width=24mm},
+      arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
+    \node[box] (a) at (13,0) {\textbf{Sources}\\OSM \textperiodcentered\ city data \textperiodcentered\ owners \textperiodcentered\ community};
+    \node[box] (b) at (42.5,0) {\textbf{Import and refresh}\\scripts, snapshots, 24-hour cache};
+    \node[box] (c) at (72,0) {\textbf{SQLite}\\fact = value + source + date + status; history};
+    \node[box] (d) at (101.5,0) {\textbf{JSON API}\\places, layers, reports, assistant, panels};
+    \node[box] (e) at (131,0) {\textbf{Presentation}\\web app \textperiodcentered\ panels \textperiodcentered\ Open API};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d); \draw[arr] (d) -- (e);
+  \end{tikzpicture}
+  \vspace{0.5mm}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Technology}
+        \footnotesize
+        Python (standard library), SQLite, Leaflet: zero dependencies. 47~MB Docker image; Ansible + Caddy
+        (automatic HTTPS) on any VPS; 503 tests, no network. Optional services have fallbacks.
+      \end{block}
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Security and privacy}
+        \footnotesize
+        Anonymous without an account, no IP logging. The profile is preferences, never a diagnosis. Sign-in by e-mail code,
+        SHA-256 hashes, HttpOnly / Secure cookie, size limits, privacy policy in the app, data in the EU.
+      \end{block}
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \begin{block}{Digital accessibility as an advantage}
+        \footnotesize
+        The main scenario checked against WCAG~2.2 A/AA: keyboard, screen reader, contrast, map as text.
+        Still to do: an audit with users, keyboard access to map markers, panels. A precondition for selling to institutions.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.5mm}
+  \muted{Operations outside the City: an operator (company or foundation), infrastructure about PLN~60--120 (EUR~15--30) a month,
+    one-command updates, city data refreshes itself, moderation in the admin panel.}
+
+  \note[item]{Key sentence: data acquisition is separated from presentation. Import, snapshots and cache are a separate step; the app reads only from the database through the API, so a source or the frontend can be swapped without touching the rest.}
+  \note[item]{Optional services: Claude API (recommendations; keyword rules without a key), OpenRouteService (wheelchair routes), Nominatim (search from the browser), the Rampa backend (FastAPI, PostgreSQL, observation $\rightarrow$ vote $\rightarrow$ trust model) through the \texttt{api.js} adapter: the scaling path for a large deployment.}
+  \note[item]{Question “what data do you collect?”: without an account, none; with an account, e-mail, an optional display name and the needs profile. The table is in the privacy policy inside the app. The brief explicitly asks not to require disability information. Limits: 10~kB per request, photos 4~MB; user content escaped (tested).}
+  \note[item]{WCAG: do not say “we are compliant”; say “A/AA criteria checked on the main scenario, the list of gaps is open”: focus kept across list refreshes, short live announcements, severity by shape and label, 400\,\% zoom, 44~px targets. Covered by the \texttt{AccessibilityTests} suite.}
+\end{frame}

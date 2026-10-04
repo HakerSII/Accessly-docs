@@ -1,0 +1,49 @@
+% Slajd 9 – kamienie milowe z miernikami i warunki drugiego miasta (pkt 6 wyzwania: plan przejścia do usługi).
+\begin{frame}{Kamienie milowe i~mierniki}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      ms/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,align=left,font=\scriptsize,inner sep=1.4mm,
+                 text width=30mm,anchor=north},
+      when/.style={font=\footnotesize\bfseries,text=accNavy,anchor=south},
+      dot/.style={circle,fill=accSignal,draw=accNavy,line width=0.6pt,inner sep=0,minimum size=2.6mm}]
+    \draw[accLineStrong,line width=1pt] (4,0) -- (140,0);
+    \foreach \x/\when/\txt in {
+      20/30 dni/{\textbf{Walidacja:} 3~lokale i~1~instytucja kultury w~pilotażu, partner społeczny, 100 potwierdzonych faktów, cennik sprawdzony w~rozmowach},
+      54/3 miesiące/{\textbf{Pilotaż:} 20 lokali Pro, logowanie produkcyjne i~powiadomienia, audyt WCAG z~użytkownikami, pierwsze statystyki dla właścicieli},
+      88/6 miesięcy/{\textbf{Produkt:} 50 lokali Pro, Open API i~widget, pierwszy organizator wydarzeń, AI do weryfikacji zdjęć jako propozycje},
+      122/12 miesięcy/{\textbf{Skala:} drugie miasto (white-label), 150 lokali Pro, pierwszy dostawca map na API, moderacja u~lokalnego partnera}} {
+      \node[dot] at (\x,0) {};
+      \node[when] at (\x,2.2) {\when};
+      \node[ms] at (\x,-2.5) {\txt};
+    }
+  \end{tikzpicture}
+  \vspace{2mm}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.6\textwidth}
+      \scriptsize
+      \renewcommand{\arraystretch}{1.15}
+      \begin{tabularx}{\textwidth}{@{}X >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{1.9cm}@{}}
+        \toprule
+        \textbf{Miernik (raport co miesiąc)} & \textbf{Dziś} & \textbf{Cel: 12 mies.} \\
+        \midrule
+        Miejsca z~co najmniej jednym faktem & 23\,\% (1\,495 z~6\,545) & 60\,\% \\
+        Lokale Pro (płacący właściciele) & 0 & 150 \\
+        Fakty potwierdzone przez ludzi / mies. & -- & 500 \\
+        Czas reakcji właściciela na pytanie & -- & poniżej 48~h \\
+        \bottomrule
+      \end{tabularx}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \begin{exampleblock}{Warunki drugiego miasta}
+        \footnotesize
+        Otwarte dane miasta (albo sam OpenStreetMap), lokalny partner do moderacji i~2--3 lokale na start.
+        Reszta jest konfiguracją.
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Pierwsze 30 dni to walidacja biznesu, nie rozwój funkcji: trzy rozmowy sprzedażowe z~lokalami i~jedna z~instytucją kultury weryfikują cennik i~to, czy panel właściciela rozwiązuje ich problem.}
+  \note[item]{Miernik pokrycia danymi jest już policzony w~panelu administratora („Pokrycie kategorii miejsc”); dziś 1\,495 z~6\,545 miejsc ma co najmniej jeden atrybut.}
+  \note[item]{Plan techniczny, który stoi za kamieniami: produkcyjne logowanie (poczta transakcyjna, opcjonalnie OAuth), tryb offline, Open API i~widget, silnik zaufania z~backendu Rampa, konfiguracja warstw miejskich w~pliku miasta.}
+\end{frame}

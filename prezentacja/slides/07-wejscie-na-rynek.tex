@@ -1,0 +1,43 @@
+% Slajd 7 – wejście na rynek: pierwsi klienci, kanały, regulacje jako popyt, skalowanie
+% (kryteria: potencjał wdrożeniowy i skalowanie 20 %, model biznesowy 20 %).
+\begin{frame}{Wejście na rynek: od hoteli i~klinik do drugiego miasta}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.54\textwidth}
+      \begin{block}{Pierwsi klienci i~kanały}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Hotele i~kliniki turystyki medycznej} (502 noclegi, 1\,117 placówek zdrowia w~katalogu):
+                goście z~zagranicy pytają o~dostępność przed rezerwacją; profil „Po zabiegu”.
+          \item \textbf{Instytucje kultury i~organizatorzy wydarzeń} (420 miejsc kultury, hale i~areny):
+                ustawowy obowiązek dostępności i~pytania uczestników przed imprezą.
+          \item \textbf{Kanały:} organizacje turystyczne i~zrzeszenia hotelarzy, klaster turystyki medycznej,
+                miasto jako referencja; partner społeczny do weryfikacji danych.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{alertblock}{Wiatr w~plecy: regulacje}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Ustawa o~zapewnianiu dostępności} (2019): podmioty publiczne muszą ją zapewniać i~raportować.
+          \item \textbf{Ustawa o~dostępności cyfrowej} (2019) i~WCAG~2.2 dla stron i~aplikacji instytucji.
+          \item \textbf{Europejski Akt o~Dostępności} (od czerwca 2025~r.): e-handel, transport i~usługi online
+                informują o~dostępności.
+        \end{itemize}
+        \vspace{0.3mm}
+        Instytucje potrzebują danych, lokale argumentu, miasta narzędzia bez własnego IT.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \vspace{1mm}
+  \begin{exampleblock}{Skalowanie na kolejne miasta}
+    \footnotesize
+    Nowe miasto = plik konfiguracyjny (nazwa, granice) + wyciąg OpenStreetMap (jest dla całej Europy) + otwarte warstwy miasta, jeśli są.
+    Katalog, profile, statusy i~panele są wspólne; potrzebny lokalny partner do moderacji.
+  \end{exampleblock}
+
+  \note[item]{Kolejność sprzedaży: najpierw segment, który już dziś traci pieniądze na brak informacji (hotele, kliniki), potem instytucje z~obowiązkiem ustawowym, na końcu miasto jako klient white-label.}
+  \note[item]{Nazwy ustaw podać dokładnie, jeśli jury zapyta: ustawa z~19 lipca 2019~r. o~zapewnianiu dostępności osobom ze szczególnymi potrzebami; ustawa z~4 kwietnia 2019~r. o~dostępności cyfrowej stron internetowych i~aplikacji mobilnych podmiotów publicznych; dyrektywa (UE) 2019/882 (Europejski Akt o~Dostępności).}
+  \note[item]{Partner społeczny: organizacja osób z~niepełnosprawnościami, która zweryfikuje pierwsze dane i~przetestuje dostępność z~użytkownikami. Interfejs w~4~językach wspiera segment turystyki medycznej.}
+  \note[item]{Uczciwie o~skalowaniu: konfiguracja warstw miejskich jest dziś w~kodzie (\texttt{layers.py}), nie w~pliku miasta; to pierwszy krok przy drugim mieście.}
+\end{frame}
