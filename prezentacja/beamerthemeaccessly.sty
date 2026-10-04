@@ -97,8 +97,9 @@
   \node[draw=#1,text=#1,rounded corners=2pt,inner xsep=2.5pt,inner ysep=1.6pt,
         font=\tiny\bfseries,line width=0.5pt](P){#2};}}
 
-% \muted{tekst} – przygaszony drobny tekst (źródła, przypisy).
-\newcommand{\muted}[1]{{\scriptsize\color{accMuted}#1}}
+% \muted{tekst} – przygaszony drobny tekst (podpisy, przypisy); kończy akapit wewnątrz grupy,
+% żeby interlinia była ta drobna, a nie z otaczającego tekstu.
+\newcommand{\muted}[1]{{\scriptsize\color{accMuted}#1\par}}
 
 % \kpi{liczba}{opis} – kafelek ze wskaźnikiem.
 \newcommand{\kpi}[2]{%

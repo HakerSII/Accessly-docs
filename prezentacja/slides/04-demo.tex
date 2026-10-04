@@ -1,38 +1,54 @@
-% Slajd 4 – scenariusz demonstracji na scenie (pkt 6 wyzwania: działająca demonstracja dla wybranej grupy).
-\begin{frame}{Demo na scenie: Anna na wózku szuka kawiarni w~centrum}
+% Slajd 4 – mapa demonstracji na żywo (pkt 6 wyzwania: określić potrzeby grupy, sprawdzić miejsce,
+% pokazać konkretne bariery i udogodnienia, źródło i datę informacji, oznaczenie danych niepełnych
+% i przykładowych). Slajd wisi na ekranie tuż przed przejściem do aplikacji; szczegóły w notatkach.
+\begin{frame}{Demo: Anna na wózku szuka kawiarni w~centrum}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.6\textwidth}
-      \footnotesize
-      \begin{enumerate}
-        \item \textbf{Potrzeby.} Profil „Wózek”: mapa i~listy pokazują tylko istotne bariery,
-              miejsca sortują się według dopasowania.
-        \item \textbf{Pytanie.} „Kawiarnia w~centrum, wjadę na wózku, przyda się toaleta” $\rightarrow$
-              ranking z~uzasadnieniem i~brakami (np.\ brak danych: szerokie drzwi).
-        \item \textbf{Karta miejsca.} Bez schodów: \alert{Nie} \textperiodcentered\ OpenStreetMap \textperiodcentered\
-              2.10.2026 \textperiodcentered\ „Dane z~oficjalnego źródła”; szerokie drzwi: \textbf{Brak danych}
-              $\rightarrow$ „Uzupełnij” lub pytanie do właściciela.
-        \item \textbf{Po drodze.} Zgłoszenie „Brak windy” na przystanku: pinezka, typ, waga; inni głosują
-              „nadal jest” / „naprawione”; awaria wygasa po 14~dniach.
-        \item \textbf{Właściciel.} W~panelu uzupełnia drzwi i~potwierdza $\rightarrow$
-              „Potwierdzone przez właściciela”; Anna dostaje powiadomienie.
-      \end{enumerate}
-      \vspace{0.5mm}
+    \begin{column}{0.63\textwidth}
+      \scriptsize
+      \renewcommand{\arraystretch}{1.1}
+      \begin{tabularx}{\textwidth}{@{}>{\bfseries\color{accNavy}}c >{\raggedright\arraybackslash}p{30mm} >{\raggedright\arraybackslash}X@{}}
+        \toprule
+        & \textbf{Krok} & \textbf{Na co zwrócić uwagę} \\
+        \midrule
+        1 & Profil potrzeb „Wózek” &
+            mapa i~listy pokazują tylko bariery ważne dla wózka; ranking według dopasowania \\
+        2 & Pytanie: „kawiarnia w~centrum, na wózku, z~toaletą” &
+            ranking z~uzasadnieniem: co miejsce spełnia, a~czego \emph{nie wiadomo} \\
+        3 & Karta miejsca &
+            każdy fakt ma źródło, datę i~status; brak danych nazwany wprost, z~przyciskiem „Uzupełnij” \\
+        4 & Zgłoszenie „Brak windy” na przystanku, waga „blokuje” &
+            kwadrat = blokuje; głosy „nadal jest” / „naprawione”; awaria wygasa po 14~dniach \\
+        5 & Panel właściciela: „Potwierdź informacje” &
+            status „Potwierdzone przez właściciela”; Anna dostaje powiadomienie \\
+        \bottomrule
+      \end{tabularx}
+
+      \vspace{1.5mm}
+      \textbf{Przypadki brzegowe w~demo:} dane sprzeczne $\rightarrow$ „Wymaga ponownej weryfikacji”;
+      dane miasta niedostępne $\rightarrow$ snapshot z~datą „stan na”; brak informacji nigdy nie znaczy „dostępne”.
+
+      \vspace{1mm}
       \muted{Dane przykładowe są oznaczone: konta demo (\texttt{anna@}, \texttt{kasia@}, \texttt{admin@accessly.test}),
-        zgłoszenia testowe, „Tryb demo” w~widoku administratora.}
+        zgłoszenia testowe, etykieta „Tryb demo”.}
     \end{column}
-    \begin{column}{0.38\textwidth}
-      \centering
-      \screenshoth[36mm]{asystent-panel}\hfill\screenshoth[36mm]{karta-panel}
+    \begin{column}{0.35\textwidth}
+      \screenshot{karta-dopasowanie}\par
       \vspace{0.3mm}
-      \muted{Po lewej: rekomendacje z~uzasadnieniem i~brakami. Po prawej: karta miejsca -- „Spełnia 0~z~3 potrzeb”,
-        atrybut ze źródłem, datą i~statusem.}
+      \muted{Krok 3: podsumowanie dopasowania -- co spełnia, czego nie, czego nie wiadomo.}
+      \vspace{1.5mm}
+      \screenshot{karta-atrybut}\par
+      \vspace{0.3mm}
+      \muted{Jeden fakt: wartość, źródło (OpenStreetMap), data (2.10.2026), status i~przyciski
+        Aktualne / Nieaktualne / Popraw.}
     \end{column}
   \end{columns}
 
-  \note[item]{Czas: ok. 3 minuty. Przed wejściem na scenę: aplikacja otwarta na telefonie i~laptopie, profil „Wózek” zaznaczony, mapa na Rynku (zoom 16).}
-  \note[item]{Krok 2: wpisać zapytanie z~przykładu pod polem – wynik jest deterministyczny w~trybie reguł. Odpowiedź: „Spełnia: wejście bez schodów, toaleta; brak danych: szerokie drzwi”.}
-  \note[item]{Krok 3: pokazać palcem trzy rzeczy przy atrybucie: źródło, datę, status. Potem „Brak danych” – to jest nasz najważniejszy komunikat: nie zgadujemy.}
-  \note[item]{Krok 4: zgłoszenie bariery można zrobić bez konta; pokazać kształt znacznika (kwadrat = blokuje).}
-  \note[item]{Krok 5: zalogować się jako \texttt{kasia@accessly.test} (konto demo właścicielki Camelot Cafe) w~/owner.html i~kliknąć „Potwierdź informacje”. Wrócić do karty – status się zmienił.}
-  \note[item]{Jeśli padnie sieć: wszystko poza kafelkami mapy działa z~danych lokalnych; pokazać stronę „Źródła danych” z~datami snapshotów.}
+  \note[item]{Czas: ok. 3 minuty. Przed wejściem: aplikacja na telefonie i~laptopie, profil „Wózek” zaznaczony, mapa na Rynku Głównym (zoom 16), panel właścicielki otwarty w~drugiej karcie przeglądarki.}
+  \note[item]{Krok 1 (0:00–0:30): kliknąć chip „Wózek”; pokazać toast z~liczbą zgłoszeń i~listę „Najbliżej środka mapy”.}
+  \note[item]{Krok 2 (0:30–1:00): zakładka Miejsca, wpisać „Kawiarnia w~centrum, wjadę na wózku, przyda się dostępna toaleta” – w~trybie reguł wynik jest deterministyczny; przeczytać „Spełnia: wejście bez schodów, toaleta; brak danych: szerokie drzwi”.}
+  \note[item]{Krok 3 (1:00–1:45): otworzyć kartę; pokazać palcem trzy rzeczy przy atrybucie: źródło, datę, status. Potem „Brak danych” – nasz najważniejszy komunikat: nie zgadujemy. Przyciski Aktualne / Nieaktualne / Popraw, „Uzupełnij” i~pytanie do właściciela.}
+  \note[item]{Krok 4 (1:45–2:20): „Zgłoś problem”, pinezka na przystanku, typ „Brak windy”, waga „blokuje”; pokazać kształt znacznika (kwadrat = blokuje) i~głosy. Zgłoszenie można zrobić bez konta.}
+  \note[item]{Krok 5 (2:20–3:00): w~drugiej karcie \texttt{/owner.html} jako \texttt{kasia@accessly.test} (Camelot Cafe) kliknąć „Potwierdź informacje”; wrócić do karty – status się zmienił.}
+  \note[item]{Przypadki brzegowe (gdy jury pyta lub zostaje czas): historia atrybutu ze sprzecznymi głosami; strona „Źródła danych” z~datami snapshotów; miejsce z~brakującym atrybutem nie dostaje odznaki „Dopasowane do Ciebie”.}
+  \note[item]{Jeśli padnie sieć: wszystko poza kafelkami mapy działa z~danych lokalnych. Dane przykładowe: trzy konta demo i~zgłoszenia testowe; widok administratora bez logowania ma etykietę „Tryb demo: dane przykładowe”.}
 \end{frame}

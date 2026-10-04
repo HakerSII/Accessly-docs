@@ -56,11 +56,13 @@ function Convert-Shot([string]$name, [string]$out, [int]$x, [int]$y, [int]$w, [i
   "{0,-34} {1,5}x{2,-5} {3,6:N0} KB" -f $out, $tw, $th, ((Get-Item $path).Length / 1KB)
 }
 
-# Desktop shots are 2160x1350 (1440x900 CSS px at 1.5x); the side column is 580 CSS px = 870 px wide.
+# Desktop shots are 2160x1350 (1440x900 CSS px at 1.5x); the side column is about 420 CSS px = 630 px wide.
 Convert-Shot "01-mapa-desktop.png"           "mapa-desktop.jpg"        0 0 0 0 1600
-Convert-Shot "04-asystent-desktop.png"       "asystent-panel.jpg"      0 0 870 1350 700
-Convert-Shot "05-karta-miejsca-desktop.png"  "karta-panel.jpg"         0 0 870 1350 700
-Convert-Shot "05-karta-miejsca-desktop.png"  "karta-atrybut.jpg"       0 1000 870 350 870 92
+Convert-Shot "04-asystent-desktop.png"       "asystent-panel.jpg"      0 0 640 1350 700
+Convert-Shot "05-karta-miejsca-desktop.png"  "karta-panel.jpg"         0 0 640 1350 700
+# Two strips from the place card: the needs summary box and one attribute row (value, source, date, status, buttons).
+Convert-Shot "05-karta-miejsca-desktop.png"  "karta-dopasowanie.jpg"   15 705 600 200 900 92
+Convert-Shot "05-karta-miejsca-desktop.png"  "karta-atrybut.jpg"       15 1030 600 240 900 92
 Convert-Shot "07-zglos-krok1-desktop.png"    "zglos-krok1.jpg"         0 0 0 0 1600
 Convert-Shot "11-admin-widok-desktop.png"    "admin-widok.jpg"         0 0 0 0 1600
 Convert-Shot "12-mapa-noc-desktop.png"       "mapa-noc.jpg"            0 0 0 0 1600
