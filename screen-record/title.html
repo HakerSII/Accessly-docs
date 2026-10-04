@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <!-- Plansza tytułowa nagrania. Tytuł zawiera „Accessly”, bo Chrome wybiera nagrywaną kartę po tytule.
+       Nagranie zaczyna się tutaj: w tym czasie skrypt dopasowuje rozmiar okna, co na jednolitym tle jest niewidoczne.
+       Parametry: ?base=http://localhost:8765 (skąd wziąć logo) &lang=pl|en &sub=tekst -->
+  <title>Accessly – demonstracja</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body { display: grid; place-items: center; background: #0B1F3A; color: #fff;
+      font-family: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif; text-align: center; }
+    .card { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; transition: opacity .8s; }
+    .card.show { opacity: 1; }
+    img { width: 112px; height: 112px; border-radius: 28px; background: #fff; padding: 10px; box-sizing: border-box; }
+    h1 { font-size: 46px; margin: 8px 0 0; font-weight: 800; letter-spacing: -0.01em; }
+    p { font-size: 22px; margin: 0; color: #b9c7da; }
+    .tag { margin-top: 6px; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: #FFB703; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <img id="logo" alt="" hidden>
+    <h1>Accessly</h1>
+    <p id="sub">Kraków bez barier</p>
+    <div class="tag" id="tag">Demonstracja aplikacji</div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const lang = q.get("lang") || "pl";
+    const texts = {
+      pl: ["Kraków bez barier", "Demonstracja aplikacji"],
+      en: ["Kraków without barriers", "Application demo"],
+    };
+    const [sub, tag] = texts[lang] || texts.pl;
+    document.getElementById("sub").textContent = q.get("sub") || sub;
+    document.getElementById("tag").textContent = q.get("tag") || tag;
+    if (q.get("base")) {
+      const img = document.getElementById("logo");
+      img.onload = () => { img.hidden = false; };
+      img.src = q.get("base").replace(/\/+$/, "") + "/img/accessly-logo.png";
+    }
+    // Pokazanie planszy wywołuje skrypt (window.show), gdy okno jest już dopasowane; bez skryptu po 1,5 s.
+    window.show = () => document.getElementById("card").classList.add("show");
+    setTimeout(window.show, 1500);
+  </script>
+</body>
+</html>

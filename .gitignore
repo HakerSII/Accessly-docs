@@ -14,3 +14,7 @@ prezentacja/build/
 # Zrzuty ekranu w pełnej rozdzielczości (do slajdów trafiają zmniejszone z prezentacja/img/ i img-en/)
 screenshots/
 screenshots-en/
+
+# Nagrania demonstracji (screen-record/record.py): filmy, bazy demo, zrzuty
+screen-record/out/
+screen-record/__pycache__/

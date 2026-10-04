@@ -28,6 +28,12 @@ Accessly-docs/
   scripts/
     screenshots.py             zrzuty ekranu działającej aplikacji (headless Chrome, stdlib); --lang en dla interfejsu angielskiego
     prepare-images.ps1         przycięcie i zmniejszenie zrzutów do prezentacja/img/ lub img-en/ (.NET, bez instalacji)
+  screen-record/
+    record.py                  film demonstracyjny: prawdziwy Chrome, przeklikany scenariusz, nagranie karty do MP4 (stdlib)
+    scenario.py                kroki demonstracji z podpisami PL/EN; presety full (wszystkie funkcje) i short (3-minutowy)
+    actions.py, cdp.py         sterowanie przeglądarką (kursor, klikanie, pisanie) i klient DevTools Protocol
+    recorder.html, title.html  karta rejestratora (getDisplayMedia + MediaRecorder) i plansza tytułowa
+    README.md                  uruchomienie, lista kroków, pliki wynikowe, pułapki
 ```
 
 ## Budowanie PDF
@@ -134,6 +140,15 @@ Zmiany treści warto wprowadzać w obu wersjach naraz; pliki slajdów mają tę 
 
 Zrzuty w `prezentacja/img/` i `img-en/` pochodzą z kontenera `accessly` uruchomionego lokalnie 4 października 2026
 (zgłoszenia barier z backendu Rampa, asystent w trybie reguł – bez klucza API).
+
+## Film demonstracyjny (mp4)
+
+`py -3 screen-record/record.py` uruchamia aplikację z czystą bazą, otwiera prawdziwe okno Chrome, przeklikuje
+scenariusz (35 kroków: mieszkanka, właścicielka, administrator, powrót mieszkanki) z podpisami i nagrywa kartę do
+`screen-record/out/<data>/accessly-demo.mp4` (1920×1080, H.264) razem z rozdziałami (`chapters.json`) i napisami
+(`captions.vtt`). `--preset short` daje wersję ze scenariusza poniżej (ok. 4 minuty), `--lang en` wersję
+angielską, `--speed 1.3` szybsze tempo. Szczegóły i lista kroków: `screen-record/README.md`. Film do zgłoszenia
+(max 3 minuty) najlepiej wyciąć z nagrania `short` według `chapters.json`.
 
 ## Demo na żywo (3 minuty) – skrót
 

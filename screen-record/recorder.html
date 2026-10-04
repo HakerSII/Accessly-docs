@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <!-- Tytuł nie może zawierać słowa „Accessly”: Chrome wybiera do nagrania kartę po tytule
+       (--auto-select-tab-capture-source-by-title=Accessly), a ta karta ma być rejestratorem, nie źródłem. -->
+  <title>Rejestrator nagrania</title>
+  <style>
+    body { font: 15px/1.4 system-ui, sans-serif; margin: 0; padding: 20px; background: #0b1f3a; color: #e8eef7; }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    p { margin: 4px 0; color: #b9c7da; }
+    code { color: #ffd166; }
+  </style>
+</head>
+<body>
+  <h1>Rejestrator ekranu Accessly</h1>
+  <p>Ta karta nagrywa kartę aplikacji przez <code>getDisplayMedia</code> + <code>MediaRecorder</code>.
+     Steruje nią skrypt <code>record.py</code> przez DevTools Protocol. Nie zamykaj jej w trakcie nagrania.</p>
+  <p id="status">Czekam na polecenie…</p>
+  <script>
+    // Rejestrator: window.R jest wołane z record.py przez Runtime.evaluate.
+    const R = {
+      rec: null, stream: null, chunks: [], bytes: 0, frames: 0, startedAt: 0, error: "",
+
+      /**
+       * Przechwyć kartę wybraną automatycznie przez Chrome (pasek „udostępniasz tę kartę” pojawia się
+       * od razu i zmniejsza okno). Nagrywanie zaczyna dopiero record(): gdy rozmiar klatki zmienia się
+       * po starcie MediaRecorder, strumień H.264 się psuje, więc skrypt najpierw dopasowuje okno.
+       */
+      async open(opts) {
+        const video = { frameRate: { ideal: opts.fps || 30, max: opts.fps || 30 } };
+        if (opts.width && opts.height) { video.width = { ideal: opts.width }; video.height = { ideal: opts.height }; }
+        this.stream = await navigator.mediaDevices.getDisplayMedia({
+          video, audio: false, preferCurrentTab: false, selfBrowserSurface: "exclude", surfaceSwitching: "exclude", systemAudio: "exclude",
+        });
+        const track = this.stream.getVideoTracks()[0];
+        track.onended = () => { if (this.rec && this.rec.state !== "inactive") this.error = this.error || "udostępnianie zatrzymane"; };
+        // Podgląd i licznik odebranych klatek (diagnostyka: czy nagrywana karta w ogóle się odświeża).
+        this.frames = 0;
+        const v = document.createElement("video");
+        v.muted = true; v.srcObject = this.stream; v.style.cssText = "position:fixed;right:8px;bottom:8px;width:240px;border:1px solid #334";
+        document.body.appendChild(v);
+        const count = () => { this.frames += 1; v.requestVideoFrameCallback(count); };
+        v.requestVideoFrameCallback(count);
+        await v.play().catch(() => {});
+        document.getElementById("status").textContent = `Przechwycono: ${track.label}`;
+        return this.settings();
+      },
+
+      /** Bieżące ustawienia ścieżki (rozmiar klatki podąża za kartą, więc warto sprawdzić tuż przed record()). */
+      settings() {
+        const track = this.stream && this.stream.getVideoTracks()[0];
+        if (!track) return null;
+        const s = track.getSettings();
+        return { width: s.width, height: s.height, frameRate: s.frameRate, label: track.label, surface: s.displaySurface };
+      },
+
+      /** Zacznij kodować przechwycony strumień. Zwraca ustawienia ścieżki i typ MIME. */
+      record(opts) {
+        const candidates = opts.mime ? [opts.mime] : [
+          "video/mp4;codecs=avc1.640028", "video/mp4;codecs=avc1.4d0028", "video/mp4;codecs=avc1", "video/mp4",
+          "video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm",
+        ];
+        const mime = candidates.find((m) => MediaRecorder.isTypeSupported(m)) || "";
+        const options = { videoBitsPerSecond: opts.bitrate || 6000000 };
+        if (mime) options.mimeType = mime;
+        this.rec = new MediaRecorder(this.stream, options);
+        this.rec.ondataavailable = (e) => {
+          if (e.data && e.data.size) { this.chunks.push(e.data); this.bytes += e.data.size; }
+        };
+        this.rec.onerror = (e) => { this.error = String((e.error && e.error.message) || e.error || e); };
+        this.rec.start(opts.timeslice || 2000);
+        this.startedAt = performance.now();
+        const s = this.settings();
+        document.getElementById("status").textContent = `Nagrywam: ${s.label} (${s.width}×${s.height}, ${this.rec.mimeType})`;
+        return { ...s, mime: this.rec.mimeType };
+      },
+
+      /** open() + record() naraz (gdy rozmiar okna nie będzie się już zmieniał). */
+      async start(opts) {
+        await this.open(opts);
+        return this.record(opts);
+      },
+
+      /** Oddaj zebrane fragmenty jako base64 i wyczyść kolejkę. */
+      async drain() {
+        const list = this.chunks;
+        this.chunks = [];
+        const parts = [];
+        for (const b of list) parts.push(await this.b64(b));
+        return parts;
+      },
+
+      /** Zatrzymaj nagrywanie i oddaj resztę danych. */
+      async stop() {
+        if (this.rec && this.rec.state !== "inactive") {
+          await new Promise((resolve) => { this.rec.onstop = resolve; this.rec.stop(); });
+        }
+        if (this.stream) this.stream.getTracks().forEach((t) => t.stop());
+        document.getElementById("status").textContent = "Nagranie zakończone.";
+        return this.drain();
+      },
+
+      b64(blob) {
+        return new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(String(r.result).split(",")[1]);
+          r.onerror = () => reject(r.error);
+          r.readAsDataURL(blob);
+        });
+      },
+
+      /** Bieżąca klatka nagrania jako JPEG (data URL) do kontroli ostrości. */
+      snapshot() {
+        const v = document.querySelector("video");
+        if (!v || !v.videoWidth) return "";
+        const c = document.createElement("canvas");
+        c.width = v.videoWidth; c.height = v.videoHeight;
+        c.getContext("2d").drawImage(v, 0, 0);
+        return c.toDataURL("image/jpeg", 0.9);
+      },
+
+      /** Stan do podglądu ze skryptu. */
+      state() {
+        return {
+          state: this.rec ? this.rec.state : "none", pending: this.chunks.length, bytes: this.bytes, frames: this.frames || 0,
+          error: this.error, seconds: this.startedAt ? (performance.now() - this.startedAt) / 1000 : 0,
+        };
+      },
+    };
+    window.R = R;
+  </script>
+</body>
+</html>
