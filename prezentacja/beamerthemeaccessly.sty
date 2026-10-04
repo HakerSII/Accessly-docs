@@ -44,10 +44,34 @@
 \setbeamercolor{footline}{fg=accMuted,bg=white}
 \setbeamercolor{caption name}{fg=accMuted}
 
-% ---------- Fonty ----------
-\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+% ---------- Kroje pisma ----------
+% XeLaTeX / LuaLaTeX (domyślnie: .latexmkrc, build.sh, build.ps1): Atkinson Hyperlegible Next, krój
+% aplikacji, zaprojektowany przez Braille Institute dla osób słabowidzących (wyraźnie różne I l 1,
+% O 0, b d p q). Pliki są w fonts/ (SIL OFL), więc nic nie trzeba instalować.
+%   treść:                    Regular; wyróżnienia (\textbf, tytuły bloków) SemiBold
+%   tytuły i strona tytułowa: ExtraBold, lekko zwężone odstępy: wyraźnie inne niż treść,
+%                             a ta sama rodzina, więc całość wygląda spójnie
+%   kod i adresy:             Atkinson Hyperlegible Mono (jak w aplikacji)
+% pdfLaTeX nie wczytuje tych plików: zostaje Latin Modern Sans, tytuły pogrubione.
+\RequirePackage{iftex}
+\ifPDFTeX
+  \newcommand{\headingfont}{}
+\else
+  % Scale=0.95: Atkinson ma wyższe małe litery niż Latin Modern (x-height 0,50 wobec 0,44 em), więc
+  % nawet pomniejszony jest wyraźnie większy optycznie, a tekst slajdów mieści się w ramkach.
+  \setsansfont{AtkinsonHyperlegibleNext}[Path=fonts/, Extension=.ttf, Scale=0.95,
+    UprightFont=*-Regular, ItalicFont=*-Italic, BoldFont=*-SemiBold, BoldItalicFont=*-SemiBoldItalic]
+  \setmonofont{AtkinsonHyperlegibleMono}[Path=fonts/, Extension=.ttf,
+    UprightFont=*-Regular, BoldFont=*-Bold, Scale=MatchLowercase]
+  \newfontfamily\headingfont{AtkinsonHyperlegibleNext}[Path=fonts/, Extension=.ttf, Scale=0.95,
+    UprightFont=*-ExtraBold, ItalicFont=*-ExtraBoldItalic, BoldFont=*-ExtraBold,
+    BoldItalicFont=*-ExtraBoldItalic, LetterSpace=-1.0]
+\fi
+
+% ---------- Fonty elementów ----------
+\setbeamerfont{frametitle}{size=\Large,family=\headingfont,series=\bfseries}
 \setbeamerfont{framesubtitle}{size=\small,series=\mdseries}
-\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamerfont{title}{size=\Huge,family=\headingfont,series=\bfseries}
 \setbeamerfont{subtitle}{size=\large,series=\mdseries}
 \setbeamerfont{footline}{size=\tiny}
 \setbeamerfont{block title}{size=\small,series=\bfseries}

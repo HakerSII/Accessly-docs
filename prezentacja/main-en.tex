@@ -4,7 +4,8 @@
 %  One slide = one file in slides-en/. Screenshots with the English interface
 %  are in img-en/ (logo and other shared images fall back to img/).
 %
-%  Build:  latexmk -pdf main-en.tex   |   ./build.sh --en [--docker] [--notes]
+%  Build:  latexmk main-en.tex (XeLaTeX, Atkinson Hyperlegible from fonts/)   |   ./build.sh --en [--docker] [--notes]
+%          latexmk -pdf main-en.tex: pdfLaTeX fallback with Latin Modern
 % =====================================================================
 \documentclass[aspectratio=169,10pt,t]{beamer}
 
@@ -18,10 +19,7 @@
   \usepackage{fontspec}
   \usepackage{polyglossia}
   \setmainlanguage{english}
-  % The app's typeface (Braille Institute, SIL OFL); Latin Modern Sans when it is not installed.
-  \IfFontExistsTF{Atkinson Hyperlegible Next}{\setsansfont{Atkinson Hyperlegible Next}}{%
-    \IfFontExistsTF{Atkinson Hyperlegible}{\setsansfont{Atkinson Hyperlegible}}{%
-      \setsansfont{Latin Modern Sans}}}
+  % Typefaces (Atkinson Hyperlegible Next and Mono from fonts/) are set by the theme: beamerthemeaccessly.sty.
 \fi
 \usepackage{graphicx}
 \graphicspath{{img-en/}{img/}}
@@ -45,7 +43,7 @@
 \urldef{\VideoUrl}\url{https://youtu.be/...}               % video (max 3 min, open repository)
 
 \title[Accessly]{Accessly}
-\subtitle[Kraków without barriers \textperiodcentered\ HackYeah 2026]{Your city. Your needs. Check before you go.}
+\subtitle[Kraków without barriers \textperiodcentered\ HackYeah 2026]{The city. Accessible for you.}
 \author{\TeamName}
 \date{HackYeah, 3--4 October 2026}
 

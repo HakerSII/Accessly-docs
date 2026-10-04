@@ -2,9 +2,9 @@
 %  Accessly – Kraków bez barier · prezentacja na HackYeah 2026
 %  Maksymalnie 10 slajdów (regulamin). Każdy slajd to osobny plik w slides/.
 %
-%  Kompilacja (dowolny silnik; polskie znaki działają w każdym):
-%     latexmk -pdf main.tex                 # pdfLaTeX (babel + Latin Modern)
-%     latexmk -xelatex main.tex             # XeLaTeX (fontspec; użyje Atkinson Hyperlegible, jeśli jest w systemie)
+%  Kompilacja (polskie znaki działają w każdym silniku):
+%     latexmk main.tex                      # XeLaTeX (.latexmkrc): Atkinson Hyperlegible z fonts/ – wersja docelowa
+%     latexmk -pdf main.tex                 # pdfLaTeX: zapasowo, Latin Modern
 %     ./build.sh  |  ./build.sh --docker    # skrypty pomocnicze (Docker: texlive/texlive:latest-small)
 %  Wersja z notatkami prelegenta:  ./build.sh --notes
 % =====================================================================
@@ -20,10 +20,7 @@
   \usepackage{fontspec}
   \usepackage{polyglossia}
   \setmainlanguage{polish}
-  % Czcionka aplikacji (Braille Institute, SIL OFL); gdy nie jest zainstalowana – Latin Modern Sans.
-  \IfFontExistsTF{Atkinson Hyperlegible Next}{\setsansfont{Atkinson Hyperlegible Next}}{%
-    \IfFontExistsTF{Atkinson Hyperlegible}{\setsansfont{Atkinson Hyperlegible}}{%
-      \setsansfont{Latin Modern Sans}}}
+  % Kroje (Atkinson Hyperlegible Next i Mono z fonts/) ustawia motyw: beamerthemeaccessly.sty.
 \fi
 \usepackage{graphicx}
 \graphicspath{{img/}}
@@ -47,7 +44,7 @@
 \urldef{\VideoUrl}\url{https://youtu.be/...}              % film (max 3 min, otwarte repozytorium)
 
 \title[Accessly]{Accessly}
-\subtitle[Kraków bez barier \textperiodcentered\ HackYeah 2026]{Twoje miasto. Twoje potrzeby. Sprawdź zanim pójdziesz.}
+\subtitle[Kraków bez barier \textperiodcentered\ HackYeah 2026]{Miasto. Dostępne dla Ciebie.}
 \author{\TeamName}
 \date{HackYeah, 3--4 października 2026}
 

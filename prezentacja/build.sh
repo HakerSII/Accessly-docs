@@ -27,9 +27,9 @@ for arg in "$@"; do
 done
 
 if [ "$NOTES" = 1 ]; then
-  CMD=(latexmk -pdf -jobname="$NOTESJOB" -usepretex='\def\shownotes{1}' "$MAIN.tex")
+  CMD=(latexmk -xelatex -jobname="$NOTESJOB" -usepretex='\def\shownotes{1}' "$MAIN.tex")
 else
-  CMD=(latexmk -pdf "$MAIN.tex")
+  CMD=(latexmk -xelatex "$MAIN.tex")
 fi
 
 if [ "$DOCKER" = 1 ]; then

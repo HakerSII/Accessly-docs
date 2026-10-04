@@ -20,9 +20,9 @@ $main = "main"; $out = "Accessly-Krakow-bez-barier.pdf"; $notesJob = "main-notat
 if ($En) { $main = "main-en"; $out = "Accessly-Krakow-without-barriers.pdf"; $notesJob = "main-en-notes" }
 
 if ($Notes) {
-  $cmd = @("latexmk", "-pdf", "-jobname=$notesJob", "-usepretex=\def\shownotes{1}", "$main.tex")
+  $cmd = @("latexmk", "-xelatex", "-jobname=$notesJob", "-usepretex=\def\shownotes{1}", "$main.tex")
 } else {
-  $cmd = @("latexmk", "-pdf", "$main.tex")
+  $cmd = @("latexmk", "-xelatex", "$main.tex")
 }
 
 if ($Docker) {
