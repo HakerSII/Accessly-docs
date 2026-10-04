@@ -6,10 +6,9 @@
         \footnotesize
         \begin{itemize}
           \item Prototyp na telefon i~komputer: 6\,545 miejsc, 27 atrybutów, 11 warstw, mapa barier, asystent, 4~języki.
-          \item Panel właściciela (potwierdzanie, pytania, zdjęcia, udogodnienia hurtowo) i~panel administratora
-                (kolejka, statystyki, braki danych).
+          \item Panel właściciela i~panel administratora (kolejka, statystyki, braki danych).
           \item Źródło, data i~status przy każdym fakcie; brak danych pokazany jako brak.
-          \item Główny scenariusz zgodny z~WCAG 2.2 A/AA w~sprawdzonych kryteriach; 503 testy, Docker, Ansible, HTTPS.
+          \item Sprawdzone kryteria WCAG 2.2 A/AA w~głównym scenariuszu; 503 testy, Docker, Ansible, HTTPS.
         \end{itemize}
       \end{exampleblock}
     \end{column}
@@ -18,24 +17,23 @@
         \footnotesize
         \begin{enumerate}
           \item \textbf{Pilotaż} z~organizacją osób z~niepełnosprawnościami, 2--3 hotelami i~instytucjami kultury;
-                audyt dostępności z~użytkownikami.
-          \item \textbf{Produkcyjne logowanie} (poczta transakcyjna, opcjonalnie OAuth), powiadomienia, tryb offline (PWA).
-          \item \textbf{AI do weryfikacji zdjęć i~tekstu} -- jako propozycje do potwierdzenia, nigdy jako fakty;
-                silnik zaufania z~backendu Rampa.
+                audyt z~użytkownikami.
+          \item \textbf{Produkcyjne logowanie} (poczta, opcjonalnie OAuth), powiadomienia, tryb offline.
+          \item \textbf{AI do weryfikacji zdjęć i~tekstu} -- propozycje do potwierdzenia, nigdy fakty; silnik zaufania z~Rampy.
           \item \textbf{Open API i~widget} dla właścicieli; integracja z~systemami rezerwacyjnymi.
-          \item \textbf{Drugie miasto:} konfiguracja + wyciąg OSM + warstwy miejskie w~pliku miasta.
-                Warunek: otwarte dane miasta (lub sam OSM) i~lokalny partner do moderacji.
+          \item \textbf{Drugie miasto:} plik miasta + wyciąg OSM + warstwy miejskie; warunek: otwarte dane (lub OSM)
+                i~lokalny partner do moderacji.
         \end{enumerate}
       \end{block}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
   \centering
-  {\bfseries\color{accNavy}Nie budujemy kolejnej statycznej mapy. Budujemy żywy, weryfikowalny obraz dostępności
-   miasta -- z~mieszkańcami, właścicielami i~otwartymi danymi.\par}
-  \vspace{1mm}
+  {\bfseries\color{accNavy}Nie kolejna statyczna mapa -- żywy, weryfikowalny obraz dostępności miasta.\par}
+  \vspace{0.8mm}
   \muted{Demo: \DemoUrl\ \textperiodcentered\ Kod: \RepoUrl\ \textperiodcentered\ Film: \VideoUrl}
 
   \note[item]{Zakończyć zdaniem z~tego slajdu i~zaprosić do stolika z~telefonem – niech jury samo kliknie „Zgłoś problem”.}
   \note[item]{Pytanie o~zespół po hackathonie: operator (spółka / fundacja), moderacja w~panelu, finansowanie z~planu Pro i~wdrożeń white-label.}
+  \note[item]{Pytanie o~drugie miasto: potrzebne są granice i~nazwa (plik miasta), wyciąg OSM z~Geofabrik oraz – jeśli miasto je ma – otwarte warstwy (przystanki, toalety, parkingi). Bez danych miejskich działa sam OSM.}
 \end{frame}

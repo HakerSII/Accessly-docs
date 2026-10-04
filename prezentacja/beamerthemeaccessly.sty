@@ -87,6 +87,11 @@
   {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}\color{accLineStrong}%
    \fbox{\includegraphics[width=#1]{#2}}}}
 
+% \screenshoth[wysokość]{plik} – jak wyżej, ale skalowany do wysokości (zrzuty pionowe obok siebie).
+\newcommand{\screenshoth}[2][40mm]{%
+  {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}\color{accLineStrong}%
+   \fbox{\includegraphics[height=#1]{#2}}}}
+
 % \pill{kolor}{tekst} – mała etykieta w obwódce, jak statusy weryfikacji w aplikacji.
 \newcommand{\pill}[2]{\tikz[baseline=(P.base)]{%
   \node[draw=#1,text=#1,rounded corners=2pt,inner xsep=2.5pt,inner ysep=1.6pt,

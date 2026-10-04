@@ -1,18 +1,18 @@
 % Slajd 7 – dostępność cyfrowa: wykaz funkcji dostępnych i elementów do dalszych prac (pkt 5 i 6 wyzwania).
-\begin{frame}{Dostępność cyfrowa: cel WCAG 2.2 AA, główny scenariusz już sprawdzony}
+\begin{frame}{Dostępność cyfrowa: cel WCAG 2.2 AA}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.62\textwidth}
-      \begin{block}{Jest w~prototypie -- klawiatura, czytnik ekranu, kontrast, mapa jako tekst}
+      \begin{block}{Jest w~prototypie (sprawdzone w~głównym scenariuszu)}
         \footnotesize
         \begin{itemize}
-          \item \textbf{Klawiatura:} każda akcja to przycisk lub link; link „Przejdź do treści”; widoczny fokus;
-                fokus nie ginie, gdy listy odświeżają się co 15~s; Esc zamyka panele.
-          \item \textbf{Czytnik ekranu:} landmarki, nagłówki, etykiety ARIA; krótkie komunikaty „live”;
-                mapa ma opis odsyłający do listy; tytuł okna zmienia się z~widokiem.
+          \item \textbf{Klawiatura:} każda akcja to przycisk lub link; link „Przejdź do treści”; widoczny fokus,
+                który nie ginie przy odświeżaniu list co 15~s; Esc zamyka panele.
+          \item \textbf{Czytnik ekranu:} landmarki, nagłówki, etykiety ARIA, krótkie komunikaty „live”;
+                opis mapy odsyła do listy; tytuł okna zmienia się z~widokiem.
           \item \textbf{Mapa jako tekst:} listy Zgłoszenia, Miejsca i~najbliższych obiektów warstw;
                 waga problemu kształtem i~podpisem, nie tylko kolorem.
-          \item \textbf{Kontrast i~czytelność:} tokeny 4,5:1 (tekst) i~3:1 (kontrolki) sprawdzane testem
-                ze \texttt{style.css}; tryb nocny; Atkinson Hyperlegible; 4~języki.
+          \item \textbf{Kontrast i~czytelność:} tokeny 4,5:1 (tekst) i~3:1 (kontrolki) sprawdzane testem;
+                tryb nocny; czcionka Atkinson Hyperlegible; 4~języki.
           \item \textbf{Formularze i~dotyk:} błędy w~\texttt{role="alert"} z~nazwą pola, „Dalej” nie jest blokowane;
                 cele $\geq$~44~px; układ działa do 400\,\% powiększenia.
         \end{itemize}
@@ -30,11 +30,12 @@
         \end{itemize}
       \end{alertblock}
       \vspace{0.5mm}
-      \muted{Zmiany z~iteracji „WCAG 2.2 A” i~„WCAG 2.2 AA” są objęte testami \texttt{AccessibilityTests}.}
+      \muted{Iteracje „WCAG 2.2 A” i~„WCAG 2.2 AA” są objęte testami \texttt{AccessibilityTests}.}
     \end{column}
   \end{columns}
 
   \note[item]{Pokazać na żywo: Tab przez listę zgłoszeń, Enter otwiera szczegóły, Esc wraca; przełączyć tryb nocny.}
   \note[item]{„Tekstowa alternatywa mapy” to wymaganie wprost z~wyzwania – u~nas lista obok mapy jest pierwszorzędnym widokiem, nie dodatkiem.}
+  \note[item]{Kontrast: test liczy współczynniki z~tokenów w~\texttt{style.css} dla obu motywów; separatory mają własny token, obwódki kontrolek i~symbole warstw mają 3:1.}
   \note[item]{Nie mówić „jesteśmy zgodni z~WCAG”; mówić „główny scenariusz spełnia kryteria A/AA, które sprawdziliśmy, a~tu jest lista braków”.}
 \end{frame}

@@ -1,31 +1,31 @@
 % Slajd 9 – model biznesowy i komercjalizacja (kryterium: 20 %; pkt 9 wyzwania).
-\begin{frame}{Model biznesowy: bezpłatne dla mieszkańców, płatne dla obiektów i~miast}
+\begin{frame}{Model biznesowy i~komercjalizacja}
   \footnotesize
-  \renewcommand{\arraystretch}{1.2}
+  \renewcommand{\arraystretch}{1.1}
   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{3.1cm} X >{\raggedright\arraybackslash}p{3.4cm}@{}}
     \toprule
     Segment & Oferta & Przychód \\
     \midrule
     Mieszkańcy i~turyści & aplikacja, profil potrzeb, asystent, mapa barier & bezpłatnie, zawsze -- to oni tworzą dane \\
-    Właściciele obiektów (hotele, gastronomia, kultura, sieci) & panel podstawowy bezpłatny; \textbf{plan Pro}: odznaka
-      „Potwierdzone przez właściciela”, statystyki „czego szukają goście, czego brakuje”, hurtowe udogodnienia,
+    Właściciele obiektów (hotele, gastronomia, kultura, sieci) & panel podstawowy bezpłatny; \textbf{plan Pro}:
+      odznaka właściciela, statystyki „czego szukają goście, czego brakuje”, hurtowe udogodnienia,
       widget dostępności na stronę i~do systemu rezerwacji & abonament za obiekt lub pakiet dla sieci \\
     Organizatorzy wydarzeń, zarządcy nieruchomości & pakiet czasowy: tymczasowe wejścia i~trasy, mapa barier
-      na czas imprezy, komunikacja z~uczestnikami & opłata za wydarzenie / obiekt \\
+      na czas imprezy & opłata za wydarzenie / obiekt \\
     Miasta i~regiony & wdrożenie white-label (konfiguracja, import OSM, warstwy miejskie); raporty
-      „gdzie brakuje danych i~udogodnień” do planowania & wdrożenie + roczne utrzymanie \\
-    Mapy, aplikacje turystyczne, systemy rezerwacyjne & Open API z~atrybucją: fakty o~dostępności ze źródłem,
-      datą i~statusem & licencja API / limity zapytań \\
+      o~brakach danych i~udogodnień & wdrożenie + roczne utrzymanie \\
+    Mapy, aplikacje turystyczne, systemy rezerwacyjne & Open API z~atrybucją: fakty o~dostępności
+      ze źródłem, datą i~statusem & licencja API / limity zapytań \\
     \bottomrule
   \end{tabularx}
 
-  \vspace{2mm}
-  \begin{exampleblock}{Zasady, które chronią wartość danych}
-    Nie sprzedajemy danych osobowych. Treści społeczności i~dane z~OSM pozostają otwarte (ODbL, atrybucja zachowana).
-    Właściciel płaci za narzędzia i~widoczność, nie za „lepszy” status -- status zawsze wynika z~weryfikacji.
-  \end{exampleblock}
+  \vspace{1mm}
+  \textbf{Zasady, które chronią wartość danych.} Nie sprzedajemy danych osobowych; treści społeczności i~dane OSM
+  pozostają otwarte (ODbL). Właściciel płaci za narzędzia i~widoczność, nie za „lepszy” status -- status zawsze wynika
+  z~weryfikacji.
 
   \note[item]{Najbardziej realny pierwszy przychód: hotele i~turystyka medyczna (profil „Po zabiegu”, warstwa SOR / apteki, 4~języki) – goście zza granicy pytają o~dostępność przed rezerwacją.}
   \note[item]{Panel właściciela już dziś pokazuje „Najczęściej wyszukiwane informacje o~Twoim lokalu” – to zalążek statystyk z~planu Pro.}
+  \note[item]{Pakiet dla wydarzeń: w~panelu właściciela są już punkty w~obiekcie (windy, toalety, wejścia) dodawane hurtowo – organizator wnosi je na czas imprezy.}
   \note[item]{Miasto nie jest klientem w~pierwszej kolejności; korzysta z~danych i~raportów, a~ewentualnie finansuje wdrożenie white-label.}
 \end{frame}
