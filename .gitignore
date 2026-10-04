@@ -11,5 +11,6 @@ prezentacja/build/
 *.fdb_latexmk
 *.synctex.gz
 
-# Zrzuty ekranu w pełnej rozdzielczości (do slajdów trafiają zmniejszone z prezentacja/img/)
+# Zrzuty ekranu w pełnej rozdzielczości (do slajdów trafiają zmniejszone z prezentacja/img/ i img-en/)
 screenshots/
+screenshots-en/

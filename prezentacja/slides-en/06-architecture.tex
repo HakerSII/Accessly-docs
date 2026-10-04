@@ -1,0 +1,73 @@
+% Slide 6 – architecture and scaling (criteria: deployment potential and scalability, 20 %; RULES: Design / Technical).
+\begin{frame}{Architecture: data acquisition separated from presentation}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      box/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,text width=23mm,align=center,
+                  font=\tiny,inner sep=1mm,minimum height=7mm},
+      tall/.style={box,minimum height=32mm},
+      head/.style={font=\tiny\bfseries,text=accNavy,anchor=south},
+      ext/.style={draw=accLineStrong,dashed,fill=white,rounded corners=1.2mm,text width=140mm,align=center,
+                  font=\tiny,inner sep=0.9mm},
+      arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt},
+      both/.style={{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
+    % column headers
+    \node[head] at (12.5,46.5) {SOURCES};
+    \node[head] at (42,46.5) {ACQUISITION AND UPDATES};
+    \node[head] at (72,46.5) {STORAGE};
+    \node[head] at (102,46.5) {JSON API};
+    \node[head] at (131.5,46.5) {PRESENTATION};
+    % column 1: sources
+    \node[box] (s1) at (12.5,42) {OpenStreetMap (ODbL)};
+    \node[box] (s2) at (12.5,33.5) {Kraków open data (ArcGIS)};
+    \node[box] (s3) at (12.5,25) {Venue owners};
+    \node[box] (s4) at (12.5,16.5) {Community: confirmations, corrections, barrier reports};
+    % column 2: acquisition
+    \node[box] (i1) at (42,42) {\texttt{build\_osm\_*.py} $\rightarrow$ snapshots in \texttt{data/}};
+    \node[box,minimum height=8mm] (i2) at (42,33) {\texttt{layers.py}: paged fetching, 24-hour cache, background refresh};
+    \node[box,minimum height=12mm] (i3) at (42,20.5) {\texttt{api.py}: owner changes, corrections and votes, moderation; every change goes to the history};
+    % column 3: storage
+    \node[tall] (db) at (72,29) {\textbf{SQLite} (standard library)\\[0.8mm]places \textperiodcentered\ attributes: value, source, date, confirmations, disputes \textperiodcentered\ history \textperiodcentered\ barrier reports and votes \textperiodcentered\ accounts and roles \textperiodcentered\ photos\\[0.8mm]versioned migrations, WAL, transactions};
+    % column 4: API
+    \node[tall] (api) at (102,29) {\textbf{\texttt{server.py} / \texttt{api.py}}\\[0.8mm]\texttt{/api/places} (profile $\rightarrow$ match, status)\\\texttt{/api/layers} \textperiodcentered\ \texttt{/api/reports}\\\texttt{/api/ai} \textperiodcentered\ \texttt{/api/route}\\\texttt{/api/owner} \textperiodcentered\ \texttt{/api/admin}\\[0.8mm]size limits, gzip, roles};
+    % column 5: presentation
+    \node[box] (p1) at (131.5,42) {Web app (phone and desktop), 4~languages};
+    \node[box] (p2) at (131.5,33.5) {Owner panel};
+    \node[box] (p3) at (131.5,25) {Admin panel};
+    \node[box] (p4) at (131.5,16.5) {API clients (planned Open API): city, maps, booking};
+    % arrows
+    \draw[arr] (s1) -- (i1);
+    \draw[arr] (s2) -- (i2);
+    \draw[arr] (s3.east) -- (i3.west |- s3.east);
+    \draw[arr] (s4.east) -- (i3.west |- s4.east);
+    \draw[arr] (i1.east) -- (db.west |- i1.east);
+    \draw[arr] (i2.east) -- (db.west |- i2.east);
+    \draw[arr] (i3.east) -- (db.west |- i3.east);
+    \draw[both] (db) -- (api);
+    \draw[both] (api.east |- p1.west) -- (p1.west);
+    \draw[both] (api.east |- p2.west) -- (p2.west);
+    \draw[both] (api.east |- p3.west) -- (p3.west);
+    \draw[arr] (api.east |- p4.west) -- (p4.west);
+    % optional services
+    \node[ext] at (72,6.5) {\textbf{Optional services, each with a fallback:} Claude API (recommendations; keyword rules without a key) \textperiodcentered\ OpenRouteService (wheelchair routes) \textperiodcentered\ Nominatim (search from the browser, only on submit) \textperiodcentered\ Rampa backend (barrier reports through the \texttt{api.js} adapter)};
+  \end{tikzpicture}
+
+  \vspace{1mm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.325\textwidth}
+      \footnotesize\textbf{Zero dependencies.} Python~3.7+ (standard library only), SQLite, Leaflet; 47~MB Docker image;
+      Ansible + Caddy (HTTPS) on any VPS; 503 tests, no network.
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \footnotesize\textbf{New city.} \texttt{cities/<city>.json} (name, bounds) + OSM extract
+      + city layers (ArcGIS / WFS) in \texttt{layers.py}; \texttt{ACCESSLY\_CITY}.
+    \end{column}
+    \begin{column}{0.325\textwidth}
+      \footnotesize\textbf{New source, category, attribute.} An entry in the catalogue (\texttt{LAYERS}, \texttt{CATEGORIES},
+      \texttt{ATTRIBUTES}) + labels in 4~languages; consistency tests.
+    \end{column}
+  \end{columns}
+
+  \note[item]{Key sentence: importing and refreshing data is a separate step (scripts, snapshots, cache), and the presentation reads only from the database through the API, so the frontend or a source can be swapped without touching the rest.}
+  \note[item]{The Rampa backend (FastAPI, PostgreSQL, observation $\rightarrow$ vote $\rightarrow$ trust model) was built in parallel; the adapter in \texttt{api.js} moves barrier reports there without changes to the app. That is the scaling path for a larger deployment.}
+  \note[item]{Honestly: the city layer configuration lives in code today (\texttt{layers.py}), not in the city file; that is the first step for a second city.}
+\end{frame}

@@ -7,6 +7,7 @@ tryb dzienny, pominięty ekran logowania) i zapisuje widoki jako PNG.
 Użycie (aplikacja musi działać, np. ``scripts/run.sh`` lub ``scripts/docker-run.sh``):
 
     py -3 scripts/screenshots.py --base http://localhost:8000 --out screenshots
+    py -3 scripts/screenshots.py --lang en --out screenshots-en      # interfejs po angielsku
 
 Potem ``scripts/prepare-images.ps1 -Source screenshots`` przycina i zmniejsza pliki
 do ``prezentacja/img/``. Konta demo (``kasia@accessly.test`` – właścicielka Camelot Cafe,
@@ -37,7 +38,7 @@ CHROME_CANDIDATES = [
 ]
 
 PLACE_IDS = {
-    "karta": "p6ef6adf3e3d",  # Przypiecek – bar z kilkoma atrybutami z OSM
+    "karta-miejsca": "p6ef6adf3e3d",  # Przypiecek – bar z kilkoma atrybutami z OSM (prepare-images.ps1 tnie ten plik)
     "karta-wlasciciel": "p35344c730ca",  # Camelot Cafe – miejsce konta demo kasia@
 }
 
@@ -183,6 +184,7 @@ class Browser:
 SETUP = """
 localStorage.setItem('bp.guest', 'true');
 localStorage.setItem('bp.cookiesOk', 'true');
+localStorage.setItem('bp.lang', JSON.stringify(%(lang)s));
 localStorage.setItem('bp.theme', '"light"');
 localStorage.setItem('bp.view', JSON.stringify({center: [50.0617, 19.9373], zoom: 16}));
 localStorage.setItem('bp.needs', JSON.stringify(['wheelchair']));
@@ -218,8 +220,16 @@ def main():
     parser.add_argument("--base", default="http://localhost:8000", help="adres działającej aplikacji")
     parser.add_argument("--out", default="screenshots", help="katalog na pliki PNG")
     parser.add_argument("--chrome", default=None, help="ścieżka do chrome.exe / msedge.exe")
-    parser.add_argument("--ai-query", default="Kawiarnia w centrum, wjadę na wózku, przyda się dostępna toaleta")
+    parser.add_argument("--lang", default="pl", choices=["pl", "en", "de", "uk"], help="język interfejsu (bp.lang)")
+    parser.add_argument("--ai-query", default=None, help="zapytanie do asystenta (domyślnie przykład w języku --lang)")
     args = parser.parse_args()
+    if args.ai_query is None:
+        args.ai_query = {
+            "pl": "Kawiarnia w centrum, wjadę na wózku, przyda się dostępna toaleta",
+            "en": "A café in the centre I can enter in a wheelchair, ideally with an accessible toilet",
+            "de": "Ein Café im Zentrum, in das ich mit dem Rollstuhl komme, am besten mit barrierefreier Toilette",
+            "uk": "Кав'ярня в центрі, куди заїду на візку, бажано з доступним туалетом",
+        }[args.lang]
 
     os.makedirs(args.out, exist_ok=True)
     out = lambda name: os.path.join(args.out, name)  # noqa: E731  # krótki pomocnik ścieżki
@@ -229,7 +239,7 @@ def main():
     try:
         browser.metrics(1440, 900)
         browser.goto(base + "/", 4)
-        browser.evaluate(SETUP)
+        browser.evaluate(SETUP % {"lang": json.dumps(args.lang)})
 
         browser.goto(base + "/", 7)
         browser.shot(out("01-mapa-desktop.png"))
@@ -264,7 +274,7 @@ def main():
         browser.metrics(390, 844, mobile=True, scale=2)
         browser.goto(base + "/", 7)
         browser.shot(out("13-mapa-mobile.png"))
-        browser.goto(f"{base}/#place-{PLACE_IDS['karta']}", 5)
+        browser.goto(f"{base}/#place-{PLACE_IDS['karta-miejsca']}", 5)
         browser.shot(out("14-karta-mobile.png"), 2)
         browser.evaluate(CLICK_TAB % "places")
         browser.shot(out("15-miejsca-mobile.png"), 3)

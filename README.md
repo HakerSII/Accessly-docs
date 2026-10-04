@@ -8,36 +8,50 @@ Kod aplikacji jest w osobnym repozytorium (`Yannie-draft-acihy`, katalog `access
 Accessly-docs/
   README.md                    ten plik: plan prezentacji, mapowanie na kryteria, budowanie
   prezentacja/
-    main.tex                   dokument główny (dane zespołu i adresy do uzupełnienia na górze)
+    main.tex                   dokument główny, wersja polska (dane zespołu i adresy do uzupełnienia na górze)
+    main-en.tex                dokument główny, wersja angielska (te same makra do uzupełnienia)
     beamerthemeaccessly.sty    motyw: kolory z aplikacji (style.css), stopka „n / 10”, makra
-    slides/01-tytul.tex … 10-plan.tex   jeden slajd = jeden plik, każdy z notatkami prelegenta (\note)
-    img/                       zrzuty ekranu (JPEG) i logo
-    build.sh / build.ps1       budowanie PDF (lokalny latexmk albo Docker), --notes = wersja z notatkami
+    slides/01-tytul.tex … 10-plan.tex        slajdy polskie, jeden slajd = jeden plik, z notatkami prelegenta (\note)
+    slides-en/01-title.tex … 10-roadmap.tex  slajdy angielskie (ta sama struktura i numeracja)
+    img/                       zrzuty ekranu z polskim interfejsem (JPEG) i logo
+    img-en/                    zrzuty z angielskim interfejsem (logo i wspólne pliki bierze z img/)
+    build.sh / build.ps1       budowanie PDF (lokalny latexmk albo Docker); --en = wersja angielska, --notes = z notatkami
     .latexmkrc                 latexmk: pdfLaTeX, pliki pośrednie w build/
-    Accessly-Krakow-bez-barier.pdf   gotowy PDF (kopia build/main.pdf)
+    Accessly-Krakow-bez-barier.pdf        gotowy PDF po polsku (kopia build/main.pdf)
+    Accessly-Krakow-without-barriers.pdf  gotowy PDF po angielsku (kopia build/main-en.pdf)
   scripts/
-    screenshots.py             zrzuty ekranu działającej aplikacji (headless Chrome, stdlib)
-    prepare-images.ps1         przycięcie i zmniejszenie zrzutów do prezentacja/img/ (.NET, bez instalacji)
+    screenshots.py             zrzuty ekranu działającej aplikacji (headless Chrome, stdlib); --lang en dla interfejsu angielskiego
+    prepare-images.ps1         przycięcie i zmniejszenie zrzutów do prezentacja/img/ lub img-en/ (.NET, bez instalacji)
 ```
 
 ## Budowanie PDF
 
-Wymagane: beamer, babel-polish, tikz, booktabs, tabularx, lmodern (każda pełna dystrybucja: TeX Live, MiKTeX, Overleaf).
+Wymagane: beamer, babel (polish, english), tikz, booktabs, tabularx, lmodern (każda pełna dystrybucja: TeX Live, MiKTeX, Overleaf).
 
 ```bash
 cd prezentacja
 ./build.sh                 # latexmk -pdf main.tex  →  Accessly-Krakow-bez-barier.pdf
+./build.sh --en            # latexmk -pdf main-en.tex  →  Accessly-Krakow-without-barriers.pdf
 ./build.sh --docker        # bez TeX-a na komputerze: obraz texlive/texlive:latest-small (ok. 630 MB)
-./build.sh --notes         # build/main-notatki.pdf: po każdym slajdzie strona z notatkami prelegenta
+./build.sh --notes         # build/main-notatki.pdf: po każdym slajdzie strona z notatkami prelegenta (--en: build/main-en-notes.pdf)
 ```
 
-Na Windows to samo robi `build.ps1` (`-Docker`, `-Notes`). Overleaf: wgraj katalog `prezentacja/`,
-kompilator pdfLaTeX, plik główny `main.tex`. XeLaTeX / LuaLaTeX też działają (`latexmk -xelatex`);
+Na Windows to samo robi `build.ps1` (`-En`, `-Docker`, `-Notes`). Overleaf: wgraj katalog `prezentacja/`,
+kompilator pdfLaTeX, plik główny `main.tex` lub `main-en.tex`. XeLaTeX / LuaLaTeX też działają (`latexmk -xelatex`);
 wtedy, jeśli w systemie jest czcionka Atkinson Hyperlegible (ta sama co w aplikacji), slajdy jej użyją.
+
+## Wersja angielska
+
+`main-en.tex` + `slides-en/` to ta sama prezentacja po angielsku: te same 10 slajdów, liczby i notatki prelegenta,
+zrzuty ekranu z aplikacją przełączoną na angielski (`img-en/`). Nazwy z interfejsu są cytowane tak, jak tłumaczy je
+aplikacja (`i18n.js`, `i18n.py`): profile Wheelchair / Pram / Low vision / After treatment, przyciski Up to date /
+Outdated / Correct / Add, statusy „Confirmed by the owner”, „From an official source”, „Needs re-checking”, „No data”.
+Panel właściciela i administratora pozostają po polsku (tak działa aplikacja), co notatki slajdu 4 uwzględniają.
+Zmiany treści warto wprowadzać w obu wersjach naraz; pliki slajdów mają tę samą numerację.
 
 ## Do uzupełnienia przed wysłaniem
 
-W `prezentacja/main.tex` na górze:
+W `prezentacja/main.tex` (i odpowiednio `main-en.tex`) na górze:
 
 | Makro | Co wpisać |
 |---|---|
@@ -92,8 +106,10 @@ Stan repozytorium aplikacji z 4 października 2026 (gałąź `main`, po scaleniu
    – otwiera headless Chrome, ustawia profil „Wózek” i widok na Rynek, zapisuje 18 widoków
    (mapa, warstwy, Miejsca, asystent, karty miejsc, zgłoszenie, Zgłoszenia, Profil, widok admina,
    tryb nocny, 3 widoki mobilne, panel właściciela, panel administratora, „Źródła danych”).
+   Z `--lang en --out screenshots-en` robi to samo z interfejsem po angielsku.
 3. `powershell -File scripts/prepare-images.ps1 -Source screenshots -Logo <repo>/assets/accessly_logo_main.png`
-   – przycina kolumnę boczną, zmniejsza do 1600 px i zapisuje JPEG do `prezentacja/img/`.
+   – przycina kolumnę boczną, zmniejsza do 1600 px i zapisuje JPEG do `prezentacja/img/`;
+   dla wersji angielskiej `-Source screenshots-en -Dest prezentacja/img-en`.
 
 Zrzuty w `prezentacja/img/` pochodzą z kontenera `accessly` uruchomionego lokalnie 4 października 2026
 (zgłoszenia barier z backendu Rampa, asystent w trybie reguł – bez klucza API).

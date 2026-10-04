@@ -1,0 +1,70 @@
+% =====================================================================
+%  Accessly – Kraków without barriers · HackYeah 2026 pitch deck (English)
+%  Same structure as main.tex (Polish); at most 10 slides (competition rule).
+%  One slide = one file in slides-en/. Screenshots with the English interface
+%  are in img-en/ (logo and other shared images fall back to img/).
+%
+%  Build:  latexmk -pdf main-en.tex   |   ./build.sh --en [--docker] [--notes]
+% =====================================================================
+\documentclass[aspectratio=169,10pt,t]{beamer}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[english]{babel}
+\else
+  \usepackage{fontspec}
+  \usepackage{polyglossia}
+  \setmainlanguage{english}
+  % The app's typeface (Braille Institute, SIL OFL); Latin Modern Sans when it is not installed.
+  \IfFontExistsTF{Atkinson Hyperlegible Next}{\setsansfont{Atkinson Hyperlegible Next}}{%
+    \IfFontExistsTF{Atkinson Hyperlegible}{\setsansfont{Atkinson Hyperlegible}}{%
+      \setsansfont{Latin Modern Sans}}}
+\fi
+\usepackage{graphicx}
+\graphicspath{{img-en/}{img/}}
+\usepackage{tabularx}
+\usepackage{url}
+\urlstyle{same}
+\usetheme{accessly}
+
+\hypersetup{
+  pdftitle={Accessly – Kraków without barriers (HackYeah 2026)},
+  pdfauthor={Team Accessly},
+  pdfsubject={Prototype of an accessibility guide and barrier map},
+  colorlinks=true, urlcolor=accNavy, linkcolor=accInk,
+}
+
+% ---------- Fill in before submitting ----------
+\newcommand{\TeamName}{Team Accessly}                      % team name
+\newcommand{\TeamId}{Team ID: \ldots}                      % HackTribe team ID
+\urldef{\DemoUrl}\url{https://accessly.example.pl}         % live demo
+\urldef{\RepoUrl}\url{https://github.com/HakerSII/accessly}   % source code
+\urldef{\VideoUrl}\url{https://youtu.be/...}               % video (max 3 min, open repository)
+
+\title[Accessly]{Accessly}
+\subtitle[Kraków without barriers \textperiodcentered\ HackYeah 2026]{Your city. Your needs. Check before you go.}
+\author{\TeamName}
+\date{HackYeah, 3--4 October 2026}
+
+% ./build.sh --en --notes defines \shownotes and appends the speaker notes after every slide.
+\ifdefined\shownotes
+  \setbeameroption{show notes}
+\fi
+
+\begin{document}
+
+\input{slides-en/01-title}
+\input{slides-en/02-problem}
+\input{slides-en/03-prototype}
+\input{slides-en/04-demo}
+\input{slides-en/05-data}
+\input{slides-en/06-architecture}
+\input{slides-en/07-accessibility}
+\input{slides-en/08-security-operations}
+\input{slides-en/09-business-model}
+\input{slides-en/10-roadmap}
+
+\end{document}

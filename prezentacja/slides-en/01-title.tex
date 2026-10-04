@@ -1,0 +1,45 @@
+% Slide 1 – title. Team name, ID and links are set in main-en.tex.
+{
+\setbeamercolor{background canvas}{bg=accNavy}
+\setbeamercolor{normal text}{fg=white}
+\usebeamercolor[fg]{normal text}
+\hypersetup{urlcolor=white}   % links on the navy background; outside this group they return to the main.tex colour
+\begin{frame}[plain]
+  \vspace{6mm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.64\textwidth}
+      \begin{tikzpicture}
+        \node[fill=white,rounded corners=2.5mm,inner sep=1mm] {\includegraphics[height=12mm]{logo}};
+      \end{tikzpicture}
+
+      \vspace{2mm}
+      {\usebeamerfont{title}\color{white}Accessly\par}
+      \vspace{0.5mm}
+      {\Large\bfseries\color{white}Kraków without barriers\par}
+      \vspace{1.5mm}
+      {\color{accSignal}Your city. Your needs. Check before you go.\par}
+      \vspace{3mm}
+      {\small\color{white}
+        A guide to accessible places and a map of barriers in public space.
+        Every piece of information carries its source, date and verification status.\par
+        \vspace{2.5mm}
+        \textbf{\TeamName}\ \textperiodcentered\ \TeamId\par
+        HackYeah 2026 \textperiodcentered\ “Cracow without barriers” challenge\par
+        \vspace{2.5mm}
+        {\footnotesize
+        Demo: \DemoUrl\\
+        Code: \RepoUrl\\
+        Video (3~min): \VideoUrl\par}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \vspace{-1mm}
+      \includegraphics[height=70mm]{mobile-mapa}
+    \end{column}
+  \end{columns}
+
+  \note[item]{One sentence: Accessly does not say “this place is accessible”; it says “this place will work for you”, and shows where we know it from, since when, and how far it can be trusted.}
+  \note[item]{Show the phone next to the laptop: the same prototype runs on both.}
+  \note[item]{Do not read the links out loud; they are in the PDF.}
+\end{frame}
+}

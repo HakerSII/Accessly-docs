@@ -1,0 +1,39 @@
+% Slide 10 – from prototype to service: what exists, what comes next, conditions for a second city (brief, section 6).
+\begin{frame}{From prototype to service}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.45\textwidth}
+      \begin{exampleblock}{What we have today}
+        \footnotesize
+        \begin{itemize}
+          \item A prototype for phone and desktop: 6,545 places, 27 attributes, 11 layers, barrier map, assistant, 4~languages.
+          \item An owner panel and an admin panel (queue, statistics, data gaps).
+          \item Source, date and status on every fact; missing data shown as missing.
+          \item Checked WCAG 2.2 A/AA criteria on the main scenario; 503 tests, Docker, Ansible, HTTPS.
+        \end{itemize}
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.53\textwidth}
+      \begin{block}{Plan for the next 3--6 months}
+        \footnotesize
+        \begin{enumerate}
+          \item \textbf{Pilot} with a disability organisation, 2--3 hotels and cultural institutions;
+                an accessibility audit with users.
+          \item \textbf{Production sign-in} (transactional e-mail, optional OAuth), notifications, offline mode.
+          \item \textbf{AI for checking photos and text}: suggestions to confirm, never facts; the trust engine from Rampa.
+          \item \textbf{Open API and a widget} for owners; integration with booking systems.
+          \item \textbf{Second city:} city file + OSM extract + city layers; prerequisite: open city data (or OSM alone)
+                and a local partner for moderation.
+        \end{enumerate}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{1.5mm}
+  \centering
+  {\bfseries\color{accNavy}Not another static map -- a living, verifiable picture of a city's accessibility.\par}
+  \vspace{0.8mm}
+  \muted{Demo: \DemoUrl\ \textperiodcentered\ Code: \RepoUrl\ \textperiodcentered\ Video: \VideoUrl}
+
+  \note[item]{Close with the sentence on this slide and invite the jury to the table with the phone: let them tap “Report a problem” themselves.}
+  \note[item]{Question about the team after the hackathon: an operator (company / foundation), moderation in the panel, funding from the Pro plan and white-label deployments.}
+  \note[item]{Question about a second city: it needs a name and bounds (the city file), an OSM extract from Geofabrik and, if the city has them, open layers (stops, toilets, parking). Without city data, OSM alone works.}
+\end{frame}

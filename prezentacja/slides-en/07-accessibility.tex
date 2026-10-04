@@ -1,0 +1,40 @@
+% Slide 7 – digital accessibility: what is in place and what still needs work (brief, sections 5 and 6).
+\begin{frame}{Digital accessibility: WCAG 2.2 AA as the goal}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.62\textwidth}
+      \begin{block}{In the prototype (checked on the main scenario)}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Keyboard:} every action is a button or a link; a “Skip to content” link; visible focus
+                that survives the list refresh every 15~s; Esc closes panels.
+          \item \textbf{Screen reader:} landmarks, headings, ARIA labels, short live announcements;
+                the map's description points to the list; the window title follows the view.
+          \item \textbf{Map as text:} the Reports, Places and nearest-layer-items lists;
+                severity by shape and label, not by colour alone.
+          \item \textbf{Contrast and legibility:} colour tokens 4.5:1 (text) and 3:1 (controls) checked by a test;
+                night mode; the Atkinson Hyperlegible typeface; 4~languages.
+          \item \textbf{Forms and touch:} errors in \texttt{role="alert"} naming the field, “Next” is never disabled;
+                targets $\geq$~44~px; the layout works at 400\,\% zoom.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.36\textwidth}
+      \begin{alertblock}{Still to do}
+        \footnotesize
+        \begin{itemize}
+          \item An audit with NVDA / VoiceOver and tests with wheelchair users and people with low vision.
+          \item Keyboard access to map markers (Leaflet); an alternative to placing the pin by panning the map (2.5.7).
+          \item Owner and admin panels to the same standard, and in English.
+          \item An accessibility statement and a conformance report.
+        \end{itemize}
+      \end{alertblock}
+      \vspace{0.5mm}
+      \muted{The “WCAG 2.2 A” and “WCAG 2.2 AA” iterations are covered by the \texttt{AccessibilityTests} suite.}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Show live: Tab through the reports list, Enter opens the details, Esc goes back; switch to night mode.}
+  \note[item]{A “text alternative to the map” is an explicit requirement of the brief; for us the list next to the map is a first-class view, not an add-on.}
+  \note[item]{Contrast: a test computes the ratios from the tokens in \texttt{style.css} for both themes; separators have their own token, control borders and layer symbols have 3:1.}
+  \note[item]{Do not say “we are WCAG compliant”; say “the main scenario meets the A/AA criteria we checked, and here is the list of gaps”.}
+\end{frame}

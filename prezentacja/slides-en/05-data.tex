@@ -1,0 +1,46 @@
+% Slide 5 – data sources, freshness, trustworthiness (criterion: reliability, presentation and updating of data, 15 %).
+\begin{frame}{Data: sources, updates, trustworthiness}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{2.4cm} X X@{}}
+    \toprule
+    Source & What it provides & Updates and fallback when the source is down \\
+    \midrule
+    OpenStreetMap (ODbL) &
+      6,545 places with attributes from tags (\texttt{wheelchair}, \texttt{toilets:wheelchair}, \texttt{changing\_table}\ldots);
+      lifts, kerbs, crossings with tactile paving, luggage storage, A\&E and 24-hour pharmacies &
+      Geofabrik extract $\rightarrow$ \texttt{build\_osm\_*.py} scripts $\rightarrow$ snapshot in the repository
+      (as of 2~Oct 2026, date shown in the app); the import never overwrites values from owners and users \\
+    Kraków open data (ArcGIS, otwartedane.um.krakow.pl) &
+      stops with platform kerb type (3,756), public toilets (50), disabled parking spaces (2,037),
+      bike routes (2,633), bike stands (3,157), bike infrastructure (199) &
+      fetched in pages of 2,000, 24-hour cache, refreshed in the background; when the service is silent:
+      cache $\rightarrow$ repository snapshot with an “as of” date $\rightarrow$ fetch on demand; city attribution on the map \\
+    Venue owner &
+      attribute changes, confirmations, photos, points inside the venue (lifts, toilets, entrances) &
+      visible at once as “Confirmed by the owner”; claiming a profile is approved by a moderator \\
+    Community &
+      Up to date / Outdated / Correct / Add, reviews, questions, photos, barrier reports and votes &
+      corrections accepted by the owner or a moderator; 2~confirmations = “Confirmed by the community”;
+      every change stays in the history \\
+    \bottomrule
+  \end{tabularx}
+
+  \vspace{1.2mm}
+  \textbf{Status of every fact} (computed on every read, never stored once):\\[0.6mm]
+  \pill{accNavy}{Confirmed by the owner} $>$
+  \pill{accOk}{Confirmed by the community ($\geq$ 2)} $>$
+  \pill{accNavy}{From an official source} $>$
+  \pill{accMuted}{Not verified}\\[0.6mm]
+  More “outdated” votes than confirmations, or 365~days without confirmation $\rightarrow$
+  \pill{accPartial}{Needs re-checking}.
+
+  \vspace{1.5mm}
+  \textbf{Rules.} Missing information never means “accessible”; conflicting data is flagged, not averaged; the AI assistant never adds facts.
+  Barrier reports expire (permanent 365~days, lift outages 14, closed entrance 7); “still there” extends, 3~“fixed” votes close.
+
+  \note[item]{Test case required by the brief -- conflicting data: the owner says “step-free”, two people report “outdated” $\rightarrow$ status “Needs re-checking”, the value stays with a warning, both sides are visible in the history.}
+  \note[item]{Case -- source unavailable: the city's ArcGIS service does not respond $\rightarrow$ the app shows the layer from the snapshot with an “as of” date; no screen is ever empty.}
+  \note[item]{Case -- incomplete data: “Meets 1 of 3 of your needs, no data: wide doors” -- the place does not get the “Matches your needs” badge.}
+  \note[item]{We also checked Kraków's GTFS feeds and dane.gov.pl: their accessibility fields are empty and nobody publishes lift outages, which is why outages come from user reports.}
+\end{frame}

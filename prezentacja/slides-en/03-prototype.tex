@@ -1,0 +1,35 @@
+% Slide 3 – what the prototype already does (criterion: quality and completeness of the prototype, 20 %).
+\begin{frame}{A working prototype: a web app for phone and desktop}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.57\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item \textbf{Catalogue of 6,545 places} (OpenStreetMap), 7~categories, \textbf{27 attributes}: steps, ramp, lift,
+              doors $\geq$~90~cm, toilet, changing table, hearing loop, places to rest\ldots
+        \item \textbf{Needs profile} instead of a question about disability: it filters, sorts, marks
+              “Matches your needs” and says what is missing.
+        \item \textbf{Place card:} every fact with its source, date and status; Up to date / Outdated / Correct / Add,
+              a question to the owner, reviews, photos, a wheelchair route.
+        \item \textbf{Barrier map} (a “Waze for accessibility”): 10 report types, blocks / obstacle severity,
+              “still there” / “fixed” votes, automatic expiry.
+        \item \textbf{Natural-language assistant} (Claude with a search tool over the database; keyword rules without
+              a key): it shows only facts from the database.
+        \item \textbf{11 open-data layers}, owner and admin panels, 4~languages, night mode.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.41\textwidth}
+      \screenshot{mapa-desktop}
+      \vspace{0.3mm}
+      \muted{“Wheelchair” profile: places, layers, reported barriers with severity and confirmations.
+        The list next to the map is its text alternative.}
+      \vspace{1.5mm}
+
+      \kpi{6,545}{places from OSM}\hfill\kpi{11}{data layers}\hfill\kpi{503}{tests, offline}
+    \end{column}
+  \end{columns}
+
+  \note[item]{This is not a mock-up: everything on the slide runs from the repository (Python standard library plus plain JavaScript, no dependencies).}
+  \note[item]{Place data from OSM: 1,495 of 6,545 places already have at least one accessibility attribute; the rest show “No data”, and that is exactly what we display.}
+  \note[item]{Layers: stops with platform kerb type, toilets, disabled parking, lifts, kerbs, crossings with tactile paving, bike routes and infrastructure, luggage storage, A\&E and 24-hour pharmacies.}
+  \note[item]{The AI assistant is optional; the demo container runs the keyword mode, so nothing depends on the network.}
+\end{frame}

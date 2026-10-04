@@ -1,0 +1,39 @@
+% Slide 8 – data protection and security; launch and operations outside the City's infrastructure (brief, section 5).
+\begin{frame}{Privacy, security and operations outside the City}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{User data and security}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Without an account:} map, catalogue and barrier reports, anonymously; no IP addresses
+                or device identifiers are stored.
+          \item \textbf{The needs profile is a set of preferences} (steps, lift, quiet), never a diagnosis or
+                disability information, exactly as the brief asks.
+          \item \textbf{Passwordless account:} e-mail + one-time code (15~min, 5~attempts); codes and tokens stored
+                as SHA-256 hashes; HttpOnly, SameSite, Secure cookie; one-click account deletion.
+          \item \textbf{Server:} HTTPS (Caddy, Let's Encrypt), request limits (10~kB, photos 4~MB), user content always
+                escaped (tested), roles checked on every request; privacy policy inside the app.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Launch and operations -- proposal}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Operator:} the Accessly team (company or foundation) or a community partner; the City
+                maintains no database and grants no access to internal systems.
+          \item \textbf{Cost (estimate):} one VPS in the EU at about 60--120~PLN (15--30~EUR) a month, a domain,
+                transactional e-mail; the AI assistant is billed per request (fractions of a cent).
+          \item \textbf{Updates} with one command (Ansible); city data refreshes itself every 24~h,
+                OSM by script once a month; SQLite backups.
+          \item \textbf{Reports and moderation} in the admin panel (queue, claims, corrections);
+                portability: Docker on any infrastructure, open licences listed in the app.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Jury question “what data do you collect?”: without an account, none; with an account, e-mail, an optional display name and the needs profile. The table is in the privacy policy inside the app.}
+  \note[item]{GDPR: the needs profile is a deliberate design decision; the brief explicitly asks not to require disability information.}
+  \note[item]{The amounts are estimates from VPS price lists; do not promise a specific provider.}
+\end{frame}
