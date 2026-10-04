@@ -1,39 +1,51 @@
-% Slide 10 – from prototype to service: what exists, what comes next, conditions for a second city (brief, section 6).
+% Slide 10 – from prototype to service: what exists, what comes next, closing sentence (brief, section 6).
+% Two columns (We have today / Next step) with a “Today → Pilot → Scale” arrow, then a navy mission band and the tagline.
 \begin{frame}{From prototype to service}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.45\textwidth}
-      \begin{exampleblock}{What we have today}
-        \footnotesize
-        \begin{itemize}
-          \item A prototype for phone and desktop: 6,545 places, 27 attributes, 11 layers, barrier map, assistant, 4~languages.
-          \item An owner panel and an admin panel (queue, statistics, data gaps).
-          \item Source, date and status on every fact; missing data shown as missing.
-          \item Checked WCAG 2.2 A/AA criteria on the main scenario; 503 tests, Docker, Ansible, HTTPS.
-        \end{itemize}
-      \end{exampleblock}
-    \end{column}
-    \begin{column}{0.53\textwidth}
-      \begin{block}{Plan for the next 3--6 months}
-        \footnotesize
-        \begin{enumerate}
-          \item \textbf{Pilot} with a disability organisation, 2--3 hotels and cultural institutions;
-                an accessibility audit with users.
-          \item \textbf{Production sign-in} (transactional e-mail, optional OAuth), notifications, offline mode.
-          \item \textbf{AI for checking photos and text}: suggestions to confirm, never facts; the trust engine from Rampa.
-          \item \textbf{Open API and a widget} for owners; integration with booking systems.
-          \item \textbf{Second city:} city file + OSM extract + city layers; prerequisite: open city data (or OSM alone)
-                and a local partner for moderation.
-        \end{enumerate}
-      \end{block}
-    \end{column}
-  \end{columns}
-  \vspace{1.5mm}
   \centering
-  {\bfseries\color{accNavy}Not another static map -- a living, verifiable picture of a city's accessibility.\par}
-  \vspace{0.8mm}
-  \muted{Demo: \DemoUrl\ \textperiodcentered\ Code: \RepoUrl\ \textperiodcentered\ Video: \VideoUrl}
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      col/.style={anchor=north west,text width=66mm,inner sep=0pt,font=\small,text=accInk,align=flush left,
+                  execute at begin node={\hyphenpenalty=10000}},
+      stage/.style={rounded corners=2.2mm,minimum height=5.2mm,inner xsep=3mm,font=\scriptsize\bfseries}]
+    % Stages
+    \node[stage,fill=accOk,text=white,anchor=west] (s1) at (0,1) {Today};
+    \node[stage,fill=accNavy,text=white,anchor=west] (s2) at (78,1) {Pilot};
+    \node[stage,draw=accNavy,text=accNavy,fill=white,anchor=east] (s3) at (144,1) {Scale};
+    \draw[flow] (s1.east) -- (s2.west);
+    \draw[flow] (s2.east) -- (s3.west);
 
-  \note[item]{Close with the sentence on this slide and invite the jury to the table with the phone: let them tap “Report a problem” themselves.}
+    % We have today
+    \node[col,text width=74mm] at (0,-4) {%
+      {\normalsize\bfseries\color{accOk}We have today\par}\vspace{1.2mm}
+      \begin{itemize}\setlength{\itemsep}{0.3mm}
+        \item 6,545 places and 27 accessibility features
+        \item source, date and verification status for every piece of information
+        \item Open Data + Property Owner + Community
+        \item barrier map, AI, 4~languages and a working prototype
+      \end{itemize}};
+
+    % Next step
+    \node[col] at (78,-4) {%
+      {\normalsize\bfseries\color{accNavy}Next step\par}\vspace{1.2mm}
+      \begin{itemize}\setlength{\itemsep}{0.3mm}
+        \item pilot with users and partners
+        \item integrations with hotels, clinics and booking systems
+        \item Open API and more cities
+      \end{itemize}};
+
+    % Mission: the strongest element of the slide
+    \fill[accNavy,rounded corners=3mm] (0,-37) rectangle (144,-50);
+    \node[text width=136mm,align=center,inner sep=0pt,text=white,font=\large\bfseries,
+          execute at begin node={\hyphenpenalty=10000}] at (72,-43.5)
+      {Reliable, up-to-date and verifiable accessibility information --
+       before they arrive.};
+
+    % Final tagline
+    \node[inner sep=0pt,font=\Large\bfseries] at (72,-56.5)
+      {\raisebox{-0.36\height}{\includegraphics[height=12mm]{logo}}\hspace{1.5mm}{\color{accNavy}Accessly} {\color{accMuted}--} {\color{accInk}accessibility information you can trust.}};
+  \end{tikzpicture}
+
+  \note[item]{Close with the sentence in the navy band and invite the jury to the table with the phone: let them tap “Report a problem” themselves.}
   \note[item]{Question about the team after the hackathon: an operator (company / foundation), moderation in the panel, funding from the Pro plan and white-label deployments.}
   \note[item]{Question about a second city: it needs a name and bounds (the city file), an OSM extract from Geofabrik and, if the city has them, open layers (stops, toilets, parking). Without city data, OSM alone works.}
+  \note[item]{The links (demo, code, video) are on the title slide.}
 \end{frame}

@@ -1,39 +1,51 @@
-% Slajd 10 – od prototypu do usługi: co jest, co dalej, warunki kolejnego miasta (pkt 6 wyzwania).
+% Slajd 10 – od prototypu do usługi: co jest, co dalej, zdanie zamykające (pkt 6 wyzwania).
+% Dwie kolumny (Mamy dziś / Kolejny krok) ze strzałką „Dziś → Pilotaż → Skala”, pod nimi granatowy pas z misją i hasło.
 \begin{frame}{Od prototypu do usługi}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.45\textwidth}
-      \begin{exampleblock}{Mamy dziś}
-        \footnotesize
-        \begin{itemize}
-          \item Prototyp na telefon i~komputer: 6\,545 miejsc, 27 atrybutów, 11 warstw, mapa barier, asystent, 4~języki.
-          \item Panel właściciela i~panel administratora (kolejka, statystyki, braki danych).
-          \item Źródło, data i~status przy każdym fakcie; brak danych pokazany jako brak.
-          \item Sprawdzone kryteria WCAG 2.2 A/AA w~głównym scenariuszu; 503 testy, Docker, Ansible, HTTPS.
-        \end{itemize}
-      \end{exampleblock}
-    \end{column}
-    \begin{column}{0.53\textwidth}
-      \begin{block}{Plan na 3--6 miesięcy}
-        \footnotesize
-        \begin{enumerate}
-          \item \textbf{Pilotaż} z~organizacją osób z~niepełnosprawnościami, 2--3 hotelami i~instytucjami kultury;
-                audyt z~użytkownikami.
-          \item \textbf{Produkcyjne logowanie} (poczta, opcjonalnie OAuth), powiadomienia, tryb offline.
-          \item \textbf{AI do weryfikacji zdjęć i~tekstu} -- propozycje do potwierdzenia, nigdy fakty; silnik zaufania z~Rampy.
-          \item \textbf{Open API i~widget} dla właścicieli; integracja z~systemami rezerwacyjnymi.
-          \item \textbf{Drugie miasto:} plik miasta + wyciąg OSM + warstwy miejskie; warunek: otwarte dane (lub OSM)
-                i~lokalny partner do moderacji.
-        \end{enumerate}
-      \end{block}
-    \end{column}
-  \end{columns}
-  \vspace{1.5mm}
   \centering
-  {\bfseries\color{accNavy}Nie kolejna statyczna mapa -- żywy, weryfikowalny obraz dostępności miasta.\par}
-  \vspace{0.8mm}
-  \muted{Demo: \DemoUrl\ \textperiodcentered\ Kod: \RepoUrl\ \textperiodcentered\ Film: \VideoUrl}
+  \begin{tikzpicture}[x=1mm,y=1mm,
+      col/.style={anchor=north west,text width=66mm,inner sep=0pt,font=\small,text=accInk,align=flush left,
+                  execute at begin node={\hyphenpenalty=10000}},
+      stage/.style={rounded corners=2.2mm,minimum height=5.2mm,inner xsep=3mm,font=\scriptsize\bfseries}]
+    % Etapy
+    \node[stage,fill=accOk,text=white,anchor=west] (s1) at (0,1) {Dziś};
+    \node[stage,fill=accNavy,text=white,anchor=west] (s2) at (78,1) {Pilotaż};
+    \node[stage,draw=accNavy,text=accNavy,fill=white,anchor=east] (s3) at (144,1) {Skala};
+    \draw[flow] (s1.east) -- (s2.west);
+    \draw[flow] (s2.east) -- (s3.west);
 
-  \note[item]{Zakończyć zdaniem z~tego slajdu i~zaprosić do stolika z~telefonem – niech jury samo kliknie „Zgłoś problem”.}
+    % Mamy dziś
+    \node[col,text width=74mm] at (0,-4) {%
+      {\normalsize\bfseries\color{accOk}Mamy dziś\par}\vspace{1.2mm}
+      \begin{itemize}\setlength{\itemsep}{0.3mm}
+        \item 6\,545 miejsc i~27 cech dostępności
+        \item źródło, data i~status weryfikacji przy każdej informacji
+        \item Open Data + Property Owner + Community
+        \item mapa barier, AI, 4~języki i~działający prototyp
+      \end{itemize}};
+
+    % Kolejny krok
+    \node[col] at (78,-4) {%
+      {\normalsize\bfseries\color{accNavy}Kolejny krok\par}\vspace{1.2mm}
+      \begin{itemize}\setlength{\itemsep}{0.3mm}
+        \item pilotaż z~użytkownikami i~partnerami
+        \item integracje z~hotelami, klinikami i~systemami rezerwacyjnymi
+        \item Open API i~kolejne miasta
+      \end{itemize}};
+
+    % Misja: najmocniejszy element slajdu
+    \fill[accNavy,rounded corners=3mm] (0,-37) rectangle (144,-50);
+    \node[text width=136mm,align=center,inner sep=0pt,text=white,font=\large\bfseries,
+          execute at begin node={\hyphenpenalty=10000}] at (72,-43.5)
+      {Rzetelna, aktualna i~możliwa do zweryfikowania informacja o~dostępności --
+       zanim pojawią się na miejscu.};
+
+    % Hasło końcowe
+    \node[inner sep=0pt,font=\Large\bfseries] at (72,-56.5)
+      {\raisebox{-0.36\height}{\includegraphics[height=12mm]{logo}}\hspace{1.5mm}{\color{accNavy}Accessly} {\color{accMuted}--} {\color{accInk}informacja o~dostępności, której możesz zaufać.}};
+  \end{tikzpicture}
+
+  \note[item]{Zakończyć zdaniem z~granatowego pasa i~zaprosić do stolika z~telefonem – niech jury samo kliknie „Zgłoś problem”.}
   \note[item]{Pytanie o~zespół po hackathonie: operator (spółka / fundacja), moderacja w~panelu, finansowanie z~planu Pro i~wdrożeń white-label.}
   \note[item]{Pytanie o~drugie miasto: potrzebne są granice i~nazwa (plik miasta), wyciąg OSM z~Geofabrik oraz – jeśli miasto je ma – otwarte warstwy (przystanki, toalety, parkingi). Bez danych miejskich działa sam OSM.}
+  \note[item]{Linki (demo, kod, film) są na slajdzie tytułowym.}
 \end{frame}
