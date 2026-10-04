@@ -1,37 +1,33 @@
-% Slide 7 – digital accessibility: what is in place and what still needs work (brief, sections 5 and 6).
-\begin{frame}{Digital accessibility: WCAG 2.2 AA as the goal}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.62\textwidth}
-      \begin{block}{In the prototype (checked on the main scenario)}
-        \footnotesize
-        \begin{itemize}
-          \item \textbf{Keyboard:} every action is a button or a link; a “Skip to content” link; visible focus
-                that survives the list refresh every 15~s; Esc closes panels.
-          \item \textbf{Screen reader:} landmarks, headings, ARIA labels, short live announcements;
-                the map's description points to the list; the window title follows the view.
-          \item \textbf{Map as text:} the Reports, Places and nearest-layer-items lists;
-                severity by shape and label, not by colour alone.
-          \item \textbf{Contrast and legibility:} colour tokens 4.5:1 (text) and 3:1 (controls) checked by a test;
-                night mode; the Atkinson Hyperlegible typeface; 4~languages.
-          \item \textbf{Forms and touch:} errors in \texttt{role="alert"} naming the field, “Next” is never disabled;
-                targets $\geq$~44~px; the layout works at 400\,\% zoom.
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.36\textwidth}
-      \begin{alertblock}{Still to do}
-        \footnotesize
-        \begin{itemize}
-          \item An audit with NVDA / VoiceOver and tests with wheelchair users and people with low vision.
-          \item Keyboard access to map markers (Leaflet); an alternative to placing the pin by panning the map (2.5.7).
-          \item Owner and admin panels to the same standard, and in English.
-          \item An accessibility statement and a conformance report.
-        \end{itemize}
-      \end{alertblock}
-      \vspace{0.5mm}
-      \muted{The “WCAG 2.2 A” and “WCAG 2.2 AA” iterations are covered by the \texttt{AccessibilityTests} suite.}
-    \end{column}
-  \end{columns}
+% Slide 7 – digital accessibility (brief, sections 5–6: WCAG 2.2 AA target, list of features and gaps).
+% Cards and icons: \accesscard in beamerthemeaccessly.sty.
+\begin{frame}{Accessible from day one}{Goal: WCAG 2.2 AA}
+  \vspace{2mm}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    % Section 1: already working (3 × 2 grid)
+    \node[anchor=south west,inner sep=0pt,font=\small\bfseries,text=accOk] at (0,0.5) {Already working};
+    \accesscard{14.75}{-11.5}{keyboard}{Keyboard navigation}
+    \accesscard{46.75}{-11.5}{speaker}{Screen readers}
+    \accesscard{78.75}{-11.5}{listlines}{Text alternative to the map}
+    \accesscard{14.75}{-32.5}{contrast}{Contrast and legibility}
+    \accesscard{46.75}{-32.5}{zoom}{Large touch targets + 400\,\% zoom}
+    \accesscard{78.75}{-32.5}{bubble}{4~languages}
+
+    % Section 2: next step
+    \node[anchor=south west,inner sep=0pt,font=\small\bfseries,text=accPartial] at (100,0.5) {Next step};
+    \draw[nextpanel] (100,-2) rectangle (144,-42);
+    \node[anchor=north west,text width=38mm,inner sep=0pt,font=\small,text=accInk] at (103,-7.5) {%
+      \begin{itemize}
+        \setlength{\itemsep}{3mm}
+        \item User testing
+        \item NVDA / VoiceOver audit
+        \item Full compliance of the Owner / Admin panels
+      \end{itemize}};
+
+    % Strong closing statement
+    \node[font=\normalsize\bfseries,text=accNavy] at (72,-49.5)
+      {Accessibility is not an add-on -- it is part of Accessly's architecture.};
+  \end{tikzpicture}
 
   \note[item]{Show live: Tab through the reports list, Enter opens the details, Esc goes back; switch to night mode.}
   \note[item]{A “text alternative to the map” is an explicit requirement of the brief; for us the list next to the map is a first-class view, not an add-on.}

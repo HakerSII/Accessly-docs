@@ -165,6 +165,47 @@
     \draw[icon] (0.4mm,-0.5mm) .. controls (1.0mm,-0.1mm) and (2.4mm,-0.1mm) .. (2.9mm,-1.9mm);
   }},
 }
+% Slajd „Dostępność cyfrowa”: karty \accesscard{x}{y}{ikona}{podpis} (ikona na górze, podpis pod nią)
+% i ikony: keyboard, speaker, listlines, contrast, zoom, bubble.
+\tikzset{
+  accesscard/.style={fill=accNavy!7,rounded corners=2mm,minimum width=29.5mm,minimum height=19mm,inner sep=0pt},
+  nextpanel/.style={draw=accPartial,line width=0.8pt,fill=white,rounded corners=2mm},
+  pics/keyboard/.style={code={
+    \draw[icon] (-2.8mm,-1.7mm) rectangle (2.8mm,1.7mm);
+    \foreach \x in {-1.6,0,1.6} { \fill[white] (\x mm,0.6mm) circle (0.35mm); }
+    \draw[icon] (-1.4mm,-0.8mm) -- (1.4mm,-0.8mm);
+  }},
+  pics/speaker/.style={code={
+    \draw[icon] (-2.6mm,-0.9mm) -- (-1.4mm,-0.9mm) -- (0.2mm,-2.1mm) -- (0.2mm,2.1mm) -- (-1.4mm,0.9mm) -- (-2.6mm,0.9mm) -- cycle;
+    \draw[icon] (1.2mm,-1.0mm) arc (-40:40:1.55mm);
+    \draw[icon] (2.0mm,-1.9mm) arc (-40:40:2.9mm);
+  }},
+  pics/listlines/.style={code={
+    \foreach \y in {1.6,0,-1.6} { \fill[white] (-2.2mm,\y mm) circle (0.4mm); \draw[icon] (-1.0mm,\y mm) -- (2.6mm,\y mm); }
+  }},
+  pics/contrast/.style={code={
+    \draw[icon] (0,0) circle (2.4mm);
+    \fill[white] (0,2.4mm) arc (90:270:2.4mm) -- cycle;
+  }},
+  pics/zoom/.style={code={
+    \draw[icon] (-0.6mm,0.6mm) circle (1.9mm);
+    \draw[icon,line width=1.1pt] (0.8mm,-0.8mm) -- (2.5mm,-2.5mm);
+    \draw[icon] (-1.5mm,0.6mm) -- (0.3mm,0.6mm) (-0.6mm,-0.3mm) -- (-0.6mm,1.5mm);
+  }},
+  pics/bubble/.style={code={
+    \draw[icon] (-2.6mm,-0.9mm) -- (-2.6mm,2.1mm) -- (2.6mm,2.1mm) -- (2.6mm,-0.9mm) -- (-0.4mm,-0.9mm) -- (-1.6mm,-2.4mm) -- (-1.6mm,-0.9mm) -- cycle;
+    \draw[icon] (-1.4mm,0.6mm) -- (1.4mm,0.6mm);
+  }},
+}
+\newcommand{\accesscard}[4]{%
+  \node[accesscard] (c) at (#1,#2) {};
+  \node[srcicon,minimum size=7.5mm] (ci) at ($(c.north)+(0,-5.4mm)$) {};
+  \pic at (ci) {#3};
+  \node[text width=27mm,align=center,inner sep=0pt,anchor=north,font=\footnotesize\bfseries,text=accInk,
+        execute at begin node={\hyphenpenalty=10000}]
+    at ($(ci.south)+(0,-1.3mm)$) {#4};
+}
+
 \newcommand{\srccard}[5]{%
   \node[srccard] (#1) at (#2,0) {};
   \node[srcicon] (#1-icon) at ($(#1.west)+(7.5mm,0)$) {};

@@ -1,38 +1,33 @@
-% Slajd 7 – dostępność cyfrowa: wykaz funkcji dostępnych i elementów do dalszych prac (pkt 5 i 6 wyzwania).
-\begin{frame}{Dostępność cyfrowa: cel WCAG 2.2 AA}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.62\textwidth}
-      \begin{block}{Jest w~prototypie (sprawdzone w~głównym scenariuszu)}
-        \footnotesize
-        \begin{itemize}
-          \item \textbf{Klawiatura:} każda akcja to przycisk lub link; link „Przejdź do treści”; widoczny fokus,
-                który nie ginie przy odświeżaniu list co 15~s; Esc zamyka panele.
-          \item \textbf{Czytnik ekranu:} landmarki, nagłówki, etykiety ARIA, krótkie komunikaty „live”;
-                opis mapy odsyła do listy; tytuł okna zmienia się z~widokiem.
-          \item \textbf{Mapa jako tekst:} listy Zgłoszenia, Miejsca i~najbliższych obiektów warstw;
-                waga problemu kształtem i~podpisem, nie tylko kolorem.
-          \item \textbf{Kontrast i~czytelność:} tokeny 4,5:1 (tekst) i~3:1 (kontrolki) sprawdzane testem;
-                tryb nocny; czcionka Atkinson Hyperlegible; 4~języki.
-          \item \textbf{Formularze i~dotyk:} błędy w~\texttt{role="alert"} z~nazwą pola, „Dalej” nie jest blokowane;
-                cele $\geq$~44~px; układ działa do 400\,\% powiększenia.
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.36\textwidth}
-      \begin{alertblock}{Do dalszych prac}
-        \footnotesize
-        \begin{itemize}
-          \item Audyt z~NVDA / VoiceOver i~testy z~użytkownikami na wózkach i~słabowidzącymi.
-          \item Klawiatura po znacznikach mapy (Leaflet); alternatywa dla ustawiania pinezki
-                przesuwaniem mapy (2.5.7).
-          \item Panele właściciela i~administratora w~tym samym standardzie.
-          \item Deklaracja dostępności i~raport zgodności.
-        \end{itemize}
-      \end{alertblock}
-      \vspace{0.5mm}
-      \muted{Iteracje „WCAG 2.2 A” i~„WCAG 2.2 AA” są objęte testami \texttt{AccessibilityTests}.}
-    \end{column}
-  \end{columns}
+% Slajd 7 – dostępność cyfrowa (pkt 5–6 wyzwania: cel WCAG 2.2 AA, wykaz funkcji i braków).
+% Karty i ikony: \accesscard w beamerthemeaccessly.sty.
+\begin{frame}{Dostępność cyfrowa od początku}{Cel: WCAG 2.2 AA}
+  \vspace{2mm}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    % Sekcja 1: już działa (siatka 3 × 2)
+    \node[anchor=south west,inner sep=0pt,font=\small\bfseries,text=accOk] at (0,0.5) {Już działa};
+    \accesscard{14.75}{-11.5}{keyboard}{Obsługa klawiaturą}
+    \accesscard{46.75}{-11.5}{speaker}{Czytniki ekranu}
+    \accesscard{78.75}{-11.5}{listlines}{Tekstowa alternatywa mapy}
+    \accesscard{14.75}{-32.5}{contrast}{Kontrast i~czytelność}
+    \accesscard{46.75}{-32.5}{zoom}{Duże cele dotykowe + zoom 400\,\%}
+    \accesscard{78.75}{-32.5}{bubble}{4~języki}
+
+    % Sekcja 2: kolejny krok
+    \node[anchor=south west,inner sep=0pt,font=\small\bfseries,text=accPartial] at (100,0.5) {Dalszy rozwój};
+    \draw[nextpanel] (100,-2) rectangle (144,-42);
+    \node[anchor=north west,text width=38mm,inner sep=0pt,font=\small,text=accInk] at (103,-7.5) {%
+      \begin{itemize}
+        \setlength{\itemsep}{3mm}
+        \item Testy z~użytkownikami
+        \item Audyt NVDA / VoiceOver
+        \item Pełna zgodność paneli Owner / Admin
+      \end{itemize}};
+
+    % Mocne zdanie na dole
+    \node[font=\normalsize\bfseries,text=accNavy] at (72,-49.5)
+      {Dostępność nie jest dodatkiem -- jest częścią architektury Accessly.};
+  \end{tikzpicture}
 
   \note[item]{Pokazać na żywo: Tab przez listę zgłoszeń, Enter otwiera szczegóły, Esc wraca; przełączyć tryb nocny.}
   \note[item]{„Tekstowa alternatywa mapy” to wymaganie wprost z~wyzwania – u~nas lista obok mapy jest pierwszorzędnym widokiem, nie dodatkiem.}
