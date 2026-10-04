@@ -3,36 +3,37 @@
   \centering
   \begin{tikzpicture}[x=1mm,y=1mm,
       box/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,text width=23mm,align=center,
-                  font=\tiny,inner sep=1.1mm,minimum height=8mm},
+                  font=\tiny,inner sep=1mm,minimum height=7mm},
       tall/.style={box,minimum height=32mm},
       head/.style={font=\tiny\bfseries,text=accNavy,anchor=south},
       ext/.style={draw=accLineStrong,dashed,fill=white,rounded corners=1.2mm,text width=140mm,align=center,
-                  font=\tiny,inner sep=1mm},
-      arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
+                  font=\tiny,inner sep=0.9mm},
+      arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt},
+      both/.style={{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
     % nagłówki kolumn
-    \node[head] at (12.5,47.5) {ŹRÓDŁA};
-    \node[head] at (42,47.5) {POZYSKANIE I~AKTUALIZACJA};
-    \node[head] at (72,47.5) {MAGAZYN};
-    \node[head] at (102,47.5) {API JSON};
-    \node[head] at (131.5,47.5) {PREZENTACJA};
+    \node[head] at (12.5,46.5) {ŹRÓDŁA};
+    \node[head] at (42,46.5) {POZYSKANIE I~AKTUALIZACJA};
+    \node[head] at (72,46.5) {MAGAZYN};
+    \node[head] at (102,46.5) {API JSON};
+    \node[head] at (131.5,46.5) {PREZENTACJA};
     % kolumna 1: źródła
-    \node[box] (s1) at (12.5,43) {OpenStreetMap\\(ODbL, wyciąg Geofabrik)};
-    \node[box] (s2) at (12.5,33) {Otwarte dane Krakowa\\(ArcGIS FeatureServer)};
-    \node[box] (s3) at (12.5,23) {Właściciele obiektów\\(panel właściciela)};
-    \node[box] (s4) at (12.5,13) {Społeczność\\(potwierdzenia, poprawki, zgłoszenia barier)};
+    \node[box] (s1) at (12.5,42) {OpenStreetMap (ODbL)};
+    \node[box] (s2) at (12.5,33.5) {Otwarte dane Krakowa (ArcGIS)};
+    \node[box] (s3) at (12.5,25) {Właściciele obiektów};
+    \node[box] (s4) at (12.5,16.5) {Społeczność: potwierdzenia, poprawki, zgłoszenia barier};
     % kolumna 2: pozyskanie
-    \node[box,minimum height=9mm] (i1) at (42,42.5) {\texttt{build\_osm\_places.py}, \texttt{build\_osm\_layers.py} $\rightarrow$ snapshoty w~\texttt{data/}};
-    \node[box,minimum height=9mm] (i2) at (42,32) {\texttt{layers.py}: pobieranie stronami, pamięć podręczna 24~h, odświeżanie w~tle};
-    \node[box,minimum height=13mm] (i3) at (42,18.5) {\texttt{api.py}: zmiany właścicieli, poprawki i~głosy, moderacja; każda zmiana trafia do historii};
+    \node[box] (i1) at (42,42) {\texttt{build\_osm\_*.py} $\rightarrow$ snapshoty w~\texttt{data/}};
+    \node[box,minimum height=8mm] (i2) at (42,33) {\texttt{layers.py}: pobieranie stronami, pamięć podręczna 24~h, odświeżanie w~tle};
+    \node[box,minimum height=12mm] (i3) at (42,20.5) {\texttt{api.py}: zmiany właścicieli, poprawki i~głosy, moderacja; każda zmiana trafia do historii};
     % kolumna 3: magazyn
-    \node[tall] (db) at (72,28) {\textbf{SQLite} (biblioteka standardowa)\\[1mm]miejsca \textperiodcentered\ atrybuty (wartość, źródło, data, potwierdzenia, zaprzeczenia) \textperiodcentered\ historia \textperiodcentered\ zgłoszenia barier i~głosy \textperiodcentered\ konta i~role \textperiodcentered\ zdjęcia\\[1mm]migracje wersjonowane, WAL, transakcje};
+    \node[tall] (db) at (72,29) {\textbf{SQLite} (biblioteka standardowa)\\[0.8mm]miejsca \textperiodcentered\ atrybuty: wartość, źródło, data, potwierdzenia, zaprzeczenia \textperiodcentered\ historia \textperiodcentered\ zgłoszenia barier i~głosy \textperiodcentered\ konta i~role \textperiodcentered\ zdjęcia\\[0.8mm]migracje wersjonowane, WAL, transakcje};
     % kolumna 4: API
-    \node[tall] (api) at (102,28) {\textbf{\texttt{server.py} / \texttt{api.py}}\\[1mm]\texttt{/api/places} (profil $\rightarrow$ dopasowanie, status)\\\texttt{/api/layers} \textperiodcentered\ \texttt{/api/reports}\\\texttt{/api/ai/recommend} \textperiodcentered\ \texttt{/api/route}\\\texttt{/api/owner} \textperiodcentered\ \texttt{/api/admin}\\[1mm]limity rozmiaru, gzip, dostęp per rola};
+    \node[tall] (api) at (102,29) {\textbf{\texttt{server.py} / \texttt{api.py}}\\[0.8mm]\texttt{/api/places} (profil $\rightarrow$ dopasowanie, status)\\\texttt{/api/layers} \textperiodcentered\ \texttt{/api/reports}\\\texttt{/api/ai} \textperiodcentered\ \texttt{/api/route}\\\texttt{/api/owner} \textperiodcentered\ \texttt{/api/admin}\\[0.8mm]limity rozmiaru, gzip, role};
     % kolumna 5: prezentacja
-    \node[box] (p1) at (131.5,43) {Aplikacja web (telefon i~komputer), 4~języki};
-    \node[box] (p2) at (131.5,33) {Panel właściciela\\(\texttt{owner.html})};
-    \node[box] (p3) at (131.5,23) {Panel administratora\\(\texttt{/admin})};
-    \node[box] (p4) at (131.5,13) {Klienci API: aplikacje miejskie, mapy, rezerwacje (planowane Open API)};
+    \node[box] (p1) at (131.5,42) {Aplikacja web (telefon i~komputer), 4~języki};
+    \node[box] (p2) at (131.5,33.5) {Panel właściciela};
+    \node[box] (p3) at (131.5,25) {Panel administratora};
+    \node[box] (p4) at (131.5,16.5) {Klienci API (planowane Open API): miasto, mapy, rezerwacje};
     % strzałki
     \draw[arr] (s1) -- (i1);
     \draw[arr] (s2) -- (i2);
@@ -41,28 +42,28 @@
     \draw[arr] (i1.east) -- (db.west |- i1.east);
     \draw[arr] (i2.east) -- (db.west |- i2.east);
     \draw[arr] (i3.east) -- (db.west |- i3.east);
-    \draw[arr,{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]}] (db) -- (api);
-    \draw[arr,{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]}] (api.east |- p1.west) -- (p1.west);
-    \draw[arr,{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]}] (api.east |- p2.west) -- (p2.west);
-    \draw[arr,{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]}] (api.east |- p3.west) -- (p3.west);
+    \draw[both] (db) -- (api);
+    \draw[both] (api.east |- p1.west) -- (p1.west);
+    \draw[both] (api.east |- p2.west) -- (p2.west);
+    \draw[both] (api.east |- p3.west) -- (p3.west);
     \draw[arr] (api.east |- p4.west) -- (p4.west);
     % usługi opcjonalne
-    \node[ext] at (72,3.5) {\textbf{Usługi opcjonalne, każda z~działaniem zastępczym:} Claude API (rekomendacje; bez klucza -- reguły słów kluczowych) \textperiodcentered\ OpenRouteService (trasy dla wózka) \textperiodcentered\ Nominatim (wyszukiwanie z~przeglądarki, tylko po zatwierdzeniu) \textperiodcentered\ backend Rampa (zgłoszenia barier przez adapter \texttt{api.js})};
+    \node[ext] at (72,6.5) {\textbf{Usługi opcjonalne, każda z~działaniem zastępczym:} Claude API (rekomendacje; bez klucza -- reguły słów kluczowych) \textperiodcentered\ OpenRouteService (trasy dla wózka) \textperiodcentered\ Nominatim (wyszukiwanie z~przeglądarki, tylko po zatwierdzeniu) \textperiodcentered\ backend Rampa (zgłoszenia barier przez adapter \texttt{api.js})};
   \end{tikzpicture}
 
-  \vspace{1.5mm}
+  \vspace{1mm}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.33\textwidth}
-      \footnotesize\textbf{Zero zależności.} Python~3.7+ (tylko stdlib), SQLite, Leaflet; obraz Docker 47~MB;
-      Ansible + Caddy (automatyczny HTTPS) na dowolny VPS; 503 testy (26~s, bez sieci).
+    \begin{column}{0.325\textwidth}
+      \footnotesize\textbf{Zero zależności.} Python~3.7+ (stdlib), SQLite, Leaflet; obraz Docker 47~MB;
+      Ansible + Caddy (HTTPS) na dowolny VPS; 503 testy bez sieci.
     \end{column}
-    \begin{column}{0.33\textwidth}
-      \footnotesize\textbf{Nowe miasto.} Plik \texttt{cities/<miasto>.json} (nazwa, granice) + wyciąg OSM
-      + specyfikacja warstw miejskich (ArcGIS / WFS) w~\texttt{layers.py}; \texttt{ACCESSLY\_CITY=<miasto>}.
+    \begin{column}{0.325\textwidth}
+      \footnotesize\textbf{Nowe miasto.} \texttt{cities/<miasto>.json} (nazwa, granice) + wyciąg OSM
+      + warstwy miejskie (ArcGIS / WFS) w~\texttt{layers.py}; \texttt{ACCESSLY\_CITY}.
     \end{column}
-    \begin{column}{0.33\textwidth}
+    \begin{column}{0.325\textwidth}
       \footnotesize\textbf{Nowe źródło, kategoria, atrybut.} Wpis w~katalogu (\texttt{LAYERS}, \texttt{CATEGORIES},
-      \texttt{ATTRIBUTES}) + etykiety w~4~językach; testy spójności pilnują frontendu i~serwera.
+      \texttt{ATTRIBUTES}) + etykiety w~4~językach; testy spójności.
     \end{column}
   \end{columns}
 

@@ -5,15 +5,14 @@
       \begin{block}{Dane użytkowników i~bezpieczeństwo}
         \footnotesize
         \begin{itemize}
-          \item \textbf{Bez konta:} mapa, katalog i~zgłaszanie barier -- anonimowo; serwer nie zapisuje adresów IP
-                ani identyfikatorów urządzeń.
-          \item \textbf{Profil potrzeb = preferencje} (schody, winda, cisza), nigdy diagnoza ani informacja
-                o~niepełnosprawności; zapisany w~przeglądarce, z~kontem -- także na serwerze.
-          \item \textbf{Konto bez hasła:} e-mail + jednorazowy kod (15~min, 5~prób); kody i~tokeny tylko jako skróty
-                SHA-256; ciasteczko HttpOnly, SameSite, Secure; usunięcie konta jednym przyciskiem.
-          \item \textbf{Serwer:} HTTPS (Caddy, Let's Encrypt), limity rozmiaru żądań (10~kB, zdjęcia 4~MB),
-                treści użytkowników zawsze escapowane (testy), role sprawdzane przy każdym żądaniu.
-          \item Polityka prywatności i~lista ciasteczek w~aplikacji; zapytania do asystenta AI nie są logowane.
+          \item \textbf{Bez konta:} mapa, katalog i~zgłaszanie barier -- anonimowo, bez zapisu adresów IP
+                i~identyfikatorów urządzeń.
+          \item \textbf{Profil potrzeb to preferencje} (schody, winda, cisza), nigdy diagnoza ani informacja
+                o~niepełnosprawności -- tak, jak wymaga wyzwanie.
+          \item \textbf{Konto bez hasła:} e-mail + jednorazowy kod (15~min, 5~prób); kody i~tokeny jako SHA-256;
+                ciasteczko HttpOnly, SameSite, Secure; usunięcie konta jednym przyciskiem.
+          \item \textbf{Serwer:} HTTPS (Caddy, Let's Encrypt), limity żądań (10~kB, zdjęcia 4~MB), treści użytkowników
+                escapowane (testy), role sprawdzane przy każdym żądaniu; polityka prywatności w~aplikacji.
         \end{itemize}
       \end{block}
     \end{column}
@@ -21,16 +20,14 @@
       \begin{block}{Uruchomienie i~utrzymanie -- propozycja}
         \footnotesize
         \begin{itemize}
-          \item \textbf{Operator:} zespół Accessly (spółka lub fundacja) albo partner społeczny; UMK bez obowiązku
+          \item \textbf{Operator:} zespół Accessly (spółka lub fundacja) albo partner społeczny; UMK bez
                 utrzymywania bazy i~bez dostępu do systemów wewnętrznych.
-          \item \textbf{Hosting (szacunek):} jeden VPS w~UE (2~vCPU, 4~GB) ok.~60--120~zł/mies., domena, poczta
-                transakcyjna; asystent AI rozliczany od zapytania (ułamki grosza); mapa z~OSM.
-          \item \textbf{Aktualizacje:} jedno polecenie (\texttt{scripts/deploy.sh}, Ansible); dane miasta odświeżają się
-                same co 24~h, OSM skryptem (zalecane co miesiąc); kopie zapasowe SQLite \texttt{.backup}.
-          \item \textbf{Zgłoszenia i~moderacja:} kolejka w~panelu administratora (przejęcia lokali, poprawki,
-                nowe miejsca, konta właścicieli), powiadomienia e-mail, statystyki brakujących danych.
-          \item \textbf{Przenośność:} Docker + Ansible na dowolną infrastrukturę; licencje otwarte
-                (ODbL, BSD, PSF, Apache) wymienione w~aplikacji.
+          \item \textbf{Koszt (szacunek):} VPS w~UE ok.~60--120~zł/mies., domena, poczta transakcyjna;
+                asystent AI rozliczany od zapytania (ułamki grosza).
+          \item \textbf{Aktualizacje} jednym poleceniem (Ansible); dane miasta co 24~h automatycznie,
+                OSM skryptem co miesiąc; kopie zapasowe SQLite.
+          \item \textbf{Zgłoszenia i~moderacja} w~panelu administratora (kolejka, przejęcia, poprawki);
+                przenośność: Docker na dowolną infrastrukturę, otwarte licencje wymienione w~aplikacji.
         \end{itemize}
       \end{block}
     \end{column}

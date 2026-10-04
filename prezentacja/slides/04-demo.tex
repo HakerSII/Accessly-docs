@@ -2,38 +2,37 @@
 \begin{frame}{Demo na scenie: Anna na wózku szuka kawiarni w~centrum}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.6\textwidth}
-      \small
+      \footnotesize
       \begin{enumerate}
-        \item \textbf{Potrzeby.} Profil „Wózek”: mapa i~listy pokazują tylko istotne bariery
-              („2 zgłoszenia w~okolicy”), a~miejsca są sortowane według dopasowania.
-        \item \textbf{Pytanie.} „Kawiarnia w~centrum, wjadę na wózku, przyda się dostępna toaleta”
-              $\rightarrow$ ranking z~uzasadnieniem: \emph{Spełnia: wejście bez schodów, toaleta}
-              i~\emph{Brak danych: szerokie drzwi}.
+        \item \textbf{Potrzeby.} Profil „Wózek”: mapa i~listy pokazują tylko istotne bariery,
+              miejsca są sortowane według dopasowania.
+        \item \textbf{Pytanie.} „Kawiarnia w~centrum, wjadę na wózku, przyda się dostępna toaleta” $\rightarrow$
+              ranking z~uzasadnieniem: \emph{Spełnia: bez schodów, toaleta}; \emph{Brak danych: szerokie drzwi}.
         \item \textbf{Karta miejsca.} Wejście bez schodów: \alert{Nie} \textperiodcentered\ OpenStreetMap
               \textperiodcentered\ 2.10.2026 \textperiodcentered\ „Dane z~oficjalnego źródła”.
               Szerokie drzwi: \textbf{Brak danych} $\rightarrow$ „Uzupełnij” albo pytanie do właściciela.
         \item \textbf{Po drodze.} Zgłoszenie „Brak windy” na przystanku: pinezka, typ, waga.
-              Inni głosują „nadal jest” lub „naprawione”; awaria wygasa sama po 14~dniach.
-        \item \textbf{Właściciel.} W~swoim panelu uzupełnia drzwi i~potwierdza dane
-              $\rightarrow$ status „Potwierdzone przez właściciela”; Anna dostaje powiadomienie.
+              Inni głosują „nadal jest” / „naprawione”; awaria wygasa sama po 14~dniach.
+        \item \textbf{Właściciel.} W~panelu uzupełnia drzwi i~potwierdza dane $\rightarrow$
+              „Potwierdzone przez właściciela”; Anna dostaje powiadomienie.
       \end{enumerate}
       \vspace{1mm}
-      \muted{Dane przykładowe są oznaczone: konta demo (\texttt{anna@}, \texttt{kasia@},
-        \texttt{admin@accessly.test}) i~zgłoszenia testowe; widok administratora bez logowania
-        pokazuje wyraźnie „Tryb demo: dane przykładowe”.}
+      \muted{Dane przykładowe są oznaczone: konta demo (\texttt{anna@}, \texttt{kasia@}, \texttt{admin@accessly.test})
+        i~zgłoszenia testowe; widok administratora bez logowania pokazuje „Tryb demo: dane przykładowe”.}
     \end{column}
     \begin{column}{0.38\textwidth}
       \centering
       \screenshot[0.485\textwidth]{asystent-panel}\hfill\screenshot[0.485\textwidth]{karta-panel}
-      \vspace{0.5mm}
-      \muted{Po lewej: rekomendacje z~uzasadnieniem i~brakami. Po prawej: karta miejsca -- „Spełnia 0~z~3 Twoich potrzeb”, każdy atrybut ze źródłem, datą, statusem i~przyciskami Aktualne / Nieaktualne / Popraw.}
+      \vspace{0.3mm}
+      \muted{Po lewej: rekomendacje z~uzasadnieniem i~brakami. Po prawej: karta miejsca -- „Spełnia 0~z~3 Twoich potrzeb”,
+        atrybut ze źródłem, datą, statusem i~przyciskami Aktualne / Nieaktualne / Popraw.}
     \end{column}
   \end{columns}
 
   \note[item]{Czas: ok. 3 minuty. Przed wejściem na scenę: aplikacja otwarta na telefonie i~laptopie, profil „Wózek” zaznaczony, mapa na Rynku (zoom 16).}
   \note[item]{Krok 2: wpisać zapytanie z~przykładu pod polem – wynik jest deterministyczny w~trybie reguł.}
   \note[item]{Krok 3: pokazać palcem trzy rzeczy przy atrybucie: źródło, datę, status. Potem „Brak danych” – to jest nasz najważniejszy komunikat: nie zgadujemy.}
-  \note[item]{Krok 4: zgłoszenie barier można zrobić bez konta; pokazać kształt znacznika (kwadrat = blokuje).}
+  \note[item]{Krok 4: zgłoszenie bariery można zrobić bez konta; pokazać kształt znacznika (kwadrat = blokuje).}
   \note[item]{Krok 5: zalogować się jako \texttt{kasia@accessly.test} (konto demo właścicielki Camelot Cafe) w~/owner.html i~kliknąć „Potwierdź informacje”. Wrócić do karty – status się zmienił.}
   \note[item]{Jeśli padnie sieć: wszystko poza kafelkami mapy działa z~danych lokalnych; pokazać stronę „Źródła danych” z~datami snapshotów.}
 \end{frame}

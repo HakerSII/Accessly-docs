@@ -2,35 +2,34 @@
 \begin{frame}{Działający prototyp: aplikacja webowa na telefon i~komputer}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.57\textwidth}
-      \small
+      \footnotesize
       \begin{itemize}
-        \item \textbf{Katalog 6\,545 miejsc} Krakowa (OpenStreetMap) w~7~kategoriach
-              i~\textbf{27 atrybutów}: schody, podjazd, winda, drzwi $\geq$~90~cm, toaleta, przewijak,
-              pętla indukcyjna, miejsca odpoczynku, parking OzN w~pobliżu, cisza, pies\ldots
-        \item \textbf{Profil potrzeb} zamiast pytania o~niepełnosprawność: filtruje, sortuje,
-              oznacza „Dopasowane do Ciebie” i~mówi, czego brakuje.
-        \item \textbf{Karta miejsca:} każda informacja ze źródłem, datą i~statusem; Aktualne / Nieaktualne /
-              Popraw / Uzupełnij, pytanie do właściciela, opinie, zdjęcia, trasa dla wózka.
-        \item \textbf{Mapa barier} („Yanosik dostępności”): 10 typów zgłoszeń, waga (blokuje / utrudnienie),
+        \item \textbf{Katalog 6\,545 miejsc} (OpenStreetMap), 7~kategorii, \textbf{27 atrybutów}: schody, podjazd, winda,
+              drzwi $\geq$~90~cm, toaleta, przewijak, pętla indukcyjna, odpoczynek, parking OzN, cisza, pies\ldots
+        \item \textbf{Profil potrzeb} zamiast pytania o~niepełnosprawność: filtruje, sortuje, oznacza
+              „Dopasowane do Ciebie” i~mówi, czego brakuje.
+        \item \textbf{Karta miejsca:} każdy fakt ze źródłem, datą i~statusem; Aktualne / Nieaktualne / Popraw / Uzupełnij,
+              pytanie do właściciela, opinie, zdjęcia, trasa dla wózka.
+        \item \textbf{Mapa barier} („Yanosik dostępności”): 10 typów zgłoszeń, waga blokuje / utrudnienie,
               głosy „nadal jest” / „naprawione”, automatyczne wygasanie.
-        \item \textbf{Asystent w~języku naturalnym} (Claude z~narzędziem wyszukiwania w~bazie; bez klucza --
-              reguły słów kluczowych). Pokazuje wyłącznie fakty z~bazy.
-        \item \textbf{11 warstw otwartych danych}, panel właściciela, panel administratora,
-              4~języki, tryb dzienny i~nocny.
+        \item \textbf{Asystent w~języku naturalnym} (Claude z~wyszukiwaniem w~bazie; bez klucza -- reguły):
+              pokazuje wyłącznie fakty z~bazy.
+        \item \textbf{11 warstw otwartych danych}, panel właściciela, panel administratora, 4~języki, tryb nocny.
       \end{itemize}
     \end{column}
     \begin{column}{0.41\textwidth}
       \screenshot{mapa-desktop}
-      \vspace{0.5mm}
-      \muted{Mapa z~profilem „Wózek”: miejsca (grupowane), warstwy miasta i~OSM, zgłoszone bariery
-        z~wagą i~liczbą potwierdzeń. Lista obok mapy to jej tekstowa alternatywa.}
-      \vspace{2mm}
+      \vspace{0.3mm}
+      \muted{Profil „Wózek”: miejsca, warstwy miasta i~OSM, zgłoszone bariery z~wagą i~potwierdzeniami.
+        Lista obok mapy jest jej tekstową alternatywą.}
+      \vspace{1.5mm}
 
-      \kpi{6\,545}{miejsc z~OSM}\hfill\kpi{11}{warstw danych}\hfill\kpi{503}{testów automatycznych}
+      \kpi{6\,545}{miejsc z~OSM}\hfill\kpi{11}{warstw danych}\hfill\kpi{503}{testy, bez sieci}
     \end{column}
   \end{columns}
 
   \note[item]{To nie makieta: wszystko na slajdzie działa w~repozytorium (Python stdlib + czysty JS, bez zależności).}
   \note[item]{Dane o~miejscach z~OSM: 1\,495 z~6\,545 miejsc ma już co najmniej jeden atrybut dostępności; reszta ma „brak danych” – i~tak to pokazujemy.}
+  \note[item]{Warstwy: przystanki z~krawężnikiem peronowym, toalety, parkingi OzN, windy, krawężniki, przejścia z~oznaczeniami dotykowymi, trasy i~infrastruktura rowerowa, przechowalnie bagażu, SOR i~apteki 24~h.}
   \note[item]{Asystent AI jest opcjonalny; w~kontenerze demo działa tryb reguł, więc nic nie zależy od sieci.}
 \end{frame}

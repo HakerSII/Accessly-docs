@@ -64,18 +64,18 @@
 
 % Tytuł slajdu: granatowy, pod nim krótka żółta linia (jak akcent w aplikacji).
 \setbeamertemplate{frametitle}{%
-  \vskip2.5mm
+  \vskip2mm
   {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
   \ifx\insertframesubtitle\@empty\else
     \vskip0.5mm{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
   \fi
-  \vskip1mm{\color{accSignal}\rule{14mm}{1.4pt}}\vskip1.5mm
+  \vskip0.6mm{\color{accSignal}\rule{14mm}{1.4pt}}\vskip0.4mm
 }
 
 % Stopka: nazwa i wydarzenie po lewej, „n / N” po prawej (N = liczba slajdów, limit 10).
 \setbeamertemplate{footline}{%
   \leavevmode
-  \begin{beamercolorbox}[wd=\paperwidth,ht=2.6ex,dp=1.4ex,leftskip=8mm,rightskip=8mm]{footline}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.4ex,dp=1.2ex,leftskip=8mm,rightskip=8mm]{footline}
     \usebeamerfont{footline}\insertshorttitle\ \textperiodcentered\ \insertshortsubtitle
     \hfill\insertframenumber\,/\,\inserttotalframenumber
   \end{beamercolorbox}
@@ -98,8 +98,8 @@
 % \kpi{liczba}{opis} – kafelek ze wskaźnikiem.
 \newcommand{\kpi}[2]{%
   \begin{tikzpicture}
-    \node[fill=accSoft,rounded corners=1.5mm,inner sep=2mm,text width=26mm,align=center]{%
-      {\Large\bfseries\color{accNavy}#1}\\[0.5mm]{\tiny\color{accMuted}#2}};
+    \node[fill=accSoft,rounded corners=1.5mm,inner sep=1.5mm,text width=15mm,align=center]{%
+      {\large\bfseries\color{accNavy}#1}\\[0.3mm]{\tiny\color{accMuted}#2}};
   \end{tikzpicture}}
 
 \mode<all>
