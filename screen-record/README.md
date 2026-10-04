@@ -22,8 +22,8 @@ Wymagania: Python 3.8+ (`py -3` na Windows), Google Chrome lub Microsoft Edge, r
 ładowane z sieci, więc do ładnego nagrania potrzebny jest internet.
 
 ```powershell
-py -3 screen-record/record.py                       # pełna demonstracja wszystkich funkcji (ok. 10 min)
-py -3 screen-record/record.py --preset short        # scenariusz 3-minutowy ze slajdu „Demo” (ok. 4 min)
+py -3 screen-record/record.py                       # cała historia, do 3 minut (limit filmu w zgłoszeniu)
+py -3 screen-record/record.py --preset short        # scenariusz ze slajdu „Demo”, ok. 2 minuty
 py -3 screen-record/record.py --lang en             # interfejs i podpisy po angielsku (panele zostają po polsku)
 py -3 screen-record/record.py --steps login,card    # wybrane kroki; --list-steps wypisuje listę
 py -3 screen-record/record.py --speed 1.3           # szybsze tempo (pauzy krótsze o 30 %)
@@ -53,21 +53,28 @@ W trakcie nagrania nie ruszaj okna przeglądarki ani nie zamykaj karty „Rejest
 tylko karta aplikacji (nie pulpit), więc reszta ekranu może być używana. Ctrl+C przerywa; plik z dotychczasowym
 nagraniem zostaje.
 
-## Co jest w scenariuszu (preset `full`)
+## Co jest w scenariuszu (preset `full`, do 3 minut)
 
-Historia w czterech częściach, 35 kroków, podpisy nad mapą mówią, co się dzieje:
+Jedna historia w czterech częściach, 17 kroków; podpisy nad mapą mówią, co się dzieje. Podpisy są krótkie,
+a pauzy minimalne, bo limit filmu w zgłoszeniu to 3 minuty. Dłuższe wątki (opinie, ulubione, „Szukaj w pobliżu”,
+lista zgłoszeń, nowe miejsce, pomoc medyczna, tryb nocny i języki, strona „Źródła danych”, zdjęcia, pytania do
+właściciela) celowo zostały poza scenariuszem; można je dopisać jako kolejne kroki w `scenario.py`.
 
 | Część | Kroki | Pokazane funkcje |
 |---|---|---|
-| Mieszkanka Anna (wózek) | start, login, profile, map, chip, layers, locate, search | ekran powitalny i polityka ciasteczek, logowanie kodem e-mail, profil potrzeb i preferencje z konta, mapa barier (kształt = waga), chipy potrzeb filtrujące mapę i warstwy, warstwy danych miasta i OSM z listą „Najbliżej na mapie”, lokalizacja, szukanie adresu (Nominatim) |
-| | places_ai, card, reviews, favorite, near, camelot | katalog miejsc i asystent w języku naturalnym, karta miejsca (wartość, źródło, data, status), „Aktualne” → status społeczności, „Uzupełnij” brakujących danych i zmiana na „Spełnia wszystkie Twoje potrzeby”, opinie, ulubione, historia zmian, „Szukaj w pobliżu”, poprawka istniejącej informacji, pytanie do właściciela, zdjęcie do moderacji |
-| | report, detail, list, newplace, help, theme_lang, sources, signout | zgłoszenie bariery w 3 krokach (pinezka, typ, waga, opis, podsumowanie), szczegóły z osią czasu i głosami, lista zgłoszeń i „Moje” z aktywnością, zgłoszenie nowego miejsca, pomoc medyczna (112, SOR, apteki), tryb nocny, 4 języki, strona „Źródła danych”, wylogowanie |
-| Właścicielka Kasia | owner_login … owner_logout | panel właściciela: stan lokalu, akceptacja poprawki Anny, odpowiedź na pytanie, edycja atrybutów, „Potwierdź informacje”, udogodnienia na miejscu (edytor zbiorczy na mapie), zdjęcia, „Najczęściej wyszukiwane”, historia |
-| Administrator | admin_login, admin_queue, admin_logout | panel administracyjny: wskaźniki, mapa aktywności, pokrycie kategorii, kolejka moderacji (uzupełnienia, nowe miejsce, zdjęcie), trend |
-| Anna wraca | anna_back, camelot_after, outro | powiadomienia (odpowiedź, przyjęta poprawka), karta z danymi „Potwierdzone przez właściciela” i udogodnieniami na mapie, plansza końcowa |
+| Mieszkanka Anna (wózek) | start, profile, map, places_ai, card, chat, camelot, report, signout | ekran powitalny, logowanie kodem e-mail, profil z konta i preferencje, mapa barier (kształt = waga) i warstwy danych miasta/OSM, asystent w języku naturalnym, karta miejsca (wartość, źródło, data, status), „Aktualne” → status społeczności, „Uzupełnij” → „Spełnia wszystkie Twoje potrzeby”, czat z asystentem na wdrożonej instancji (`/chat`: model na serwerze Rampa, narzędzia MCP), poprawka istniejącej informacji, zgłoszenie awarii windy w 3 krokach (pinezka, typ, waga, opis, podsumowanie) |
+| Właścicielka Kasia | owner, owner_features, owner_logout | panel właściciela: stan lokalu, akceptacja poprawki Anny, „Potwierdź informacje”, udogodnienie na miejscu dodane kliknięciem w mapę |
+| Administrator | admin, admin_logout | panel administracyjny: wskaźniki, kolejka moderacji (przyjęcie uzupełnienia), trend |
+| Anna wraca | anna_back, camelot_after, outro | powiadomienie o przyjętej poprawce, karta „Potwierdzone przez właściciela” z udogodnieniami na mapie, plansza końcowa |
 
-Preset `short` to scenariusz ze slajdu 4 prezentacji: start, login, profile, places_ai, card, report, signout,
-owner_login, owner_attrs, owner_logout, anna_back, camelot_after, outro.
+Preset `short` to scenariusz ze slajdu 4 prezentacji (ok. 2 minuty): start, profile, places_ai, card, report,
+signout, owner, owner_logout, anna_back, camelot_after, outro.
+
+Krok `chat` przechodzi na chwilę na **wdrożoną instancję** (`--chat-url`, domyślnie
+`https://yannie-draft-acihy.onrender.com/chat`), bo lokalny `main` nie ma strony `/chat` (jest na gałęzi
+`adjust_to_backend`, która rozmawia z asystentem na serwerze Rampa). Skrypt budzi tę instancję w tle już podczas
+zasiewania danych (Render usypia darmowe usługi). Gdy asystent nie jest gotowy albo nie odpowie w `--chat-wait`
+sekund (domyślnie 25), krok pokazuje stronę i wraca; `--no-chat` pomija go.
 
 ## Pliki wynikowe
 
@@ -95,8 +102,10 @@ owner_login, owner_attrs, owner_logout, anna_back, camelot_after, outro.
   się nagrać), wybór pliku przez `Page.setInterceptFileChooserDialog` (bez okna systemowego).
 * **Pozycja**: `Emulation.setGeolocationOverride` ustawia Plac Nowy na Kazimierzu, żeby „Moja lokalizacja”
   działała bez pytania o zgodę i bez GPS.
-* **Sieć**: kafelki mapy, czcionki, Leaflet, Nominatim (szukanie adresu, nazwy miejsc zgłoszeń) i opcjonalnie
-  asystent AI wymagają internetu. Krok `search` bez sieci jest pomijany z wpisem w logu.
+* **Sieć**: kafelki mapy, czcionki, Leaflet, Nominatim (nazwy miejsc zgłoszeń), instancja Render (krok `chat`)
+  i opcjonalnie asystent AI wymagają internetu. Bez sieci krok `chat` wraca po limicie czasu z wpisem w logu.
+* **Nie klikaj paska „udostępniasz tę kartę”** w Chrome ani nie zamykaj karty rejestratora: przycisk „Zatrzymaj”
+  kończy przechwytywanie, a film urywa się w tym miejscu (log: „rejestrator zgłosił błąd: udostępnianie zatrzymane”).
 * **Zmiany w aplikacji**: kroki opierają się na identyfikatorach i atrybutach `data-*` z `index.html`,
   `owner.html` i `admin.html`. Gdy coś się nie znajduje, w logu jest `nie doczekano się: element …` i zrzut
   ekranu; popraw selektor w `scenario.py`.

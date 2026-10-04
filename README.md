@@ -144,11 +144,10 @@ Zrzuty w `prezentacja/img/` i `img-en/` pochodzą z kontenera `accessly` uruchom
 ## Film demonstracyjny (mp4)
 
 `py -3 screen-record/record.py` uruchamia aplikację z czystą bazą, otwiera prawdziwe okno Chrome, przeklikuje
-scenariusz (35 kroków: mieszkanka, właścicielka, administrator, powrót mieszkanki) z podpisami i nagrywa kartę do
-`screen-record/out/<data>/accessly-demo.mp4` (1920×1080, H.264) razem z rozdziałami (`chapters.json`) i napisami
-(`captions.vtt`). `--preset short` daje wersję ze scenariusza poniżej (ok. 4 minuty), `--lang en` wersję
-angielską, `--speed 1.3` szybsze tempo. Szczegóły i lista kroków: `screen-record/README.md`. Film do zgłoszenia
-(max 3 minuty) najlepiej wyciąć z nagrania `short` według `chapters.json`.
+scenariusz (17 kroków, do 3 minut: mieszkanka z czatem na wdrożonej instancji, właścicielka, administrator, powrót mieszkanki) z podpisami i nagrywa
+kartę do `screen-record/out/<data>/accessly-demo.mp4` (1920×1080, H.264) razem z rozdziałami (`chapters.json`)
+i napisami (`captions.vtt`). `--preset short` daje scenariusz ze slajdu poniżej (ok. 2 minuty), `--lang en` wersję
+angielską. Szczegóły i lista kroków: `screen-record/README.md`.
 
 ## Demo na żywo (3 minuty) – skrót
 

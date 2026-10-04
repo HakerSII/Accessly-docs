@@ -94,6 +94,26 @@ OVERLAY_JS = r"""
     list = list.filter((e) => { const r = e.getBoundingClientRect(); return (r.width > 0 || r.height > 0) && !e.closest('[hidden]'); });
     return list[spec.index || 0] || null;
   };
+  window.__demoSettle = (spec) => new Promise((resolve) => {
+    // Przewiń natychmiast (płynne przewijanie dawało wyścig z pomiarem), potem czekaj, aż pozycja nie zmienia się
+    // przez trzy klatki (strona mogła się przerysować), najwyżej 0,8 s.
+    const el = window.__demoFind(spec);
+    if (!el) return resolve(null);
+    const inView = (r) => r.top >= 60 && r.bottom <= innerHeight - 110;
+    const tall = (r) => r.height > innerHeight - 170;
+    const pack = (r) => ({ x: r.left, y: r.top, w: r.width, h: r.height, vw: innerWidth, vh: innerHeight, out: !inView(r) });
+    const first = el.getBoundingClientRect();
+    if (!inView(first) && !tall(first)) el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
+    let last = null, same = 0; const t0 = performance.now();
+    const tick = () => {
+      const r = el.getBoundingClientRect();
+      if (last !== null && Math.abs(r.top - last) < 0.5 && Math.abs(r.left - (window.__demoLastLeft || r.left)) < 0.5) same += 1; else same = 0;
+      last = r.top; window.__demoLastLeft = r.left;
+      if (same >= 2 || performance.now() - t0 > 800) return resolve(pack(r));
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
   window.__demoRect = (spec, mode) => {
     const el = window.__demoFind(spec);
     if (!el) return null;
@@ -168,10 +188,21 @@ class Demo:
         self.sleep(0.3)
 
     def goto(self, path, condition="true", timeout=30):
-        """Przejdź pod adres w aplikacji (ścieżka albo pełny URL) i poczekaj na gotowość."""
+        """Przejdź pod adres (ścieżka w aplikacji albo pełny URL) i poczekaj, aż nowy dokument spełnia warunek.
+
+        Nie czekamy na zdarzenie ``load``: czcionki, CDN i zdalne instancje potrafią opóźnić je o kilkanaście
+        sekund, a interfejs jest gotowy wcześniej. Znacznik w starym dokumencie odróżnia go od nowego.
+        """
         url = path if "://" in path else self.base + path
-        self.tab.navigate(url, timeout=timeout)
-        self.wait_ready(condition, timeout=timeout)
+        try:
+            self.js("window.__demoNavMark = true; 'ok'")
+        except Exception:  # pylint: disable=broad-except  # np. about:blank bez kontekstu: znacznik nie jest potrzebny
+            pass
+        self.tab.call("Page.navigate", url=url)
+        self.wait_for(f"!window.__demoNavMark && !!(document.body && document.readyState !== 'loading' && ({condition}))",
+                      timeout=timeout, desc="wczytanie strony")
+        self.ensure_overlay()
+        self.sleep(0.3)
 
     def reload_wait(self, condition="true", timeout=30):
         """Po przeładowaniu wywołanym przez stronę (np. zmiana języka): poczekaj na nowy dokument i dodaj nakładkę."""
@@ -268,27 +299,19 @@ class Demo:
         time.sleep(0.05)
 
     def rect(self, spec, scroll=True, timeout=10):
-        """Prostokąt elementu po przewinięciu go do widoku i zatrzymaniu przewijania; wyjątek, gdy go nie ma."""
+        """Prostokąt elementu, gdy jest w widoku i nieruchomy (po przewinięciu); wyjątek, gdy go nie ma.
+
+        Pomiar w trakcie płynnego przewijania albo tuż przed jego startem dawał kliknięcia w sąsiednie
+        elementy, dlatego czekamy, aż pozycja nie zmienia się przez trzy klatki (__demoSettle w stronie).
+        """
         spec = _spec(spec)
         self.wait_visible(spec, timeout=timeout)
-        r = self.js(f"window.__demoRect({json.dumps(spec)}, {json.dumps('smooth' if scroll else 'none')})")
+        if not scroll:
+            r = self.js(f"window.__demoRect({json.dumps(spec)}, 'none')")
+        else:
+            r = self.js(f"window.__demoSettle({json.dumps(spec)})", wait=True, timeout=5)
         if not r:
             raise StepError(f"brak elementu {spec}")
-        if r.get("out") and scroll:
-            # Płynne przewijanie trwa: mierz, aż pozycja przestanie się zmieniać (to czekanie nie zależy od tempa).
-            previous = None
-            for _ in range(20):
-                time.sleep(0.1)
-                r = self.js(f"window.__demoRect({json.dumps(spec)}, 'none')")
-                if not r:
-                    raise StepError(f"element zniknął {spec}")
-                if previous and abs(r["y"] - previous) < 0.5:
-                    break
-                previous = r["y"]
-            if r.get("out"):
-                r = self.js(f"window.__demoRect({json.dumps(spec)}, 'instant')")
-                time.sleep(0.15)
-                r = self.js(f"window.__demoRect({json.dumps(spec)}, 'none')") or r
         return r
 
     def hover(self, spec, duration=0.5, pause=0.3):
@@ -316,15 +339,21 @@ class Demo:
         )
         if covered:
             self.js("document.getElementById('__demoCaption').classList.remove('show')")
-            self.click_at(x, y, pause=pause, duration=duration)
+        self.move_to(x, y, duration)
+        again = self.js(f"window.__demoRect({json.dumps(_spec(spec))}, 'none')")
+        if again and (abs(again["x"] - r["x"]) > 2 or abs(again["y"] - r["y"]) > 2):
+            x = again["x"] + again["w"] * dx
+            y = again["y"] + min(again["h"] * dy, 60 if dy == 0.5 else again["h"] * dy)
+            self.move_to(x, y, 0.15)
+        self.click_at(x, y, pause=pause, duration=0)
+        if covered:
             self.js("document.getElementById('__demoCaption').classList.add('show')")
-        else:
-            self.click_at(x, y, pause=pause, duration=duration)
         return r
 
     def click_at(self, x, y, pause=0.5, duration=0.5):
-        """Kliknij w punkt viewportu."""
-        self.move_to(x, y, duration)
+        """Kliknij w punkt viewportu (``duration`` 0: kursor już tam jest)."""
+        if duration:
+            self.move_to(x, y, duration)
         self.js("window.__demoClick && window.__demoClick()")
         self._mouse("mousePressed", x, y, button="left", clickCount=1, buttons=1)
         time.sleep(0.07)

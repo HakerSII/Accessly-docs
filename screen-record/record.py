@@ -15,8 +15,8 @@ Co robi:
 
 Użycie (z dowolnego katalogu; Python 3.8+, Chrome lub Edge):
 
-    py -3 screen-record/record.py                      # pełna demonstracja, ok. 10 min
-    py -3 screen-record/record.py --preset short       # scenariusz 3-minutowy ze slajdu „Demo”
+    py -3 screen-record/record.py                      # cała historia, do 3 min
+    py -3 screen-record/record.py --preset short       # scenariusz ze slajdu „Demo”, ok. 2 min
     py -3 screen-record/record.py --lang en            # interfejs i podpisy po angielsku
     py -3 screen-record/record.py --steps login,card   # wybrane kroki (--list-steps pokazuje listę)
     py -3 screen-record/record.py --base http://localhost:8000   # działająca instancja zamiast własnego serwera
@@ -125,7 +125,7 @@ def parse_args():
     p.add_argument("--out", default=os.path.join(HERE, "out"), help="katalog na nagrania (domyślnie screen-record/out)")
     p.add_argument("--name", default=None, help="nazwa pliku filmu bez rozszerzenia (domyślnie accessly-demo)")
     p.add_argument("--lang", default="pl", choices=["pl", "en"], help="język interfejsu i podpisów")
-    p.add_argument("--preset", default="full", choices=sorted(scenario.PRESETS), help="full: wszystkie funkcje; short: scenariusz 3-minutowy")
+    p.add_argument("--preset", default="full", choices=sorted(scenario.PRESETS), help="full: cała historia (do 3 min); short: scenariusz ze slajdu „Demo” (ok. 2 min)")
     p.add_argument("--steps", default=None, help="własna lista kroków po przecinku (zamiast presetu)")
     p.add_argument("--list-steps", action="store_true", help="wypisz kroki i zakończ")
     p.add_argument("--speed", type=float, default=1.0, help="tempo: 1 = normalne, 1.5 = szybciej, 0.8 = wolniej")
@@ -137,6 +137,10 @@ def parse_args():
     p.add_argument("--screen-name", default="Entire screen", help="nazwa źródła przy --capture screen (np. 'Screen 1')")
     p.add_argument("--no-captions", action="store_true", help="bez podpisów na filmie (zostają w captions.vtt)")
     p.add_argument("--no-ai", action="store_true", help="nie przekazuj klucza AI: asystent w trybie reguł (deterministyczny)")
+    p.add_argument("--chat-url", default="https://yannie-draft-acihy.onrender.com/chat",
+                   help="adres strony czatu z asystentem na wdrożonej instancji (krok „chat”; lokalny main nie ma /chat)")
+    p.add_argument("--no-chat", action="store_true", help="pomiń krok z czatem")
+    p.add_argument("--chat-wait", type=int, default=25, help="ile sekund czekać na gotowość czatu i na odpowiedź (domyślnie 25)")
     p.add_argument("--no-record", action="store_true", help="tylko przeklikaj scenariusz, bez nagrywania")
     p.add_argument("--no-remux", action="store_true", help="nie przepakowuj MP4 przez ffmpeg, nawet gdy jest w PATH")
     p.add_argument("--keep-open", action="store_true", help="zostaw przeglądarkę i serwer po zakończeniu (Enter zamyka)")
@@ -233,6 +237,19 @@ def seed(base, ids, log):
     except (RuntimeError, SystemExit) as e:
         log(f"dane Piotra nie zasiane ({e})")
     return reports
+
+
+def warm_up(chat_url, log):
+    """Obudź wdrożoną instancję (Render usypia darmowe usługi): strona czatu, jej /api/config i status asystenta."""
+    root = chat_url.rsplit("/", 1)[0]
+    try:
+        urllib.request.urlopen(chat_url, timeout=90).read()
+        cfg = json.load(urllib.request.urlopen(root + "/api/config", timeout=90))
+        api = cfg.get("apiBase") or root
+        status = json.load(urllib.request.urlopen(api + "/api/v1/ai/chat/status", timeout=90))
+        log(f"czat na {root}: asystent {status.get('state')} ({status.get('model')})")
+    except Exception as e:  # pylint: disable=broad-except  # rozgrzewka jest tylko pomocą; krok czatu i tak ma własne limity
+        log(f"czat: rozgrzewka nieudana ({e})")
 
 
 def chrome_args(a, width, height, left, top):
@@ -413,7 +430,9 @@ def main():  # pylint: disable=too-many-locals,too-many-statements,too-many-bran
         reports = seed(base, ids, log)
         photo = make_photo(os.path.join(run_dir, "zdjecie-wejscia.png"))
         ctx = {"base": base, "ids": ids, "reports": reports, "photo": photo, "lang": a.lang, "ai": config.get("ai", "rules"),
-               "routing": config.get("routing", False)}
+               "routing": config.get("routing", False), "chat_url": "" if a.no_chat else a.chat_url, "chat_wait": a.chat_wait}
+        if ctx["chat_url"]:
+            threading.Thread(target=warm_up, args=(ctx["chat_url"], log), daemon=True).start()
 
         profile = tempfile.mkdtemp(prefix="accessly-rec-")
         browser = cdp.Browser(a.chrome or cdp.find_chrome(), profile, chrome_args(a, width, height, left, top))
@@ -457,7 +476,7 @@ def main():  # pylint: disable=too-many-locals,too-many-statements,too-many-bran
         app.call("Page.bringToFront")
         demo.t0 = time.monotonic()
         app.evaluate("window.show && window.show()")
-        demo.sleep(3.0)  # plansza tytułowa
+        demo.sleep(2.5)  # plansza tytułowa
         iw, ih = app.evaluate("[innerWidth, innerHeight]")
         log(f"viewport podczas nagrania: {iw}x{ih}")
         demo.ensure_overlay()
@@ -480,8 +499,10 @@ def main():  # pylint: disable=too-many-locals,too-many-statements,too-many-bran
                     demo.ensure_overlay()
                 except Exception:  # pylint: disable=broad-except  # próba powrotu do normalnego stanu
                     pass
-            if recorder and recorder.state().get("error"):
-                log(f"rejestrator zgłosił błąd: {recorder.state()['error']}")
+            if recorder and recorder.state().get("error") and not steps_run.get("capture_lost"):
+                steps_run["capture_lost"] = recorder.state()["error"]
+                log(f"UWAGA: rejestrator zgłosił błąd „{steps_run['capture_lost']}”. Przechwytywanie karty zostało zatrzymane"
+                    " (przycisk „Zatrzymaj” na pasku Chrome albo zamknięta karta rejestratora?) – film jest urwany w tym miejscu.")
         duration = time.monotonic() - demo.t0
         time.sleep(1.0)
 
@@ -496,11 +517,13 @@ def main():  # pylint: disable=too-many-locals,too-many-statements,too-many-bran
         log(f"rozdziały: {os.path.join(run_dir, 'chapters.json')}; napisy: captions.vtt")
         if steps_run["failed"]:
             log("kroki z błędami: " + ", ".join(f["step"] for f in steps_run["failed"]))
+        if steps_run.get("capture_lost"):
+            log("UWAGA: nagranie niepełne – przechwytywanie przerwano w trakcie; uruchom ponownie i nie dotykaj paska udostępniania w Chrome.")
         if video:
             log(f"FILM: {video}")
         if a.keep_open:
             input("Przeglądarka i serwer działają; Enter zamyka. ")
-        return 1 if steps_run["failed"] else 0
+        return 1 if steps_run["failed"] or steps_run.get("capture_lost") else 0
     finally:
         if browser:
             browser.close()
