@@ -206,6 +206,52 @@
     at ($(ci.south)+(0,-1.3mm)$) {#4};
 }
 
+% Slajd „Prywatność i proste utrzymanie”: karty z wierszami \inforow{x}{y}{ikona}{tekst}
+% i ikony: person, key, lock, cloud, refresh, box, coin, shieldcheck.
+\tikzset{
+  infocard/.style={fill=accNavy!7,rounded corners=2.5mm},
+  pics/person/.style={code={
+    \draw[icon] (0,1.1mm) circle (1.0mm);
+    \draw[icon] (-1.9mm,-2.1mm) arc (180:0:1.9mm and 2.0mm);
+  }},
+  pics/key/.style={code={
+    \draw[icon] (-1.2mm,0) circle (1.1mm);
+    \draw[icon] (-0.1mm,0) -- (2.4mm,0) (1.5mm,0) -- (1.5mm,-0.9mm) (2.4mm,0) -- (2.4mm,-0.9mm);
+  }},
+  pics/lock/.style={code={
+    \draw[icon] (-1.7mm,-2.0mm) rectangle (1.7mm,0.3mm);
+    \draw[icon] (-1.0mm,0.3mm) -- (-1.0mm,1.0mm) arc (180:0:1.0mm) -- (1.0mm,0.3mm);
+  }},
+  pics/cloud/.style={code={
+    \draw[icon] (-2.2mm,-1.4mm) -- (2.0mm,-1.4mm) arc (-90:90:0.9mm) arc (0:160:1.3mm) arc (20:180:1.1mm)
+      arc (90:270:0.8mm) -- cycle;
+  }},
+  pics/refresh/.style={code={
+    \draw[icon] (1.7mm,1.0mm) arc (30:330:2.0mm);
+    \draw[icon] (1.7mm,1.0mm) -- (1.9mm,2.2mm) (1.7mm,1.0mm) -- (0.5mm,1.3mm);
+  }},
+  pics/box/.style={code={
+    \draw[icon] (-2.2mm,-1.8mm) rectangle (2.2mm,1.4mm);
+    \draw[icon] (-2.2mm,1.4mm) -- (-1.3mm,2.3mm) -- (2.9mm,2.3mm) -- (2.2mm,1.4mm);
+    \draw[icon] (-0.8mm,-0.2mm) -- (0.8mm,-0.2mm);
+  }},
+  pics/coin/.style={code={
+    \draw[icon] (0,0) circle (2.3mm);
+    \node[text=white,font=\fontsize{5.5}{5.5}\selectfont\bfseries,inner sep=0pt] at (0,0) {zł};
+  }},
+  pics/shieldcheck/.style={code={
+    \draw[icon] (0,2.3mm) -- (2.0mm,1.5mm) -- (2.0mm,-0.2mm) .. controls (2.0mm,-1.5mm) .. (0,-2.4mm)
+      .. controls (-2.0mm,-1.5mm) .. (-2.0mm,-0.2mm) -- (-2.0mm,1.5mm) -- cycle;
+    \draw[icon] (-0.9mm,0) -- (-0.2mm,-0.8mm) -- (1.0mm,0.7mm);
+  }},
+}
+\newcommand{\inforow}[4]{%
+  \node[srcicon,minimum size=6.4mm] (ri) at (#1,#2) {};
+  \pic[scale=0.68,transform shape] at (ri) {#3};
+  \node[anchor=west,text width=53mm,align=flush left,inner sep=0pt,font=\small,text=accInk,
+        execute at begin node={\hyphenpenalty=10000}] at ($(ri.east)+(2.5mm,0)$) {#4};
+}
+
 \newcommand{\srccard}[5]{%
   \node[srccard] (#1) at (#2,0) {};
   \node[srcicon] (#1-icon) at ($(#1.west)+(7.5mm,0)$) {};

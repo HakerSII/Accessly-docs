@@ -1,37 +1,30 @@
 % Slajd 8 – ochrona danych i bezpieczeństwo oraz uruchomienie i utrzymanie poza UMK (pkt 5 wyzwania).
-\begin{frame}{Prywatność, bezpieczeństwo i~utrzymanie poza UMK}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.49\textwidth}
-      \begin{block}{Dane użytkowników i~bezpieczeństwo}
-        \footnotesize
-        \begin{itemize}
-          \item \textbf{Bez konta:} mapa, katalog i~zgłaszanie barier -- anonimowo, bez zapisu adresów IP
-                i~identyfikatorów urządzeń.
-          \item \textbf{Profil potrzeb to preferencje} (schody, winda, cisza), nigdy diagnoza ani informacja
-                o~niepełnosprawności -- tak, jak wymaga wyzwanie.
-          \item \textbf{Konto bez hasła:} e-mail + jednorazowy kod (15~min, 5~prób); kody i~tokeny jako SHA-256;
-                ciasteczko HttpOnly, SameSite, Secure; usunięcie konta jednym przyciskiem.
-          \item \textbf{Serwer:} HTTPS (Caddy, Let's Encrypt), limity żądań (10~kB, zdjęcia 4~MB), treści użytkowników
-                escapowane (testy), role sprawdzane przy każdym żądaniu; polityka prywatności w~aplikacji.
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.49\textwidth}
-      \begin{block}{Uruchomienie i~utrzymanie -- propozycja}
-        \footnotesize
-        \begin{itemize}
-          \item \textbf{Operator:} zespół Accessly (spółka lub fundacja) albo partner społeczny; UMK bez
-                utrzymywania bazy i~bez dostępu do systemów wewnętrznych.
-          \item \textbf{Koszt (szacunek):} VPS w~UE ok.~60--120~zł/mies., domena, poczta transakcyjna;
-                asystent AI rozliczany od zapytania (ułamki grosza).
-          \item \textbf{Aktualizacje} jednym poleceniem (Ansible); dane miasta co 24~h automatycznie,
-                OSM skryptem co miesiąc; kopie zapasowe SQLite.
-          \item \textbf{Zgłoszenia i~moderacja} w~panelu administratora (kolejka, przejęcia, poprawki);
-                przenośność: Docker na dowolną infrastrukturę, otwarte licencje wymienione w~aplikacji.
-        \end{itemize}
-      \end{block}
-    \end{column}
-  \end{columns}
+% Dwie karty z wierszami ikona + tekst: \inforow i ikony w beamerthemeaccessly.sty.
+\begin{frame}{Prywatność i~proste utrzymanie}
+  \vspace{3mm}
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    % Karta 1: privacy by design
+    \fill[infocard] (0,0) rectangle (70,-46);
+    \node[anchor=north west,inner sep=0pt,font=\normalsize\bfseries,text=accNavy] at (5,-4) {Privacy by design};
+    \inforow{8.5}{-14}{person}{Korzystanie bez konta i~anonimowe zgłoszenia}
+    \inforow{8.5}{-23}{listlines}{Profil potrzeb bez danych medycznych i~diagnoz}
+    \inforow{8.5}{-32}{key}{Bezpieczne logowanie bez hasła}
+    \inforow{8.5}{-40.5}{lock}{HTTPS, role i~kontrola dostępu}
+
+    % Karta 2: łatwe wdrożenie i utrzymanie
+    \fill[infocard] (74,0) rectangle (144,-46);
+    \node[anchor=north west,inner sep=0pt,font=\normalsize\bfseries,text=accNavy] at (79,-4) {Łatwe wdrożenie i~utrzymanie};
+    \inforow{82.5}{-13}{cloud}{Działa poza infrastrukturą UMK}
+    \inforow{82.5}{-20.2}{refresh}{Automatyczne aktualizacje danych}
+    \inforow{82.5}{-27.4}{box}{Docker -- wdrożenie na dowolnym VPS}
+    \inforow{82.5}{-34.6}{coin}{Hosting: ok.~60--120~zł / miesiąc}
+    \inforow{82.5}{-41.8}{shieldcheck}{Moderacja w~panelu administratora}
+
+    % Mocne zdanie na dole
+    \node[font=\normalsize\bfseries,text=accNavy,text width=144mm,align=center,inner sep=0pt] at (72,-52.5)
+      {Minimum danych użytkownika. Minimum kosztów utrzymania. Maksimum przenośności.};
+  \end{tikzpicture}
 
   \note[item]{Pytanie jury „jakie dane zbieracie?”: bez konta – żadnych; z~kontem – e-mail, opcjonalna nazwa, profil potrzeb. Tabela w~polityce prywatności w~aplikacji.}
   \note[item]{RODO: profil potrzeb to świadoma decyzja projektowa – wyzwanie wprost prosi, by nie wymagać informacji o~niepełnosprawności.}
