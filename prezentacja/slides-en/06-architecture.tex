@@ -1,13 +1,15 @@
 % Slide 6 – architecture and scaling (criteria: deployment potential and scalability, 20 %; RULES: Design / Technical).
 \begin{frame}{Architecture: data acquisition separated from presentation}
   \centering
-  \begin{tikzpicture}[x=1mm,y=1mm,
+  \begin{tikzpicture}[x=1mm,y=1.32mm,
       box/.style={draw=accLineStrong,fill=accSoft,rounded corners=1.2mm,text width=23mm,align=center,
-                  font=\tiny,inner sep=1mm,minimum height=7mm},
-      tall/.style={box,minimum height=32mm},
-      head/.style={font=\tiny\bfseries,text=accNavy,anchor=south},
-      ext/.style={draw=accLineStrong,dashed,fill=white,rounded corners=1.2mm,text width=140mm,align=center,
-                  font=\tiny,inner sep=0.9mm},
+                  font=\fontsize{6.3}{7.6}\selectfont,execute at begin node={\hyphenpenalty=10000},
+                  inner sep=1mm,minimum height=8.5mm},
+      tall/.style={box,minimum height=42mm},
+      head/.style={font=\scriptsize\bfseries,text=accNavy,anchor=south},
+      ext/.style={draw=accLineStrong,dashed,fill=white,rounded corners=1.2mm,text width=142mm,align=center,
+                  font=\fontsize{6.3}{7.6}\selectfont,execute at begin node={\hyphenpenalty=10000},
+                  inner sep=1.2mm},
       arr/.style={-{Stealth[length=1.5mm]},accNavy,line width=0.5pt},
       both/.style={{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]},accNavy,line width=0.5pt}]
     % column headers
@@ -50,22 +52,6 @@
     % optional services
     \node[ext] at (72,6.5) {\textbf{Optional services, each with a fallback:} Claude API (recommendations; keyword rules without a key) \textperiodcentered\ OpenRouteService (wheelchair routes) \textperiodcentered\ Nominatim (search from the browser, only on submit) \textperiodcentered\ Rampa backend (barrier reports through the \texttt{api.js} adapter)};
   \end{tikzpicture}
-
-  \vspace{1mm}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.325\textwidth}
-      \footnotesize\textbf{Zero dependencies.} Python~3.7+ (standard library only), SQLite, Leaflet; 47~MB Docker image;
-      Ansible + Caddy (HTTPS) on any VPS; 503 tests, no network.
-    \end{column}
-    \begin{column}{0.325\textwidth}
-      \footnotesize\textbf{New city.} \texttt{cities/<city>.json} (name, bounds) + OSM extract
-      + city layers (ArcGIS / WFS) in \texttt{layers.py}; \texttt{ACCESSLY\_CITY}.
-    \end{column}
-    \begin{column}{0.325\textwidth}
-      \footnotesize\textbf{New source, category, attribute.} An entry in the catalogue (\texttt{LAYERS}, \texttt{CATEGORIES},
-      \texttt{ATTRIBUTES}) + labels in 4~languages; consistency tests.
-    \end{column}
-  \end{columns}
 
   \note[item]{Key sentence: importing and refreshing data is a separate step (scripts, snapshots, cache), and the presentation reads only from the database through the API, so the frontend or a source can be swapped without touching the rest.}
   \note[item]{The Rampa backend (FastAPI, PostgreSQL, observation $\rightarrow$ vote $\rightarrow$ trust model) was built in parallel; the adapter in \texttt{api.js} moves barrier reports there without changes to the app. That is the scaling path for a larger deployment.}
