@@ -44,8 +44,16 @@ PLACE_IDS = {
 }
 
 # Preferencje, które to miejsce spełnia w całości: karta pokazuje zielone „Spełnia wszystkie Twoje potrzeby”
-# (slajd tytułowy ma pokazywać udogodnienia, nie bariery).
+# (slajd tytułowy i demo mają pokazywać udogodnienia, nie bariery). Profil „Wózek” wymaga też szerokości drzwi,
+# której w danych OSM nie ma, więc dawałby „Spełnia 2 z 3”.
 POSITIVE_PREFS = ["step_free", "accessible_toilet", "disabled_parking"]
+POSITIVE_VIEW = {"center": [50.0510, 19.9460], "zoom": 16}  # Kazimierz, gdzie jest to miejsce
+POSITIVE_QUERY = {
+    "pl": "Restauracja na Kazimierzu bez schodów, z dostępną toaletą i parkingiem",
+    "en": "A restaurant in Kazimierz without steps, with an accessible toilet and parking",
+    "de": "Ein Restaurant in Kazimierz ohne Stufen, mit barrierefreier Toilette und Parkplatz",
+    "uk": "Ресторан на Казімежі без сходів, з доступним туалетом і парковкою",
+}
 
 
 class WebSocket:
@@ -293,7 +301,29 @@ def main():
         browser.shot(out("14-karta-pozytywna-mobile.png"), 2)
         browser.evaluate("localStorage.setItem('bp.needs', JSON.stringify(['wheelchair'])); localStorage.removeItem('bp.prefs'); 'ok'")
 
+        # Demo z pozytywnym wynikiem (slajd 4): preferencje zamiast profilu, widok na Kazimierz, zapytanie,
+        # na które tryb reguł odpowiada pełnym dopasowaniem, i karta tego miejsca.
         browser.metrics(1440, 900)
+        browser.goto(base + "/", 4)
+        browser.evaluate(
+            "localStorage.setItem('bp.needs', '[]'); localStorage.setItem('bp.prefs', %s);"
+            "localStorage.setItem('bp.view', %s); 'ok'"
+            % (json.dumps(json.dumps(POSITIVE_PREFS)), json.dumps(json.dumps(POSITIVE_VIEW)))
+        )
+        browser.goto(base + "/", 7)
+        browser.evaluate(CLICK_TAB % "places")
+        browser.evaluate(
+            "document.getElementById('aiInput').value = %s; document.getElementById('aiSubmit').click()"
+            % json.dumps(POSITIVE_QUERY[args.lang])
+        )
+        browser.shot(out("04-asystent-pozytywny-desktop.png"), 10)
+        browser.goto(f"{base}/#place-{PLACE_IDS['karta-pozytywna']}", 5)
+        browser.shot(out("05-karta-pozytywna-desktop.png"), 2)
+        browser.evaluate(
+            "localStorage.setItem('bp.needs', JSON.stringify(['wheelchair'])); localStorage.removeItem('bp.prefs');"
+            "localStorage.setItem('bp.view', JSON.stringify({center: [50.0617, 19.9373], zoom: 16})); 'ok'"
+        )
+
         browser.goto(base + "/", 4)
         print("logowanie kasia@:", browser.evaluate(SIGN_IN % {"email": "kasia@accessly.test"}, wait=True))
         browser.goto(base + "/owner.html", 6)

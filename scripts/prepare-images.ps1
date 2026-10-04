@@ -8,14 +8,18 @@
   Katalog docelowy (domyślnie prezentacja/img).
 .PARAMETER Logo
   Plik logo (PNG) kopiowany i zmniejszany do img/logo.png.
+.PARAMETER Lang
+  Język interfejsu na zrzutach (pl lub en): wynik asystenta leży na innej wysokości, bo chipy zajmują inną liczbę wierszy.
 
 Przykład:
   powershell -File scripts/prepare-images.ps1 -Source C:\tmp\shots -Logo ..\Yannie-draft-acihy\assets\accessly_logo_main.png
+  powershell -File scripts/prepare-images.ps1 -Source C:\tmp\shots-en -Dest prezentacja\img-en -Lang en
 #>
 param(
   [Parameter(Mandatory = $true)][string]$Source,
   [string]$Dest = "",
-  [string]$Logo = ""
+  [string]$Logo = "",
+  [ValidateSet("pl", "en")][string]$Lang = "pl"
 )
 
 # $PSScriptRoot is not available yet while parameter defaults are evaluated (PowerShell 5.1).
@@ -63,6 +67,12 @@ Convert-Shot "05-karta-miejsca-desktop.png"  "karta-panel.jpg"         0 0 640 1
 # Two strips from the place card: the needs summary box and one attribute row (value, source, date, status, buttons).
 Convert-Shot "05-karta-miejsca-desktop.png"  "karta-dopasowanie.jpg"   15 705 600 200 900 92
 Convert-Shot "05-karta-miejsca-desktop.png"  "karta-atrybut.jpg"       15 1030 600 240 900 92
+# Positive demo (slide 4): the assistant's top result with green ticks, and the fully matching card's green box
+# and one confirmed attribute row. The result card sits higher in English (two rows of chips instead of three).
+$aiCardY = @{ pl = 912; en = 818 }[$Lang]
+Convert-Shot "04-asystent-pozytywny-desktop.png" "asystent-ok-wynik.jpg"  24 $aiCardY 585 335 900 92
+Convert-Shot "05-karta-pozytywna-desktop.png" "karta-ok-dopasowanie.jpg"  15 712 600 92 900 92
+Convert-Shot "05-karta-pozytywna-desktop.png" "karta-ok-atrybut.jpg"      15 925 600 205 900 92
 Convert-Shot "07-zglos-krok1-desktop.png"    "zglos-krok1.jpg"         0 0 0 0 1600
 Convert-Shot "11-admin-widok-desktop.png"    "admin-widok.jpg"         0 0 0 0 1600
 Convert-Shot "12-mapa-noc-desktop.png"       "mapa-noc.jpg"            0 0 0 0 1600

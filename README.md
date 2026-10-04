@@ -137,13 +137,17 @@ Zrzuty w `prezentacja/img/` i `img-en/` pochodzą z kontenera `accessly` uruchom
 
 ## Demo na żywo (3 minuty) – skrót
 
-Pełna wersja z minutnikiem w notatkach slajdu 4. Przed wejściem: aplikacja na telefonie i laptopie, profil „Wózek”,
-mapa na Rynku Głównym, panel właścicielki otwarty w drugiej karcie.
+Pełna wersja z minutnikiem w notatkach slajdu 4. Scenariusz kończy się sukcesem: Anna znajduje restaurację,
+która spełnia wszystkie jej potrzeby. Przed wejściem: aplikacja na telefonie i laptopie, mapa na Kazimierzu,
+w Profilu zaznaczone preferencje bez schodów, toaleta dostępna, parking OzN (nie chip „Wózek”: wymaga też
+szerokości drzwi, której nie ma w danych OSM, więc dawałby „Spełnia 2 z 3”), panel właścicielki w drugiej karcie.
 
-1. Profil „Wózek” → lista „Najbliżej środka mapy” pokazuje tylko istotne bariery.
-2. Miejsca → „Opisz, czego szukasz” → zapytanie z przykładu → ranking z uzasadnieniem i brakami.
-3. Karta miejsca → atrybut ze źródłem, datą, statusem → „Brak danych” → „Uzupełnij” / pytanie do właściciela.
-4. „Zgłoś problem” → pinezka, typ „Brak windy”, waga → zgłoszenie na mapie; głosy „nadal jest” / „naprawione”.
-5. `/owner.html` jako `kasia@accessly.test` → „Potwierdź informacje” → w karcie status „Potwierdzone przez właściciela”.
+1. Profil → „Moje preferencje” → lista „Najbliżej środka mapy” sortuje miejsca według dopasowania.
+2. Miejsca → „Opisz, czego szukasz” → „Restauracja na Kazimierzu bez schodów, z dostępną toaletą i parkingiem”
+   → „1 z pokazanych spełnia wszystkie Twoje wymagania”, na górze Kuchnia u Doroty z zielonymi znacznikami.
+3. Karta miejsca → zielone „Spełnia wszystkie Twoje potrzeby” → atrybut ze źródłem, datą, statusem
+   → niżej atrybut bez danych (szerokie drzwi) → „Uzupełnij” / pytanie do właściciela.
+4. „Zgłoś problem” → pinezka na przystanku Stradom, typ „Brak windy”, waga → zgłoszenie na mapie; głosy „nadal jest” / „naprawione”.
+5. `/owner.html` jako `kasia@accessly.test` → „Potwierdź informacje” → w karcie tego lokalu status „Potwierdzone przez właściciela”.
 
 Awaria sieci: wszystko poza kafelkami mapy działa z danych lokalnych; pokazać „Źródła danych” z datami snapshotów.

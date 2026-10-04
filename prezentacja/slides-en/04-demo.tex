@@ -1,7 +1,7 @@
 % Slide 4 – map of the live demo (brief, section 6: define the group's needs, check a place, show concrete
 % barriers and facilities, the source and date of each fact, how incomplete and sample data are marked).
-% The slide stays on screen just before switching to the app; details are in the notes.
-\begin{frame}{Demo: Anna, a wheelchair user, looks for a café in the centre}
+% The scenario ends well: Anna finds a place that meets all her needs. Details are in the notes.
+\begin{frame}{Demo: Anna, a wheelchair user, finds a barrier-free restaurant}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.63\textwidth}
       \scriptsize
@@ -10,13 +10,13 @@
         \toprule
         & \textbf{Step} & \textbf{What to look at} \\
         \midrule
-        1 & Needs profile “Wheelchair” &
-            the map and lists show only barriers that matter for a wheelchair; ranking by match \\
-        2 & Question: “a café in the centre, wheelchair, with a toilet” &
-            a ranking with reasons: what the place meets and what is \emph{unknown} \\
-        3 & Place card &
-            every fact has a source, a date and a status; missing data is named as such, with an “Add” button \\
-        4 & Report “No lift” at a stop, severity “Blocks” &
+        1 & Preferences: step-free, accessible toilet, disabled parking &
+            the map and lists show only barriers that matter to Anna; places sorted by match \\
+        2 & Question: “a restaurant in Kazimierz without steps, with a toilet and parking” &
+            a ranking with reasons: Kuchnia u~Doroty on top meets everything; for the others you see what is \emph{unknown} \\
+        3 & Place card: Kuchnia u~Doroty &
+            green “Meets all your needs”; every fact with its source, date and status; gaps named as such \\
+        4 & Report “No lift” at a stop on the way, severity “Blocks” &
             square marker = blocks; “Still there” / “Fixed” votes; the outage expires after 14~days \\
         5 & Owner panel: confirm the information &
             status “Confirmed by the owner”; Anna gets a notification \\
@@ -32,23 +32,22 @@
         test reports, a “Demo mode” label.}
     \end{column}
     \begin{column}{0.35\textwidth}
-      \screenshot{karta-dopasowanie}\par
+      \screenshot{asystent-ok-wynik}\par
       \vspace{0.3mm}
-      \muted{Step 3: the match summary -- what the place meets, what it does not, what is unknown.}
+      \muted{Step 2: a place that meets everything -- green ticks and “Matches your needs”.}
       \vspace{1.5mm}
-      \screenshot{karta-atrybut}\par
+      \screenshot{karta-ok-atrybut}\par
       \vspace{0.3mm}
-      \muted{One fact: value, source (OpenStreetMap), date (2~Oct 2026), status and the
-        Up to date / Outdated / Correct buttons.}
+      \muted{Step 3: one fact -- value, source, date, status and the Up to date / Outdated / Correct buttons.}
     \end{column}
   \end{columns}
 
-  \note[item]{Time: about 3 minutes. Before going on stage: the app open on a phone and a laptop, the “Wheelchair” profile selected, the map on the Main Square (zoom 16), the owner panel open in a second browser tab.}
-  \note[item]{Step 1 (0:00–0:30): tap the “Wheelchair” chip; show the toast with the report count and the “Nearest to the map centre” list.}
-  \note[item]{Step 2 (0:30–1:00): Places tab, type “A café in the centre I can enter in a wheelchair, ideally with an accessible toilet”; in keyword mode the result is deterministic. Read out what it meets and what is “No data”.}
-  \note[item]{Step 3 (1:00–1:45): open the card; point at three things next to the attribute: source, date, status. Then “No data”: our most important message, we do not guess. Buttons Up to date / Outdated / Correct, “Add” and a question to the owner.}
-  \note[item]{Step 4 (1:45–2:20): “Report a problem”, pin at the stop, type “No lift”, severity “Blocks”; show the marker shape (square = blocks) and the votes. A report needs no account.}
-  \note[item]{Step 5 (2:20–3:00): in the second tab, \texttt{/owner.html} as \texttt{kasia@accessly.test} (Camelot Cafe), click “Potwierdź informacje” (the owner panel is in Polish, for venue staff; say what the button does: confirm the information); back on the card the status has changed.}
-  \note[item]{Edge cases (if the jury asks or time is left): attribute history with conflicting votes; the “Data sources” page with snapshot dates; a place with a missing attribute does not get the “Matches your needs” badge.}
+  \note[item]{Time: about 3 minutes. Before going on stage: the app on a phone and a laptop, the map on Kazimierz, the preferences step-free, accessible toilet and disabled parking ticked in the Profile (not the “Wheelchair” chip: it also requires door width, which OSM data lacks, so it would show “Meets 2 of your 3 needs”), the owner panel open in a second tab.}
+  \note[item]{Step 1 (0:00–0:30): show Profile $\rightarrow$ preferences and the “Nearest to the map centre” list; places with the “Matches your needs” badge rank higher.}
+  \note[item]{Step 2 (0:30–1:00): Places tab, type “A restaurant in Kazimierz without steps, with an accessible toilet and parking”; in keyword mode the result is deterministic: “I found 535 matching places; 1 of those shown meet all your requirements”, Kuchnia u~Doroty on top.}
+  \note[item]{Step 3 (1:00–1:45): open the card; the green box; point at three things next to the attribute: source, date, status. Scroll to an attribute without data (e.g. wide doors): our most important message, we do not guess. Buttons Up to date / Outdated / Correct, “Add” and a question to the owner.}
+  \note[item]{Step 4 (1:45–2:20): “Report a problem”, pin at the Stradom stop, type “No lift”, severity “Blocks”; show the marker shape (square = blocks) and the votes. A report needs no account.}
+  \note[item]{Step 5 (2:20–3:00): in the second tab, \texttt{/owner.html} as \texttt{kasia@accessly.test} (Camelot Cafe), click “Potwierdź informacje” (the owner panel is in Polish, for venue staff; say what the button does: confirm the information); back on that venue's card the status has changed.}
+  \note[item]{Edge cases (if the jury asks or time is left): the “Wheelchair” chip and “Meets 2 of your 3 needs, no data: wide doors”; attribute history with conflicting votes; the “Data sources” page with snapshot dates.}
   \note[item]{If the network fails: everything except the map tiles works from local data. Sample data: three demo accounts and test reports; the admin view without sign-in carries a “Demo mode: sample data” label.}
 \end{frame}
