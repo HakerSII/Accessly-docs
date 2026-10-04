@@ -1,0 +1,41 @@
+% Slajd 7 – dostępność cyfrowa: wykaz funkcji dostępnych i elementów do dalszych prac (pkt 5 i 6 wyzwania).
+\begin{frame}{Dostępność cyfrowa: WCAG 2.2 AA jako cel, główny scenariusz już sprawdzony}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.63\textwidth}
+      \begin{block}{Jest w~prototypie (kontrola głównego scenariusza: klawiatura, czytnik ekranu, kontrast, mapa jako tekst)}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Klawiatura:} każda akcja to przycisk lub link; link „Przejdź do treści”; widoczny fokus;
+                fokus nie ginie, gdy listy odświeżają się co 15~s; Esc zamyka panele.
+          \item \textbf{Czytnik ekranu:} landmarki i~nagłówki, etykiety ARIA, krótkie komunikaty „live” zamiast czytania
+                całych list; mapa ma opis odsyłający do listy tekstowej; tytuł okna zmienia się z~widokiem.
+          \item \textbf{Mapa w~formie tekstu:} listy Zgłoszenia, Miejsca i~najbliższych obiektów warstw jako przyciski;
+                waga problemu kształtem i~podpisem (kwadrat / koło), nie tylko kolorem.
+          \item \textbf{Kontrast i~czytelność:} tokeny kolorów 4,5:1 (tekst) i~3:1 (kontrolki, symbole) -- test liczy je
+                ze \texttt{style.css}; tryb nocny; czcionka Atkinson Hyperlegible; 4~języki.
+          \item \textbf{Formularze i~dotyk:} błędy w~\texttt{role="alert"} z~nazwą brakującego pola, „Dalej” nigdy
+                nie jest zablokowane; cele $\geq$~44~px; układ działa do 400\,\% powiększenia.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{alertblock}{Do dalszych prac}
+        \footnotesize
+        \begin{itemize}
+          \item Audyt całego scenariusza z~NVDA / VoiceOver i~testy z~użytkownikami na wózkach i~słabowidzącymi.
+          \item Nawigacja klawiaturą po znacznikach mapy (Leaflet) i~alternatywa dla ustawiania pinezki
+                przez przesuwanie mapy (kryterium 2.5.7).
+          \item Panele właściciela i~administratora w~tym samym standardzie.
+          \item Formalna deklaracja dostępności i~raport zgodności.
+        \end{itemize}
+      \end{alertblock}
+      \vspace{1mm}
+      \muted{Zmiany z~ostatnich dwóch iteracji („WCAG 2.2 A”, „WCAG 2.2 AA”) są objęte testami
+        \texttt{AccessibilityTests} w~repozytorium.}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Pokazać na żywo: Tab przez listę zgłoszeń, Enter otwiera szczegóły, Esc wraca; przełączyć tryb nocny.}
+  \note[item]{„Tekstowa alternatywa mapy” to wymaganie wprost z~wyzwania – u~nas lista obok mapy jest pierwszorzędnym widokiem, nie dodatkiem.}
+  \note[item]{Nie mówić „jesteśmy zgodni z~WCAG”; mówić „główny scenariusz spełnia kryteria A/AA, które sprawdziliśmy, a~tu jest lista braków”.}
+\end{frame}

@@ -1,0 +1,15 @@
+# LaTeX – pliki pośrednie (latexmk pisze do prezentacja/build/)
+prezentacja/build/
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Zrzuty ekranu w pełnej rozdzielczości (do slajdów trafiają zmniejszone z prezentacja/img/)
+screenshots/

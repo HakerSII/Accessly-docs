@@ -1,0 +1,71 @@
+% =====================================================================
+%  Accessly – Kraków bez barier · prezentacja na HackYeah 2026
+%  Maksymalnie 10 slajdów (regulamin). Każdy slajd to osobny plik w slides/.
+%
+%  Kompilacja (dowolny silnik; polskie znaki działają w każdym):
+%     latexmk -pdf main.tex                 # pdfLaTeX (babel + Latin Modern)
+%     latexmk -xelatex main.tex             # XeLaTeX (fontspec; użyje Atkinson Hyperlegible, jeśli jest w systemie)
+%     ./build.sh  |  ./build.sh --docker    # skrypty pomocnicze (Docker: texlive/texlive:latest-small)
+%  Wersja z notatkami prelegenta:  ./build.sh --notes
+% =====================================================================
+\documentclass[aspectratio=169,11pt,t]{beamer}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[polish]{babel}
+\else
+  \usepackage{fontspec}
+  \usepackage{polyglossia}
+  \setmainlanguage{polish}
+  % Czcionka aplikacji (Braille Institute, SIL OFL); gdy nie jest zainstalowana – Latin Modern Sans.
+  \IfFontExistsTF{Atkinson Hyperlegible Next}{\setsansfont{Atkinson Hyperlegible Next}}{%
+    \IfFontExistsTF{Atkinson Hyperlegible}{\setsansfont{Atkinson Hyperlegible}}{%
+      \setsansfont{Latin Modern Sans}}}
+\fi
+\usepackage{graphicx}
+\graphicspath{{img/}}
+\usepackage{tabularx}
+\usepackage{url}
+\usetheme{accessly}
+
+\hypersetup{
+  pdftitle={Accessly – Kraków bez barier (HackYeah 2026)},
+  pdfauthor={Zespół Accessly},
+  pdfsubject={Prototyp przewodnika po dostępnych miejscach i mapy barier},
+  colorlinks=true, urlcolor=accNavy, linkcolor=accInk,
+}
+
+% ---------- Dane do uzupełnienia przed wysłaniem ----------
+\newcommand{\TeamName}{Zespół Accessly}                   % nazwa zespołu
+\newcommand{\TeamId}{ID zespołu: \ldots}                  % identyfikator z HackTribe
+\urldef{\DemoUrl}\url{https://accessly.example.pl}        % adres działającego demo
+\urldef{\RepoUrl}\url{https://github.com/HakerSII/accessly}   % repozytorium kodu
+\urldef{\VideoUrl}\url{https://youtu.be/...}              % film (max 3 min, otwarte repozytorium)
+
+\title[Accessly]{Accessly}
+\subtitle[Kraków bez barier \textperiodcentered\ HackYeah 2026]{Twoje miasto. Twoje potrzeby. Sprawdź zanim pójdziesz.}
+\author{\TeamName}
+\date{HackYeah, 3--4 października 2026}
+
+% ./build.sh --notes  definiuje \shownotes i dokleja notatki prelegenta po każdym slajdzie.
+\ifdefined\shownotes
+  \setbeameroption{show notes}
+\fi
+
+\begin{document}
+
+\input{slides/01-tytul}
+\input{slides/02-problem}
+\input{slides/03-prototyp}
+\input{slides/04-demo}
+\input{slides/05-dane}
+\input{slides/06-architektura}
+\input{slides/07-dostepnosc}
+\input{slides/08-bezpieczenstwo-utrzymanie}
+\input{slides/09-model-biznesowy}
+\input{slides/10-plan}
+
+\end{document}

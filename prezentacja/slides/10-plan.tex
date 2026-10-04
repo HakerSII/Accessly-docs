@@ -1,0 +1,43 @@
+% Slajd 10 – od prototypu do usługi: co jest, co dalej, warunki kolejnego miasta (pkt 6 wyzwania).
+\begin{frame}{Od prototypu do usługi}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.44\textwidth}
+      \begin{exampleblock}{Mamy dziś}
+        \footnotesize
+        \begin{itemize}
+          \item Działający prototyp na telefon i~komputer: 6\,545 miejsc, 27 atrybutów, 11 warstw danych,
+                mapa barier, asystent, 4~języki.
+          \item Panel właściciela (potwierdzanie, pytania, zdjęcia, udogodnienia hurtowo)
+                i~panel administratora (kolejka, statystyki, braki danych).
+          \item Źródło, data i~status przy każdej informacji; brak danych pokazany jako brak.
+          \item Główny scenariusz zgodny z~WCAG 2.2 A/AA w~sprawdzonych kryteriach.
+          \item 503 testy, Docker, Ansible, HTTPS, polityka prywatności.
+        \end{itemize}
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \begin{block}{Plan na 3--6 miesięcy}
+        \footnotesize
+        \begin{enumerate}
+          \item \textbf{Pilotaż} z~organizacją osób z~niepełnosprawnościami, 2--3 hotelami i~instytucjami kultury;
+                audyt dostępności z~użytkownikami.
+          \item \textbf{Produkcyjne logowanie} (poczta transakcyjna, opcjonalnie OAuth), powiadomienia, tryb offline (PWA).
+          \item \textbf{Weryfikacja ze zdjęć i~tekstu z~pomocą AI} -- jako propozycje do potwierdzenia, nigdy jako fakty;
+                silnik zaufania z~backendu Rampa.
+          \item \textbf{Open API i~widget} dla właścicieli; integracja z~systemami rezerwacyjnymi.
+          \item \textbf{Drugie miasto:} konfiguracja + wyciąg OSM + warstwy miejskie w~pliku miasta.
+                Warunek: otwarte dane miasta (lub sam OSM) i~lokalny partner do moderacji.
+        \end{enumerate}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{2mm}
+  \centering
+  {\large\bfseries\color{accNavy}Nie budujemy kolejnej statycznej mapy.
+   Budujemy żywy, weryfikowalny obraz dostępności miasta -- z~mieszkańcami, właścicielami i~otwartymi danymi.\par}
+  \vspace{1.5mm}
+  \muted{Demo: \DemoUrl\ \textperiodcentered\ Kod: \RepoUrl\ \textperiodcentered\ Film: \VideoUrl}
+
+  \note[item]{Zakończyć zdaniem z~tego slajdu i~zaprosić do stolika z~telefonem – niech jury samo kliknie „Zgłoś problem”.}
+  \note[item]{Pytanie o~zespół po hackathonie: operator (spółka / fundacja), moderacja w~panelu, finansowanie z~planu Pro i~wdrożeń white-label.}
+\end{frame}

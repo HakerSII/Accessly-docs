@@ -1,0 +1,105 @@
+% Motyw beamera dla prezentacji Accessly (HackYeah 2026, „Kraków bez barier”).
+% Prosta forma: białe tło, granatowe tytuły, żółty akcent, numer slajdu w stopce.
+% Kolory są tokenami z accessly/static/style.css (tryb dzienny), więc slajdy
+% wyglądają jak aplikacja.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeaccessly}[2026/10/04 Accessly beamer theme]
+\mode<presentation>
+
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+
+% ---------- Kolory (style.css: :root) ----------
+\definecolor{accNavy}{HTML}{0B3A82}        % --primary
+\definecolor{accInk}{HTML}{0F1B2D}         % --ink
+\definecolor{accMuted}{HTML}{47546A}       % --muted
+\definecolor{accSignal}{HTML}{FFC629}      % --signal (żółty przycisk „Zgłoś problem”)
+\definecolor{accBg}{HTML}{ECEFF4}          % --bg
+\definecolor{accSoft}{HTML}{F3F5F9}        % --soft
+\definecolor{accLine}{HTML}{C6CFDB}        % --line
+\definecolor{accLineStrong}{HTML}{7A8699}  % --line-strong
+\definecolor{accBlock}{HTML}{C2261B}       % --block  („blokuje”)
+\definecolor{accPartial}{HTML}{A85400}     % --partial („utrudnienie”)
+\definecolor{accOk}{HTML}{1E7A3C}          % --ok     („naprawione”)
+
+\setbeamercolor{normal text}{fg=accInk,bg=white}
+\setbeamercolor{structure}{fg=accNavy}
+\setbeamercolor{frametitle}{fg=accNavy,bg=white}
+\setbeamercolor{framesubtitle}{fg=accMuted}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=accSignal}
+\setbeamercolor{block title}{fg=white,bg=accNavy}
+\setbeamercolor{block body}{fg=accInk,bg=accSoft}
+\setbeamercolor{block title alerted}{fg=white,bg=accPartial}
+\setbeamercolor{block body alerted}{fg=accInk,bg=accSoft}
+\setbeamercolor{block title example}{fg=white,bg=accOk}
+\setbeamercolor{block body example}{fg=accInk,bg=accSoft}
+\setbeamercolor{alerted text}{fg=accBlock}
+\setbeamercolor{example text}{fg=accOk}
+\setbeamercolor{itemize item}{fg=accNavy}
+\setbeamercolor{itemize subitem}{fg=accNavy}
+\setbeamercolor{enumerate item}{fg=accNavy}
+\setbeamercolor{footline}{fg=accMuted,bg=white}
+\setbeamercolor{caption name}{fg=accMuted}
+
+% ---------- Fonty ----------
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small,series=\mdseries}
+\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large,series=\mdseries}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamerfont{block body}{size=\small}
+\setbeamerfont{caption}{size=\tiny}
+
+% ---------- Szablony ----------
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[circle]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{caption}{\usebeamerfont{caption}\color{accMuted}\insertcaption\par}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+
+% Tytuł slajdu: granatowy, pod nim krótka żółta linia (jak akcent w aplikacji).
+\setbeamertemplate{frametitle}{%
+  \vskip2.5mm
+  {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+  \ifx\insertframesubtitle\@empty\else
+    \vskip0.5mm{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+  \fi
+  \vskip1mm{\color{accSignal}\rule{14mm}{1.4pt}}\vskip1.5mm
+}
+
+% Stopka: nazwa i wydarzenie po lewej, „n / N” po prawej (N = liczba slajdów, limit 10).
+\setbeamertemplate{footline}{%
+  \leavevmode
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.6ex,dp=1.4ex,leftskip=8mm,rightskip=8mm]{footline}
+    \usebeamerfont{footline}\insertshorttitle\ \textperiodcentered\ \insertshortsubtitle
+    \hfill\insertframenumber\,/\,\inserttotalframenumber
+  \end{beamercolorbox}
+}
+
+% ---------- Pomocnicze makra ----------
+% \screenshot[szerokość]{plik} – zrzut ekranu w cienkiej ramce.
+\newcommand{\screenshot}[2][\linewidth]{%
+  {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.4pt}\color{accLineStrong}%
+   \fbox{\includegraphics[width=#1]{#2}}}}
+
+% \pill{kolor}{tekst} – mała etykieta w obwódce, jak statusy weryfikacji w aplikacji.
+\newcommand{\pill}[2]{\tikz[baseline=(P.base)]{%
+  \node[draw=#1,text=#1,rounded corners=2pt,inner xsep=2.5pt,inner ysep=1.6pt,
+        font=\tiny\bfseries,line width=0.5pt](P){#2};}}
+
+% \muted{tekst} – przygaszony drobny tekst (źródła, przypisy).
+\newcommand{\muted}[1]{{\scriptsize\color{accMuted}#1}}
+
+% \kpi{liczba}{opis} – kafelek ze wskaźnikiem.
+\newcommand{\kpi}[2]{%
+  \begin{tikzpicture}
+    \node[fill=accSoft,rounded corners=1.5mm,inner sep=2mm,text width=26mm,align=center]{%
+      {\Large\bfseries\color{accNavy}#1}\\[0.5mm]{\tiny\color{accMuted}#2}};
+  \end{tikzpicture}}
+
+\mode<all>

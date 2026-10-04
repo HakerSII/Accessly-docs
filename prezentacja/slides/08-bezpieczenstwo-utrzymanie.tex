@@ -1,0 +1,42 @@
+% Slajd 8 – ochrona danych i bezpieczeństwo oraz uruchomienie i utrzymanie poza UMK (pkt 5 wyzwania).
+\begin{frame}{Prywatność, bezpieczeństwo i~utrzymanie poza infrastrukturą UMK}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Dane użytkowników i~bezpieczeństwo}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Bez konta:} mapa, katalog i~zgłaszanie barier -- anonimowo; serwer nie zapisuje adresów IP
+                ani identyfikatorów urządzeń.
+          \item \textbf{Profil potrzeb = preferencje} (schody, winda, cisza), nigdy diagnoza ani informacja
+                o~niepełnosprawności; zapisany w~przeglądarce, z~kontem -- także na serwerze.
+          \item \textbf{Konto bez hasła:} e-mail + jednorazowy kod (15~min, 5~prób); kody i~tokeny tylko jako skróty
+                SHA-256; ciasteczko HttpOnly, SameSite, Secure; usunięcie konta jednym przyciskiem.
+          \item \textbf{Serwer:} HTTPS (Caddy, Let's Encrypt), limity rozmiaru żądań (10~kB, zdjęcia 4~MB),
+                treści użytkowników zawsze escapowane (testy), role sprawdzane przy każdym żądaniu.
+          \item Polityka prywatności i~lista ciasteczek w~aplikacji; zapytania do asystenta AI nie są logowane.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Uruchomienie i~utrzymanie -- propozycja}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{Operator:} zespół Accessly (spółka lub fundacja) albo partner społeczny; UMK bez obowiązku
+                utrzymywania bazy i~bez dostępu do systemów wewnętrznych.
+          \item \textbf{Hosting (szacunek):} jeden VPS w~UE (2~vCPU, 4~GB) ok.~60--120~zł/mies., domena, poczta
+                transakcyjna; asystent AI rozliczany od zapytania (ułamki grosza); mapa z~OSM.
+          \item \textbf{Aktualizacje:} jedno polecenie (\texttt{scripts/deploy.sh}, Ansible); dane miasta odświeżają się
+                same co 24~h, OSM skryptem (zalecane co miesiąc); kopie zapasowe SQLite \texttt{.backup}.
+          \item \textbf{Zgłoszenia i~moderacja:} kolejka w~panelu administratora (przejęcia lokali, poprawki,
+                nowe miejsca, konta właścicieli), powiadomienia e-mail, statystyki brakujących danych.
+          \item \textbf{Przenośność:} Docker + Ansible na dowolną infrastrukturę; licencje otwarte
+                (ODbL, BSD, PSF, Apache) wymienione w~aplikacji.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+
+  \note[item]{Pytanie jury „jakie dane zbieracie?”: bez konta – żadnych; z~kontem – e-mail, opcjonalna nazwa, profil potrzeb. Tabela w~polityce prywatności w~aplikacji.}
+  \note[item]{RODO: profil potrzeb to świadoma decyzja projektowa – wyzwanie wprost prosi, by nie wymagać informacji o~niepełnosprawności.}
+  \note[item]{Kwoty to szacunki na podstawie cenników VPS; nie obiecywać konkretnego dostawcy.}
+\end{frame}
