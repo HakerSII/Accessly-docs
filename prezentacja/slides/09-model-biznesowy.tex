@@ -1,28 +1,26 @@
 % Slajd 9 – model biznesowy i komercjalizacja (kryterium: 20 %; pkt 9 wyzwania).
-\begin{frame}{Model biznesowy i~komercjalizacja}
-  \footnotesize
-  \renewcommand{\arraystretch}{1.1}
-  \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{3.1cm} X >{\raggedright\arraybackslash}p{3.4cm}@{}}
-    \toprule
-    Segment & Oferta & Przychód \\
-    \midrule
-    Mieszkańcy i~turyści & aplikacja, profil potrzeb, asystent, mapa barier & bezpłatnie, zawsze -- to oni tworzą dane \\
-    Właściciele obiektów (hotele, gastronomia, kultura, sieci) & panel podstawowy bezpłatny; \textbf{plan Pro}:
-      odznaka właściciela, statystyki „czego szukają goście, czego brakuje”, hurtowe udogodnienia,
-      widget dostępności na stronę i~do systemu rezerwacji & abonament za obiekt lub pakiet dla sieci \\
-    Organizatorzy wydarzeń, zarządcy nieruchomości & pakiet czasowy: tymczasowe wejścia i~trasy, mapa barier
-      na czas imprezy & opłata za wydarzenie / obiekt \\
-    Miasta i~regiony & wdrożenie white-label (konfiguracja, import OSM, warstwy miejskie); raporty
-      o~brakach danych i~udogodnień & wdrożenie + roczne utrzymanie \\
-    Mapy, aplikacje turystyczne, systemy rezerwacyjne & Open API z~atrybucją: fakty o~dostępności
-      ze źródłem, datą i~statusem & licencja API / limity zapytań \\
-    \bottomrule
-  \end{tabularx}
-
+% Cztery karty 2 × 2: \bizcard i ikony w beamerthemeaccessly.sty; żółta etykieta = źródło przychodu.
+\begin{frame}{Jak Accessly zarabia?}
   \vspace{1mm}
-  \textbf{Zasady, które chronią wartość danych.} Nie sprzedajemy danych osobowych; treści społeczności i~dane OSM
-  pozostają otwarte (ODbL). Właściciel płaci za narzędzia i~widoczność, nie za „lepszy” status -- status zawsze wynika
-  z~weryfikacji.
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \bizcard{0}{0}{house}{Property Owner Pro}{Hotele, restauracje, galerie, sieci}
+      {Abonament za obiekt / pakiet dla sieci}
+      {\bp\mbox{statystyki potrzeb użytkowników} \quad \bp\mbox{widget dostępności} \quad \bp\mbox{zarządzanie wieloma lokalizacjami}}
+    \bizcard{73}{0}{cityskyline}{Miasta i~regiony}{}
+      {White-label + utrzymanie}
+      {\bp\mbox{lokalne dane i~warstwy miejskie} \quad \bp\mbox{raporty o~barierach i~brakach} \quad \bp\mbox{szybkie wdrożenie kolejnych miast}}
+    \bizcard{0}{-29.5}{apicode}{API \& partnerzy}{Mapy, booking, aplikacje turystyczne}
+      {Licencja API / abonament}
+      {\bp\mbox{zweryfikowane dane o~dostępności} \quad \bp\mbox{integracje z~systemami rezerwacyjnymi}}
+    \bizcard{73}{-29.5}{medcross}{Turystyka medyczna}{Kliniki, hotele, operatorzy pobytów}
+      {Pakiety B2B / integracje}
+      {\bp\mbox{klinika + nocleg + transport + usługi} \quad \bp\mbox{rekomendacje dla pacjenta i~opiekuna}}
+
+    \node[font=\small\bfseries,text=accNavy,text width=144mm,align=center,inner sep=0pt] at (72,-61.8)
+      {Użytkownik korzysta bezpłatnie. Biznes płaci za narzędzia, integracje i~analitykę --\\
+       nigdy za lepszy status dostępności.};
+  \end{tikzpicture}
 
   \note[item]{Najbardziej realny pierwszy przychód: hotele i~turystyka medyczna (profil „Po zabiegu”, warstwa SOR / apteki, 4~języki) – goście zza granicy pytają o~dostępność przed rezerwacją.}
   \note[item]{Panel właściciela już dziś pokazuje „Najczęściej wyszukiwane informacje o~Twoim lokalu” – to zalążek statystyk z~planu Pro.}

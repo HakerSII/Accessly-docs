@@ -252,6 +252,43 @@
         execute at begin node={\hyphenpenalty=10000}] at ($(ri.east)+(2.5mm,0)$) {#4};
 }
 
+% Slajd „Jak Accessly zarabia?”: karta \bizcard{x}{y}{ikona}{tytuł}{podtytuł}{przychód}{punkty}
+% (lewy górny róg w (x,y), 71 × 27,5 mm; punkty w jednym wierszu: \bp a \quad \bp b) i ikony: cityskyline, apicode, medcross.
+\tikzset{
+  bizcard/.style={fill=accNavy!7,rounded corners=2.5mm},
+  revpill/.style={fill=accSignal,text=accInk,rounded corners=1.4mm,inner xsep=1.6mm,inner ysep=1.1mm,
+    font=\scriptsize\bfseries,align=left},
+  pics/cityskyline/.style={code={
+    \draw[icon] (-2.6mm,-2.2mm) -- (2.6mm,-2.2mm);
+    \draw[icon] (-2.1mm,-2.2mm) rectangle (-0.6mm,1.0mm);
+    \draw[icon] (-0.6mm,-2.2mm) rectangle (0.9mm,2.4mm);
+    \draw[icon] (0.9mm,-2.2mm) rectangle (2.2mm,0.2mm);
+  }},
+  pics/apicode/.style={code={
+    \draw[icon] (-1.2mm,1.6mm) -- (-2.5mm,0) -- (-1.2mm,-1.6mm);
+    \draw[icon] (1.2mm,1.6mm) -- (2.5mm,0) -- (1.2mm,-1.6mm);
+    \draw[icon] (0.5mm,2.0mm) -- (-0.5mm,-2.0mm);
+  }},
+  pics/medcross/.style={code={
+    \draw[icon] (-0.8mm,2.2mm) -- (0.8mm,2.2mm) -- (0.8mm,0.8mm) -- (2.2mm,0.8mm) -- (2.2mm,-0.8mm)
+      -- (0.8mm,-0.8mm) -- (0.8mm,-2.2mm) -- (-0.8mm,-2.2mm) -- (-0.8mm,-0.8mm) -- (-2.2mm,-0.8mm)
+      -- (-2.2mm,0.8mm) -- (-0.8mm,0.8mm) -- cycle;
+  }},
+}
+% \bp – kropka przed punktem w wierszu punktów karty (punkty oddziela \quad).
+\newcommand{\bp}{{\color{accNavy}\textbullet}~}
+\newcommand{\bizcard}[7]{%
+  \fill[bizcard] (#1,#2) rectangle ++(71,-27.5);
+  \node[srcicon,minimum size=7.5mm] (bi) at (#1+6.5,#2-6.5) {};
+  \pic at (bi) {#3};
+  \node[anchor=north west,text width=55mm,inner sep=0pt,align=flush left,
+        execute at begin node={\hyphenpenalty=10000}] (bt) at (#1+12.5,#2-3)
+    {{\small\bfseries\color{accNavy}#4\par}\vspace{0.6mm}{\scriptsize\color{accMuted}#5\par}};
+  \node[anchor=north west,text width=65mm,inner sep=0pt,font=\scriptsize,text=accInk,align=flush left,
+        execute at begin node={\hyphenpenalty=10000\linespread{1.15}\selectfont}] at (#1+3,#2-11.2) {#7};
+  \node[revpill,anchor=south west,minimum width=65mm,inner ysep=0.8mm] at (#1+3,#2-24.6) {#6};
+}
+
 \newcommand{\srccard}[5]{%
   \node[srccard] (#1) at (#2,0) {};
   \node[srcicon] (#1-icon) at ($(#1.west)+(7.5mm,0)$) {};

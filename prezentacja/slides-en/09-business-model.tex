@@ -1,27 +1,26 @@
 % Slide 9 – business model and commercialisation (criterion: 20 %; brief, section 9).
-\begin{frame}{Business model and commercialisation}
-  \footnotesize
-  \renewcommand{\arraystretch}{1.1}
-  \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{3.1cm} X >{\raggedright\arraybackslash}p{3.4cm}@{}}
-    \toprule
-    Segment & Offer & Revenue \\
-    \midrule
-    Residents and tourists & the app, needs profile, assistant, barrier map & free, always -- they create the data \\
-    Venue owners (hotels, food \& drink, culture, chains) & basic panel free; \textbf{Pro plan}: owner badge,
-      statistics on “what guests look for and what is missing”, bulk facilities, an accessibility widget
-      for the website and the booking system & subscription per venue or a package for chains \\
-    Event organisers, property managers & time-limited package: temporary entrances and routes,
-      a barrier map for the event & fee per event / venue \\
-    Cities and regions & white-label deployment (configuration, OSM import, city layers); reports on
-      gaps in data and facilities & deployment + annual maintenance \\
-    Maps, travel apps, booking systems & Open API with attribution: accessibility facts with source,
-      date and status & API licence / request limits \\
-    \bottomrule
-  \end{tabularx}
-
+% Four cards, 2 × 2: \bizcard and the icons in beamerthemeaccessly.sty; the yellow label is the revenue source.
+\begin{frame}{How does Accessly make money?}
   \vspace{1mm}
-  \textbf{Principles that protect the value of the data.} We do not sell personal data; community content and OSM data
-  stay open (ODbL). Owners pay for tools and visibility, not for a “better” status -- the status always follows verification.
+  \centering
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \bizcard{0}{0}{house}{Property Owner Pro}{Hotels, restaurants, galleries, chains}
+      {Subscription per venue / package for chains}
+      {\bp\mbox{statistics on users' needs} \quad \bp\mbox{accessibility widget} \quad \bp\mbox{managing many locations}}
+    \bizcard{73}{0}{cityskyline}{Cities and regions}{}
+      {White-label + maintenance}
+      {\bp\mbox{local data and city layers} \quad \bp\mbox{reports on barriers and gaps} \quad \bp\mbox{fast roll-out to further cities}}
+    \bizcard{0}{-29.5}{apicode}{API \& partners}{Maps, booking, travel apps}
+      {API licence / subscription}
+      {\bp\mbox{verified accessibility data} \quad \bp\mbox{integrations with booking systems}}
+    \bizcard{73}{-29.5}{medcross}{Medical tourism}{Clinics, hotels, stay operators}
+      {B2B packages / integrations}
+      {\bp\mbox{clinic + stay + transport + services} \quad \bp\mbox{recommendations for patients and carers}}
+
+    \node[font=\small\bfseries,text=accNavy,text width=144mm,align=center,inner sep=0pt] at (72,-61.8)
+      {Users pay nothing. Businesses pay for tools, integrations and analytics --\\
+       never for a better accessibility status.};
+  \end{tikzpicture}
 
   \note[item]{The most realistic first revenue: hotels and medical tourism (the “After treatment” profile, the A\&E / pharmacies layer, 4~languages); guests from abroad ask about accessibility before booking.}
   \note[item]{The owner panel already shows “the most searched-for information about your venue”; that is the seed of the Pro plan statistics.}
