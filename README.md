@@ -122,9 +122,11 @@ Zmiany treści warto wprowadzać w obu wersjach naraz; pliki slajdów mają tę 
 
 1. Uruchom aplikację (`scripts/run.sh` lub `scripts/docker-run.sh` w repozytorium aplikacji; domyślnie port 8000).
 2. `py -3 scripts/screenshots.py --base http://localhost:8000 --out screenshots`
-   – otwiera headless Chrome, ustawia profil „Wózek” i widok na Rynek, zapisuje 18 widoków
+   – otwiera headless Chrome, ustawia profil „Wózek” i widok na Rynek, zapisuje 19 widoków
    (mapa, warstwy, Miejsca, asystent, karty miejsc, zgłoszenie, Zgłoszenia, Profil, widok admina,
-   tryb nocny, 3 widoki mobilne, panel właściciela, panel administratora, „Źródła danych”).
+   tryb nocny, 3 widoki mobilne, panel właściciela, panel administratora, „Źródła danych”
+   oraz kartę miejsca z samymi potwierdzonymi udogodnieniami na slajd tytułowy: Kuchnia u Doroty,
+   bez profilu potrzeb, z preferencjami, które to miejsce spełnia, więc ramka jest zielona).
    Z `--lang en --out screenshots-en` robi to samo z interfejsem po angielsku.
 3. `powershell -File scripts/prepare-images.ps1 -Source screenshots -Logo <repo>/assets/accessly_logo_main.png`
    – przycina kolumnę boczną, zmniejsza do 1600 px i zapisuje JPEG do `prezentacja/img/`;

@@ -68,6 +68,7 @@ Convert-Shot "11-admin-widok-desktop.png"    "admin-widok.jpg"         0 0 0 0 1
 Convert-Shot "12-mapa-noc-desktop.png"       "mapa-noc.jpg"            0 0 0 0 1600
 Convert-Shot "13-mapa-mobile.png"            "mobile-mapa.jpg"         0 0 0 0 600
 Convert-Shot "14-karta-mobile.png"           "mobile-karta.jpg"        0 0 0 0 600
+Convert-Shot "14-karta-pozytywna-mobile.png" "mobile-karta-pozytywna.jpg" 0 0 0 0 600
 Convert-Shot "16-panel-wlasciciela.png"      "panel-wlasciciela.jpg"   0 0 0 0 1600
 Convert-Shot "18-panel-admina.png"           "panel-admina.jpg"        0 0 0 0 1600
 Convert-Shot "19-zrodla-danych.png"          "zrodla-danych.jpg"       0 0 0 0 1200

@@ -40,7 +40,12 @@ CHROME_CANDIDATES = [
 PLACE_IDS = {
     "karta-miejsca": "p6ef6adf3e3d",  # Przypiecek – bar z kilkoma atrybutami z OSM (prepare-images.ps1 tnie ten plik)
     "karta-wlasciciel": "p35344c730ca",  # Camelot Cafe – miejsce konta demo kasia@
+    "karta-pozytywna": "pcb082342597",  # Kuchnia u Doroty – bez schodów, toaleta, parking OzN: wszystkie potwierdzone
 }
+
+# Preferencje, które to miejsce spełnia w całości: karta pokazuje zielone „Spełnia wszystkie Twoje potrzeby”
+# (slajd tytułowy ma pokazywać udogodnienia, nie bariery).
+POSITIVE_PREFS = ["step_free", "accessible_toilet", "disabled_parking"]
 
 
 class WebSocket:
@@ -278,6 +283,15 @@ def main():
         browser.shot(out("14-karta-mobile.png"), 2)
         browser.evaluate(CLICK_TAB % "places")
         browser.shot(out("15-miejsca-mobile.png"), 3)
+        # Karta z samymi udogodnieniami: bez profilu potrzeb, za to z preferencjami, które miejsce spełnia.
+        browser.evaluate(
+            "localStorage.setItem('bp.needs', '[]'); localStorage.setItem('bp.prefs', %s); 'ok'"
+            % json.dumps(json.dumps(POSITIVE_PREFS))
+        )
+        browser.goto(base + "/", 6)  # pełne przeładowanie: aplikacja czyta pamięć lokalną przy starcie
+        browser.goto(f"{base}/#place-{PLACE_IDS['karta-pozytywna']}", 5)
+        browser.shot(out("14-karta-pozytywna-mobile.png"), 2)
+        browser.evaluate("localStorage.setItem('bp.needs', JSON.stringify(['wheelchair'])); localStorage.removeItem('bp.prefs'); 'ok'")
 
         browser.metrics(1440, 900)
         browser.goto(base + "/", 4)
