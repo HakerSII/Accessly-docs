@@ -1,36 +1,36 @@
 % Slajd 5 – źródła danych, aktualność, wiarygodność (kryterium: wiarygodność oraz sposób prezentacji i aktualizacji danych, 15 %).
+% Jeden rysunek TikZ: trzy źródła -> Accessly Trust Model -> kontekst każdego faktu, pod spodem hierarchia zaufania i zasady.
+% Wspólne style i ikony: \trustslide... w beamerthemeaccessly.sty.
 \begin{frame}{Dane, którym można zaufać}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.49\textwidth}
-      \begin{block}{3 źródła informacji}
-        \begin{itemize}
-          \setlength{\itemsep}{0.3mm}
-          \item \textbf{Open Data \& OSM}\\
-                Dane publiczne i~otwarte
-          \item \textbf{Property Owner}\\
-                Potwierdzone informacje bezpośrednio od właściciela obiektu
-          \item \textbf{Community}\\
-                Użytkownicy potwierdzają, poprawiają i~uzupełniają dane
-        \end{itemize}
-      \end{block}
-    \end{column}
-    \begin{column}{0.49\textwidth}
-      \begin{block}{Każdy fakt ma kontekst}
-        \centering\textbf{Źródło \textperiodcentered\ Data \textperiodcentered\ Status weryfikacji}\par
-      \end{block}
-      \vspace{1mm}
-      \begin{exampleblock}{Accessly Trust Model}
-        \pill{accNavy}{Owner verified} $\rightarrow$ \pill{accOk}{Community confirmed} $\rightarrow$\\[0.8mm]
-        \pill{accNavy}{Official source} $\rightarrow$ \pill{accMuted}{Unverified}
-        \begin{itemize}
-          \setlength{\itemsep}{0pt}
-          \item nieaktualne dane są oznaczane,
-          \item sprzeczności są widoczne,
-          \item brak informacji nigdy nie oznacza „dostępne”.
-        \end{itemize}
-      \end{exampleblock}
-    \end{column}
-  \end{columns}
+  \vspace{1.5mm}
+  \centering
+  \begin{tikzpicture}[trustslide]
+    \srccard{osm}{-50mm}{globe}{Open Data \& OSM}{Dane publiczne i~otwarte}
+    \srccard{own}{0mm}{house}{Property Owner}{Potwierdzone bezpośrednio przez właściciela}
+    \srccard{com}{50mm}{people}{Community}{Użytkownicy potwierdzają, poprawiają i~uzupełniają dane}
+
+    \node[tmpill] (tm) at (0,-21mm) {Accessly Trust Model};
+    \draw[flow] (osm.south) .. controls +(0,-5mm) and +(0,5mm) .. ($(tm.north)+(-10mm,0)$);
+    \draw[flow] (own.south) -- (tm.north);
+    \draw[flow] (com.south) .. controls +(0,-5mm) and +(0,5mm) .. ($(tm.north)+(10mm,0)$);
+
+    \node (ctx) at (0,-30.5mm) {{\footnotesize\color{accMuted}Każdy fakt ma kontekst:}\enspace
+      {\small\bfseries\color{accNavy}Źródło \textperiodcentered\ Data \textperiodcentered\ Status weryfikacji}};
+    \draw[flow] (tm.south) -- (ctx.north);
+
+    \matrix[ampersand replacement=\&, column sep=1.6mm] at (0,-40mm) {
+      \node[tbadge=accNavy] {Owner verified}; \& \node[tarrow] {/}; \&
+      \node[tbadge=accOk] {Community confirmed}; \& \node[tarrow] {/}; \&
+      \node[tbadge=accNavy] {Official source}; \& \node[tarrow] {/}; \&
+      \node[tbadge=accMuted] {Unverified}; \\
+    };
+
+    \matrix[ampersand replacement=\&, column sep=1.2mm] at (0,-48mm) {
+      \node[rdot] {}; \& \node[rule] {Nieaktualne dane są oznaczane}; \& \node[rgap] {}; \&
+      \node[rdot] {}; \& \node[rule] {Sprzeczności są widoczne}; \& \node[rgap] {}; \&
+      \node[rdot] {}; \& \node[rule] {Brak danych $\neq$ „dostępne”}; \\
+    };
+  \end{tikzpicture}
 
   \note[item]{Przypadek testowy wymagany w~wyzwaniu – dane sprzeczne: właściciel mówi „bez schodów”, dwie osoby zgłaszają „nieaktualne” $\rightarrow$ status „Wymaga ponownej weryfikacji”, wartość zostaje z~ostrzeżeniem, obie strony widać w~historii.}
   \note[item]{Przypadek – źródło niedostępne: usługa ArcGIS miasta nie odpowiada $\rightarrow$ aplikacja pokazuje warstwę ze snapshotu z~datą „stan na”; żaden ekran nie jest pusty.}

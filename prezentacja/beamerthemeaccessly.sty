@@ -132,4 +132,46 @@
       {\large\bfseries\color{accNavy}#1}\\[0.3mm]{\tiny\color{accMuted}#2}};
   \end{tikzpicture}}
 
+% ---------- Slajd „Dane, którym można zaufać”: przepływ źródeł i model zaufania ----------
+% Styl rysunku: \begin{tikzpicture}[trustslide]; karty źródeł: \srccard{nazwa}{x}{ikona}{tytuł}{opis},
+% ikony: globe (dane otwarte), house (właściciel), people (społeczność) – białe na granatowym kole.
+\tikzset{
+  trustslide/.style={font=\small},
+  srccard/.style={fill=accNavy!7,rounded corners=2mm,minimum width=44mm,minimum height=17mm,inner sep=0pt},
+  srcicon/.style={circle,fill=accNavy,minimum size=8.5mm,inner sep=0pt},
+  flow/.style={-{Stealth[length=2mm,width=1.8mm]},draw=accNavy!40,line width=0.8pt},
+  tmpill/.style={fill=accOk,text=white,rounded corners=3.2mm,minimum height=6.5mm,inner xsep=5mm,
+    font=\small\bfseries},
+  tbadge/.style={draw=#1,text=#1,fill=white,rounded corners=1.6mm,line width=0.7pt,
+    inner xsep=2.4mm,inner ysep=1.3mm,font=\footnotesize\bfseries},
+  tarrow/.style={text=accMuted,inner sep=0pt},
+  rdot/.style={circle,fill=accOk,minimum size=1.8mm,inner sep=0pt},
+  rule/.style={inner sep=0pt,font=\small,text=accInk},
+  rgap/.style={minimum width=6mm,inner sep=0pt},
+  icon/.style={draw=white,line width=0.75pt,line cap=round,line join=round},
+  pics/globe/.style={code={
+    \draw[icon] (0,0) circle (2.5mm);
+    \draw[icon] (0,0) ellipse (1.1mm and 2.5mm);
+    \draw[icon] (-2.5mm,0) -- (2.5mm,0);
+  }},
+  pics/house/.style={code={
+    \draw[icon] (-2.2mm,-2.2mm) -- (-2.2mm,0.4mm) -- (0,2.4mm) -- (2.2mm,0.4mm) -- (2.2mm,-2.2mm) -- cycle;
+    \draw[icon] (-0.7mm,-2.2mm) -- (-0.7mm,-0.6mm) -- (0.7mm,-0.6mm) -- (0.7mm,-2.2mm);
+  }},
+  pics/people/.style={code={
+    \draw[icon] (-1.1mm,1.1mm) circle (0.85mm);
+    \draw[icon] (1.3mm,1.4mm) circle (0.85mm);
+    \draw[icon] (-2.6mm,-2.2mm) arc (180:0:1.5mm and 1.9mm);
+    \draw[icon] (0.4mm,-0.5mm) .. controls (1.0mm,-0.1mm) and (2.4mm,-0.1mm) .. (2.9mm,-1.9mm);
+  }},
+}
+\newcommand{\srccard}[5]{%
+  \node[srccard] (#1) at (#2,0) {};
+  \node[srcicon] (#1-icon) at ($(#1.west)+(7.5mm,0)$) {};
+  \pic at (#1-icon) {#3};
+  \node[anchor=west,text width=29mm,align=flush left,inner sep=0pt] at ($(#1.west)+(14mm,0)$)
+    {\hyphenpenalty=10000\exhyphenpenalty=10000% bez dzielenia wyrazów w krótkich opisach
+     {\small\bfseries\color{accNavy}#4\par}\vspace{0.7mm}{\footnotesize\color{accInk}#5\par}};
+}
+
 \mode<all>
